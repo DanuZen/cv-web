@@ -158,6 +158,7 @@ export function MagicCard(props: MagicCardProps) {
 
   return (
     <motion.div
+      data-swarm-hover-card="true"
       className={cn(
         "group relative isolate overflow-hidden rounded-[inherit] border border-transparent",
         className

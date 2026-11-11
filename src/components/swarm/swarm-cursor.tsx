@@ -23,6 +23,13 @@ export const SwarmCursor: React.FC<SwarmCursorProps> = ({
 }) => {
   if (opacity <= 0.01) return null;
 
+  const isLightColor =
+    color === "#F59E0B" ||
+    color === "#FBBF24" ||
+    color === "#EAB308" ||
+    color === "#0ACF83";
+  const badgeTextColor = isLightColor ? "#09090b" : "#FFFFFF";
+
   return (
     <div
       className="absolute top-0 left-0 pointer-events-none z-50 select-none will-change-transform transition-opacity duration-300"
@@ -50,9 +57,10 @@ export const SwarmCursor: React.FC<SwarmCursorProps> = ({
 
       {/* Name and Context Action Badge */}
       <div
-        className="absolute left-3.5 top-3.5 flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium tracking-tight text-white shadow-md border border-white/20 whitespace-nowrap backdrop-blur-xs transition-transform duration-200"
+        className="absolute left-3.5 top-3.5 flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium tracking-tight shadow-md border border-white/20 whitespace-nowrap backdrop-blur-xs transition-transform duration-200"
         style={{
           backgroundColor: color,
+          color: badgeTextColor,
         }}
       >
         <span className="font-semibold">{name}</span>
