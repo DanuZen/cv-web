@@ -3,7 +3,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Globe } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import Markdown from "react-markdown";
@@ -80,7 +80,19 @@ export function ProjectCard({
           ) : image ? (
             <ProjectImage src={image} alt={title} />
           ) : (
-            <div className="w-full h-48 bg-muted" />
+            <div className="w-full h-32 bg-gradient-to-br from-card via-muted/50 to-muted/80 border-b border-border/50 flex flex-col justify-between p-4 relative overflow-hidden group-hover:from-accent/30 transition-all duration-300">
+              <div className="flex items-center gap-1.5 opacity-60">
+                <span className="size-2 rounded-full bg-red-500/70" />
+                <span className="size-2 rounded-full bg-yellow-500/70" />
+                <span className="size-2 rounded-full bg-green-500/70" />
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground text-xs font-mono">
+                <Globe className="size-3.5 text-primary shrink-0" />
+                <span className="truncate max-w-[260px]">
+                  {href ? href.replace(/^https?:\/\//, "").replace(/\/$/, "") : title}
+                </span>
+              </div>
+            </div>
           )}
         </Link>
         {links && links.length > 0 && (
