@@ -26,3 +26,4 @@ const RestApi = (props: SVGProps<SVGSVGElement>) => (
 );
 
 export { RestApi };
+

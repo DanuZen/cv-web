@@ -24,3 +24,4 @@ const Midtrans = (props: SVGProps<SVGSVGElement>) => (
 );
 
 export { Midtrans };
+
