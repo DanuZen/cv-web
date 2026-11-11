@@ -95,6 +95,7 @@ export function ProjectCard({
                     speed={20}
                     delay={180}
                     repeatOnScroll={true}
+                    waitForSwarm={false}
                     cursorChar="▍"
                     cursorClassName="text-primary text-[10px]"
                   />

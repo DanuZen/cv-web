@@ -92,7 +92,7 @@ const BlurFade = ({
       animate={shouldBeVisible ? "visible" : "hidden"}
       variants={combinedVariants}
       transition={{
-        delay: 0.02 + delay,
+        delay: waitForSwarm ? 0.02 : delay,
         duration,
         ease: [0.22, 1, 0.36, 1],
       }}

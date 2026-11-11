@@ -13,11 +13,11 @@ export default function ProjectsSection() {
                 title="Check out my latest work"
                 description="I've worked on a variety of projects, from simple websites to complex web applications. Here are a few of my favorites."
             />
-            <div className="grid grid-cols-1 gap-6 sm:gap-8 w-full mx-auto auto-rows-fr">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 w-full mx-auto auto-rows-fr">
                 {DATA.projects.map((project, id) => (
                     <BlurFade
                         key={project.title}
-                        delay={BLUR_FADE_DELAY * 12 + id * 0.04}
+                        delay={0}
                         waitForSwarm={true}
                         action={`testing ${project.title}`}
                         className="h-full"

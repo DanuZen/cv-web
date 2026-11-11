@@ -17,6 +17,7 @@ interface TypewriterTextProps {
   repeatOnScroll?: boolean;
   as?: "h1" | "h2" | "h3" | "h4" | "p" | "span" | "div";
   action?: string;
+  waitForSwarm?: boolean;
 }
 
 export function TypewriterText({
@@ -31,6 +32,7 @@ export function TypewriterText({
   repeatOnScroll = true,
   as: Component = "span",
   action = "writing text",
+  waitForSwarm = true,
 }: TypewriterTextProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, {
@@ -71,7 +73,15 @@ export function TypewriterText({
     setIsTyping(false);
   }, []);
 
+  // Auto-start typing when in view if not waiting for swarm
   useEffect(() => {
+    if (!waitForSwarm && isInView) {
+      startTyping();
+    }
+  }, [waitForSwarm, isInView, startTyping]);
+
+  useEffect(() => {
+    if (!waitForSwarm) return;
     const el = ref.current;
     if (!el) return;
 
@@ -93,9 +103,9 @@ export function TypewriterText({
       el.removeEventListener("swarm:build", handleSwarmBuild);
       el.removeEventListener("swarm:reset", handleSwarmReset);
     };
-  }, [startTyping, resetTyping, repeatOnScroll]);
+  }, [waitForSwarm, startTyping, resetTyping, repeatOnScroll]);
 
-  // Reset when scrolled out of view; only start when cursor dispatches swarm:build
+  // Reset when scrolled out of view
   useEffect(() => {
     if (!isInView && repeatOnScroll) {
       resetTyping();
@@ -107,8 +117,8 @@ export function TypewriterText({
   return (
     <Component
       ref={ref as any}
-      data-swarm-target="true"
-      data-swarm-action={action}
+      data-swarm-target={waitForSwarm ? "true" : undefined}
+      data-swarm-action={waitForSwarm ? action : undefined}
       className={cn("inline-block", className)}
     >
       <span>{displayedText}</span>

@@ -95,8 +95,6 @@ export default function SwarmOverlay() {
       if (claimedElements.has(el)) continue;
 
       const r = el.getBoundingClientRect();
-      // Ignore if element is giant (e.g. layout wrapper > 850px wide AND > 200px tall)
-      if (r.width > 850 && r.height > 200) continue;
 
       // Check if visible inside the viewport
       if (
@@ -239,6 +237,13 @@ export default function SwarmOverlay() {
           }
 
           const r = el.getBoundingClientRect();
+          if (r.bottom < -60 || r.top > window.innerHeight + 60) {
+            el.dataset.swarmStatus = "idle";
+            agent.mode = "docked";
+            agent.targetElement = null;
+            return;
+          }
+
           if (r.width < 180) {
             agent.targetX = r.left + r.width / 2;
             agent.targetY = r.top + r.height / 2;
@@ -285,7 +290,7 @@ export default function SwarmOverlay() {
                 label: agent.name,
                 opacity: 0.9,
               };
-              boxesRef.current = [...boxesRef.current.slice(-1), newBox];
+              boxesRef.current = [...boxesRef.current.slice(-3), newBox];
             }
           }
         }
@@ -323,6 +328,17 @@ export default function SwarmOverlay() {
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
   }, [active, findNextUnbuiltTarget]);
+
+  // If swarm is turned off, immediately reveal all elements so content is accessible
+  useEffect(() => {
+    if (!active) {
+      const targets = document.querySelectorAll<HTMLElement>('[data-swarm-target="true"]');
+      targets.forEach((el) => {
+        el.dataset.swarmStatus = "built";
+        el.dispatchEvent(new CustomEvent("swarm:build"));
+      });
+    }
+  }, [active]);
 
   // Handle Scroll: Reset off-screen elements so scrolling back up triggers rebuilding!
   useEffect(() => {
