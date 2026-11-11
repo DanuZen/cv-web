@@ -93,6 +93,9 @@ export default function SwarmOverlay() {
       if (claimedElements.has(el)) continue;
 
       const r = el.getBoundingClientRect();
+      // Ignore if element is giant (e.g. layout wrapper > 850px wide AND > 200px tall)
+      if (r.width > 850 && r.height > 200) continue;
+
       // Check if visible inside the viewport
       if (
         r.top < window.innerHeight - 40 &&
@@ -155,8 +158,13 @@ export default function SwarmOverlay() {
             idleAgent.targetElement = targetEl;
 
             const rect = targetEl.getBoundingClientRect();
-            idleAgent.targetX = rect.left + Math.min(16, rect.width * 0.2);
-            idleAgent.targetY = rect.top + Math.min(16, rect.height * 0.3);
+            if (rect.width < 180) {
+              idleAgent.targetX = rect.left + rect.width / 2;
+              idleAgent.targetY = rect.top + rect.height / 2;
+            } else {
+              idleAgent.targetX = rect.left + Math.min(24, rect.width * 0.15);
+              idleAgent.targetY = rect.top + Math.min(24, rect.height * 0.4);
+            }
 
             // Spawn near the edge closest to target
             idleAgent.x = idleAgent.targetX + (Math.random() > 0.5 ? 80 : -80);
@@ -194,8 +202,13 @@ export default function SwarmOverlay() {
           const el = agent.targetElement;
           if (el && document.body.contains(el)) {
             const r = el.getBoundingClientRect();
-            agent.targetX = r.left + 14;
-            agent.targetY = r.top + 14;
+            if (r.width < 180) {
+              agent.targetX = r.left + r.width / 2;
+              agent.targetY = r.top + r.height / 2;
+            } else {
+              agent.targetX = r.left + Math.min(24, r.width * 0.15);
+              agent.targetY = r.top + Math.min(24, r.height * 0.4);
+            }
           }
 
           if (time - agent.inspectStart > agent.inspectDuration) {
@@ -254,10 +267,10 @@ export default function SwarmOverlay() {
                 id: `${agent.id}-${time}`,
                 agentName: agent.name,
                 color: agent.color,
-                x: r.left,
-                y: r.top,
-                width: r.width,
-                height: r.height,
+                x: r.left - 3,
+                y: r.top - 3,
+                width: r.width + 6,
+                height: r.height + 6,
                 label: agent.name,
                 opacity: 0.9,
               };

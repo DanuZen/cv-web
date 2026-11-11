@@ -17,16 +17,23 @@ export function SectionHeader({
   description,
   className = "",
 }: SectionHeaderProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: false, amount: 0.2 });
-  const [built, setBuilt] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: false, amount: 0.15 });
 
+  // Granular build states for each individual part
+  const [badgeBuilt, setBadgeBuilt] = useState(false);
+  const [descBuilt, setDescBuilt] = useState(false);
+
+  const badgeRef = useRef<HTMLDivElement>(null);
+  const descRef = useRef<HTMLDivElement>(null);
+
+  // 1. Badge granular swarm listeners
   useEffect(() => {
-    const el = ref.current;
+    const el = badgeRef.current;
     if (!el) return;
 
-    const onBuild = () => setBuilt(true);
-    const onReset = () => setBuilt(false);
+    const onBuild = () => setBadgeBuilt(true);
+    const onReset = () => setBadgeBuilt(false);
 
     el.addEventListener("swarm:build", onBuild);
     el.addEventListener("swarm:reset", onReset);
@@ -36,66 +43,111 @@ export function SectionHeader({
     };
   }, []);
 
-  // Safety net
+  // 2. Description (Keterangan) granular swarm listeners
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (isInView && !built) {
-      timer = setTimeout(() => setBuilt(true), 1300);
-    } else if (!isInView) {
-      setBuilt(false);
-    }
-    return () => clearTimeout(timer);
-  }, [isInView, built]);
+    const el = descRef.current;
+    if (!el) return;
 
-  const active = isInView && built;
+    const onBuild = () => setDescBuilt(true);
+    const onReset = () => setDescBuilt(false);
+
+    el.addEventListener("swarm:build", onBuild);
+    el.addEventListener("swarm:reset", onReset);
+    return () => {
+      el.removeEventListener("swarm:build", onBuild);
+      el.removeEventListener("swarm:reset", onReset);
+    };
+  }, []);
+
+  // Safety fallbacks if cursor is busy elsewhere
+  useEffect(() => {
+    let timer1: NodeJS.Timeout;
+    let timer2: NodeJS.Timeout;
+
+    if (isInView) {
+      timer1 = setTimeout(() => setBadgeBuilt(true), 1300);
+      timer2 = setTimeout(() => setDescBuilt(true), 1600);
+    } else {
+      setBadgeBuilt(false);
+      setDescBuilt(false);
+    }
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, [isInView]);
 
   return (
     <div
-      ref={ref}
-      data-swarm-target="true"
-      data-swarm-action={`introducing ${badge}`}
+      ref={containerRef}
       className={`flex flex-col gap-y-5 sm:gap-y-6 items-center justify-center text-center ${className}`}
     >
-      {/* Divider with Center Badge */}
+      {/* Divider with Granular Badge Target (Only badge is targeted, NOT the entire line) */}
       <div className="flex items-center w-full">
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
-          animate={active ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
+          animate={isInView && badgeBuilt ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="flex-1 h-px bg-linear-to-r from-transparent from-5% via-border via-95% to-transparent origin-right"
         />
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={active ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
-          transition={{ duration: 0.4, delay: 0.1, ease: "backOut" }}
-          className="border bg-primary z-10 rounded-xl px-4 py-1.5 shadow-sm"
+
+        <div
+          ref={badgeRef}
+          data-swarm-target="true"
+          data-swarm-action={`placing ${badge} badge`}
+          className="z-10 inline-block px-1"
         >
-          <span className="text-background text-xs sm:text-sm font-medium tracking-wide">
-            {badge}
-          </span>
-        </motion.div>
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={isInView && badgeBuilt ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.35, ease: "backOut" }}
+            className="border bg-primary rounded-xl px-4 py-1.5 shadow-sm"
+          >
+            <span className="text-background text-xs sm:text-sm font-medium tracking-wide">
+              {badge}
+            </span>
+          </motion.div>
+        </div>
+
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
-          animate={active ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
+          animate={isInView && badgeBuilt ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="flex-1 h-px bg-linear-to-l from-transparent from-5% via-border via-95% to-transparent origin-left"
         />
       </div>
 
-      {/* Title with Typewriter & Subtitle */}
+      {/* Title & Description with Separate Granular Targets */}
       <div className="flex flex-col gap-y-3 items-center justify-center text-center">
+        {/* Title (Judul) - targeted directly by TypewriterText */}
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-center min-h-[40px]">
-          <TypewriterText text={title} speed={25} delay={120} repeatOnScroll={true} />
+          <TypewriterText
+            text={title}
+            speed={25}
+            delay={80}
+            repeatOnScroll={true}
+            action={`writing ${title}`}
+          />
         </h2>
+
+        {/* Description (Keterangan) - targeted as its own separate block */}
         {description && (
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-            className="text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed text-balance text-center max-w-2xl leading-relaxed"
+          <div
+            ref={descRef}
+            data-swarm-target="true"
+            data-swarm-action="drafting description"
+            className="max-w-2xl mx-auto"
           >
-            {description}
-          </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={isInView && descBuilt ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+              transition={{ duration: 0.45, ease: "easeOut" }}
+              className="text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed text-balance text-center leading-relaxed"
+            >
+              {description}
+            </motion.p>
+          </div>
         )}
       </div>
     </div>
