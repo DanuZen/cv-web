@@ -56,15 +56,13 @@ export default function Page() {
       </section>
       <section id="about" className="scroll-mt-24">
         <div className="flex min-h-0 flex-col gap-y-8 sm:gap-y-10">
-          <BlurFade delay={BLUR_FADE_DELAY * 3}>
-            <SectionHeader
-              badge="About Me"
-              title="Summary & Overview"
-              description="A brief overview of my engineering background, technical expertise, and experience building scalable web solutions."
-            />
-          </BlurFade>
+          <SectionHeader
+            badge="About Me"
+            title="Summary & Overview"
+            description="A brief overview of my engineering background, technical expertise, and experience building scalable web solutions."
+          />
           <BlurFade
-            delay={BLUR_FADE_DELAY * 4}
+            delay={BLUR_FADE_DELAY * 2}
             waitForSwarm={true}
             action="reading summary"
           >
@@ -78,32 +76,26 @@ export default function Page() {
       </section>
       <section id="work" className="scroll-mt-24">
         <div className="flex min-h-0 flex-col gap-y-8 sm:gap-y-10">
-          <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <SectionHeader
-              badge="Work Experience"
-              title="Where I've Built & Shipped"
-              description="Hands-on production engineering, full-stack web development, and digital public service platforms."
-            />
-          </BlurFade>
-          <BlurFade delay={BLUR_FADE_DELAY * 6}>
-            <WorkSection />
-          </BlurFade>
+          <SectionHeader
+            badge="Work Experience"
+            title="Where I've Built & Shipped"
+            description="Hands-on production engineering, full-stack web development, and digital public service platforms."
+          />
+          <WorkSection />
         </div>
       </section>
       <section id="education" className="scroll-mt-24">
         <div className="flex min-h-0 flex-col gap-y-8 sm:gap-y-10">
-          <BlurFade delay={BLUR_FADE_DELAY * 7}>
-            <SectionHeader
-              badge="Education"
-              title="Academic Background"
-              description="Formal university education in informatics engineering and computer science."
-            />
-          </BlurFade>
+          <SectionHeader
+            badge="Education"
+            title="Academic Background"
+            description="Formal university education in informatics engineering and computer science."
+          />
           <div className="flex flex-col gap-4 sm:gap-6">
             {DATA.education.map((education, index) => (
               <BlurFade
                 key={education.school}
-                delay={BLUR_FADE_DELAY * 8 + index * 0.05}
+                delay={index * 0.05}
                 waitForSwarm={true}
                 action="checking degree"
               >
@@ -148,13 +140,11 @@ export default function Page() {
       </section>
       <section id="skills" className="scroll-mt-24">
         <div className="flex min-h-0 flex-col gap-y-8 sm:gap-y-10">
-          <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <SectionHeader
-              badge="Skills & Technologies"
-              title="What I Bring to the Table"
-              description="Comprehensive modern stack covering frontend, backend, databases, DevOps, and cloud infrastructure."
-            />
-          </BlurFade>
+          <SectionHeader
+            badge="Skills & Technologies"
+            title="What I Bring to the Table"
+            description="Comprehensive modern stack covering frontend, backend, databases, DevOps, and cloud infrastructure."
+          />
           <BlurFade
             waitForSwarm={true}
             action="tagging tech stack"
@@ -175,19 +165,13 @@ export default function Page() {
         </div>
       </section>
       <section id="projects" className="scroll-mt-24">
-        <BlurFade delay={BLUR_FADE_DELAY * 11}>
-          <ProjectsSection />
-        </BlurFade>
+        <ProjectsSection />
       </section>
       <section id="certifications" className="scroll-mt-24">
-        <BlurFade delay={BLUR_FADE_DELAY * 13}>
-          <CertificationsSection />
-        </BlurFade>
+        <CertificationsSection />
       </section>
       <section id="contact" className="scroll-mt-24">
-        <BlurFade delay={BLUR_FADE_DELAY * 15}>
-          <ContactSection />
-        </BlurFade>
+        <ContactSection />
       </section>
     </main>
   );

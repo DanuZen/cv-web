@@ -14,7 +14,7 @@ const AGENT_TEMPLATES: SwarmAgentData[] = [
   { id: "a4", name: "Alan", color: "#A259FF" },      // Figma Purple
 ];
 
-const MAX_ACTIVE_AGENTS = 2; // At most 2-3 agents on screen simultaneously
+const MAX_ACTIVE_AGENTS = 3; // Up to 3 active agents working concurrently on distinct elements
 
 export default function SwarmOverlay() {
   const [active, setActive] = useState(true);
@@ -72,7 +72,7 @@ export default function SwarmOverlay() {
     return () => window.removeEventListener("resize", resizeCanvas);
   }, []);
 
-  // Find next unbuilt element that NO OTHER AGENT is currently working on
+  // Find next unbuilt element that NO OTHER AGENT is currently working on (Top-to-Bottom order)
   const findNextUnbuiltTarget = useCallback((): HTMLElement | null => {
     if (typeof window === "undefined") return null;
 
@@ -87,6 +87,8 @@ export default function SwarmOverlay() {
         .map((a) => a.targetElement!)
     );
 
+    const eligible: { el: HTMLElement; top: number }[] = [];
+
     for (const el of targets) {
       const status = el.dataset.swarmStatus;
       if (status === "built" || status === "building") continue;
@@ -98,16 +100,20 @@ export default function SwarmOverlay() {
 
       // Check if visible inside the viewport
       if (
-        r.top < window.innerHeight - 40 &&
-        r.bottom > 40 &&
-        r.width > 20 &&
-        r.height > 10
+        r.top < window.innerHeight - 30 &&
+        r.bottom > 30 &&
+        r.width > 15 &&
+        r.height > 8
       ) {
-        return el;
+        eligible.push({ el, top: r.top });
       }
     }
 
-    return null;
+    if (eligible.length === 0) return null;
+
+    // Build in strictly natural top-to-bottom order
+    eligible.sort((a, b) => a.top - b.top);
+    return eligible[0].el;
   }, []);
 
   // Main Animation Physics & Dispatch Loop
@@ -233,18 +239,23 @@ export default function SwarmOverlay() {
           }
 
           const r = el.getBoundingClientRect();
-          agent.targetX = r.left + 14;
-          agent.targetY = r.top + 14;
+          if (r.width < 180) {
+            agent.targetX = r.left + r.width / 2;
+            agent.targetY = r.top + r.height / 2;
+          } else {
+            agent.targetX = r.left + Math.min(24, r.width * 0.15);
+            agent.targetY = r.top + Math.min(24, r.height * 0.4);
+          }
 
           const dx = agent.targetX - agent.x;
           const dy = agent.targetY - agent.y;
           const dist = Math.hypot(dx, dy);
 
-          // Smooth spring physics towards target
-          agent.vx += dx * 0.05;
-          agent.vy += dy * 0.05;
-          agent.vx *= 0.82;
-          agent.vy *= 0.82;
+          // Snappy spring physics towards target
+          agent.vx += dx * 0.08;
+          agent.vy += dy * 0.08;
+          agent.vx *= 0.78;
+          agent.vy *= 0.78;
 
           agent.x += agent.vx;
           agent.y += agent.vy;
@@ -253,7 +264,7 @@ export default function SwarmOverlay() {
           if (dist < 18) {
             agent.mode = "inspect";
             agent.inspectStart = time;
-            agent.inspectDuration = 1200 + Math.random() * 600;
+            agent.inspectDuration = 800 + Math.random() * 400;
 
             // 1. TRIGGER THE ELEMENT'S ANIMATION (Starts right as cursor works!)
             el.dispatchEvent(new CustomEvent("swarm:build"));

@@ -59,23 +59,12 @@ export function SectionHeader({
     };
   }, []);
 
-  // Safety fallbacks if cursor is busy elsewhere
+  // Reset when scrolled out of view
   useEffect(() => {
-    let timer1: NodeJS.Timeout;
-    let timer2: NodeJS.Timeout;
-
-    if (isInView) {
-      timer1 = setTimeout(() => setBadgeBuilt(true), 1300);
-      timer2 = setTimeout(() => setDescBuilt(true), 1600);
-    } else {
+    if (!isInView) {
       setBadgeBuilt(false);
       setDescBuilt(false);
     }
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
   }, [isInView]);
 
   return (

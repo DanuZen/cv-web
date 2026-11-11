@@ -65,21 +65,13 @@ const BlurFade = ({
     };
   }, [waitForSwarm, once]);
 
-  // Safety net: if in view for more than 1.4s and not triggered yet, auto-reveal
+  // Reset when scrolled out of view
   useEffect(() => {
     if (!waitForSwarm) return;
-    let timer: NodeJS.Timeout;
-
-    if (inViewResult && !swarmTriggered) {
-      timer = setTimeout(() => {
-        setSwarmTriggered(true);
-      }, 1400);
-    } else if (!inViewResult && !once) {
+    if (!inViewResult && !once) {
       setSwarmTriggered(false);
     }
-
-    return () => clearTimeout(timer);
-  }, [inViewResult, waitForSwarm, once, swarmTriggered]);
+  }, [inViewResult, waitForSwarm, once]);
 
   const shouldBeVisible = inView
     ? inViewResult && (waitForSwarm ? swarmTriggered : true)

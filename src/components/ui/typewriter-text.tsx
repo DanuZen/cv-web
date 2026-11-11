@@ -95,25 +95,12 @@ export function TypewriterText({
     };
   }, [startTyping, resetTyping, repeatOnScroll]);
 
-  // Viewport tracking & safety timer
+  // Reset when scrolled out of view; only start when cursor dispatches swarm:build
   useEffect(() => {
-    let safetyTimeout: NodeJS.Timeout;
-
-    if (isInView) {
-      // Safety net: if cursor doesn't build it within 1.2s, auto-start
-      safetyTimeout = setTimeout(() => {
-        if (!isStartedRef.current) {
-          startTyping();
-        }
-      }, 1200);
-    } else if (repeatOnScroll) {
+    if (!isInView && repeatOnScroll) {
       resetTyping();
     }
-
-    return () => {
-      clearTimeout(safetyTimeout);
-    };
-  }, [isInView, repeatOnScroll, startTyping, resetTyping]);
+  }, [isInView, repeatOnScroll, resetTyping]);
 
   const displayedText = text.slice(0, displayedLength);
 
