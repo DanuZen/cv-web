@@ -4,8 +4,22 @@ import { ReactLight } from "@/components/ui/svgs/reactLight";
 import { NextjsIconDark } from "@/components/ui/svgs/nextjsIconDark";
 import { Typescript } from "@/components/ui/svgs/typescript";
 import { Nodejs } from "@/components/ui/svgs/nodejs";
+import { Nestjs } from "@/components/ui/svgs/nestjs";
+import { Express } from "@/components/ui/svgs/express";
+import { Laravel } from "@/components/ui/svgs/laravel";
+import { Tailwindcss } from "@/components/ui/svgs/tailwindcss";
 import { Postgresql } from "@/components/ui/svgs/postgresql";
+import { Mysql } from "@/components/ui/svgs/mysql";
+import { Mongodb } from "@/components/ui/svgs/mongodb";
+import { Supabase } from "@/components/ui/svgs/supabase";
+import { Redis } from "@/components/ui/svgs/redis";
 import { Docker } from "@/components/ui/svgs/docker";
+import { Aws } from "@/components/ui/svgs/aws";
+import { Vercel } from "@/components/ui/svgs/vercel";
+import { Git } from "@/components/ui/svgs/git";
+import { Socketio } from "@/components/ui/svgs/socketio";
+import { Midtrans } from "@/components/ui/svgs/midtrans";
+import { RestApi } from "@/components/ui/svgs/restapi";
 
 export const DATA = {
   name: "Rian Septiawan",
@@ -19,26 +33,26 @@ export const DATA = {
     "Seorang Fullstack Cross Platform Developer dan Tech Leader dengan keahlian mendalam dalam ekosistem web modern (Next.js, React, TypeScript, NestJS, Laravel, dan arsitektur Cloud). Berpengalaman memimpin tim teknologi dan membangun 12+ aplikasi production berskala enterprise, platform SaaS multi-tenant pendidikan, portal akademik universitas, sistem pemerintahan daerah, dan platform berbasis AI & IoT.",
   avatarUrl: "/foto-profil.jpeg",
   skills: [
-    { name: "React", icon: ReactLight },
-    { name: "Next.js", icon: NextjsIconDark },
-    { name: "TypeScript", icon: Typescript },
-    { name: "Node.js", icon: Nodejs },
-    { name: "NestJS" },
-    { name: "Express.js" },
-    { name: "Laravel" },
-    { name: "Tailwind CSS" },
-    { name: "PostgreSQL", icon: Postgresql },
-    { name: "MySQL" },
-    { name: "MongoDB" },
-    { name: "Supabase" },
-    { name: "Redis" },
-    { name: "Docker", icon: Docker },
-    { name: "AWS" },
-    { name: "Vercel" },
-    { name: "Git" },
-    { name: "Socket.IO" },
-    { name: "Midtrans" },
-    { name: "REST API" },
+    { name: "React", icon: ReactLight, category: "frontend" },
+    { name: "Next.js", icon: NextjsIconDark, category: "frontend" },
+    { name: "TypeScript", icon: Typescript, category: "frontend" },
+    { name: "Node.js", icon: Nodejs, category: "backend" },
+    { name: "NestJS", icon: Nestjs, category: "backend" },
+    { name: "Express.js", icon: Express, category: "backend" },
+    { name: "Laravel", icon: Laravel, category: "backend" },
+    { name: "Tailwind CSS", icon: Tailwindcss, category: "frontend" },
+    { name: "PostgreSQL", icon: Postgresql, category: "database" },
+    { name: "MySQL", icon: Mysql, category: "database" },
+    { name: "MongoDB", icon: Mongodb, category: "database" },
+    { name: "Supabase", icon: Supabase, category: "database" },
+    { name: "Redis", icon: Redis, category: "database" },
+    { name: "Docker", icon: Docker, category: "cloud" },
+    { name: "AWS", icon: Aws, category: "cloud" },
+    { name: "Vercel", icon: Vercel, category: "cloud" },
+    { name: "Git", icon: Git, category: "cloud" },
+    { name: "Socket.IO", icon: Socketio, category: "backend" },
+    { name: "Midtrans", icon: Midtrans, category: "backend" },
+    { name: "REST API", icon: RestApi, category: "backend" },
   ],
   navbar: [
     { href: "/#hero", icon: HomeIcon, label: "Home" },

@@ -8,6 +8,7 @@ import ContactSection from "@/components/section/contact-section";
 import CertificationsSection from "@/components/section/certifications-section";
 import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
+import { SkillsSection } from "@/components/skills-section";
 import { SectionHeader } from "@/components/section-header";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { NumberTicker } from "@/components/ui/number-ticker";
@@ -189,23 +190,7 @@ export default function Page() {
             title="What I Bring to the Table"
             description="Comprehensive modern stack covering frontend, backend, databases, DevOps, and cloud infrastructure."
           />
-          <BlurFade
-            waitForSwarm={true}
-            action="tagging tech stack"
-            className="w-full"
-          >
-            <div className="flex flex-wrap gap-2.5 sm:gap-3 justify-center max-w-4xl mx-auto py-2">
-              {DATA.skills.map((skill) => (
-                <div
-                  key={skill.name}
-                  className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-9 w-fit px-4 flex items-center gap-2 hover:bg-muted/50 transition-colors"
-                >
-                  {"icon" in skill && skill.icon && <skill.icon className="size-4 rounded overflow-hidden object-contain" />}
-                  <span className="text-foreground text-sm font-medium">{skill.name}</span>
-                </div>
-              ))}
-            </div>
-          </BlurFade>
+          <SkillsSection />
         </div>
       </section>
       <section id="projects" className="scroll-mt-24">
