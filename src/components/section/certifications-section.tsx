@@ -21,7 +21,12 @@ export default function CertificationsSection() {
       {/* Certifications Timeline */}
       <Timeline>
         {certifications.map((cert, idx) => (
-          <BlurFade key={cert.title + cert.dates} delay={idx * 0.1}>
+          <BlurFade
+            key={cert.title + cert.dates}
+            delay={idx * 0.08}
+            waitForSwarm={true}
+            action={`verifying ${cert.title}`}
+          >
             <TimelineItem className="w-full flex items-start justify-between gap-4 sm:gap-6">
               <TimelineConnectItem className="flex items-start justify-center pt-1">
                 {cert.image ? (

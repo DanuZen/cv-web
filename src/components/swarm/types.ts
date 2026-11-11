@@ -15,10 +15,11 @@ export interface AgentState {
   targetX: number;
   targetY: number;
   action: string;
-  mode: "seek" | "inspect" | "roam" | "scatter";
+  mode: "docked" | "fly" | "inspect";
   targetElement: HTMLElement | null;
   inspectDuration: number;
   inspectStart: number;
+  opacity: number;
   trail: { x: number; y: number }[];
 }
 
@@ -33,4 +34,3 @@ export interface InspectionBox {
   label: string;
   opacity: number;
 }
-

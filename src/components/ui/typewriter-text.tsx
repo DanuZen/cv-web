@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useInView } from "motion/react";
 import { cn } from "@/lib/utils";
 import { swarmAudio } from "@/components/swarm/audio";
@@ -16,68 +16,114 @@ interface TypewriterTextProps {
   sound?: boolean;
   repeatOnScroll?: boolean;
   as?: "h1" | "h2" | "h3" | "h4" | "p" | "span" | "div";
+  action?: string;
 }
 
 export function TypewriterText({
   text,
   className = "",
   speed = 22,
-  delay = 80,
+  delay = 50,
   showCursor = true,
   cursorChar = "|",
   cursorClassName = "text-primary",
   sound = true,
   repeatOnScroll = true,
   as: Component = "span",
+  action = "writing text",
 }: TypewriterTextProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, {
     once: !repeatOnScroll,
-    amount: 0.15,
+    amount: 0.2,
   });
 
   const [displayedLength, setDisplayedLength] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
+  const isStartedRef = useRef(false);
+
+  const startTyping = useCallback(() => {
+    if (isStartedRef.current) return;
+    isStartedRef.current = true;
+
+    setTimeout(() => {
+      setIsTyping(true);
+      let current = 0;
+      const intervalId = setInterval(() => {
+        current++;
+        setDisplayedLength(current);
+
+        if (sound && swarmAudio.isEnabled()) {
+          swarmAudio.playClickSound();
+        }
+
+        if (current >= text.length) {
+          clearInterval(intervalId);
+          setIsTyping(false);
+        }
+      }, speed);
+    }, delay);
+  }, [text, speed, delay, sound]);
+
+  const resetTyping = useCallback(() => {
+    isStartedRef.current = false;
+    setDisplayedLength(0);
+    setIsTyping(false);
+  }, []);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    let intervalId: NodeJS.Timeout;
+    const el = ref.current;
+    if (!el) return;
+
+    // Listen for build trigger from Swarm cursor
+    const handleSwarmBuild = () => {
+      startTyping();
+    };
+
+    const handleSwarmReset = () => {
+      if (repeatOnScroll) {
+        resetTyping();
+      }
+    };
+
+    el.addEventListener("swarm:build", handleSwarmBuild);
+    el.addEventListener("swarm:reset", handleSwarmReset);
+
+    return () => {
+      el.removeEventListener("swarm:build", handleSwarmBuild);
+      el.removeEventListener("swarm:reset", handleSwarmReset);
+    };
+  }, [startTyping, resetTyping, repeatOnScroll]);
+
+  // Viewport tracking & safety timer
+  useEffect(() => {
+    let safetyTimeout: NodeJS.Timeout;
 
     if (isInView) {
-      setDisplayedLength(0);
-      timeoutId = setTimeout(() => {
-        setIsTyping(true);
-        let current = 0;
-        intervalId = setInterval(() => {
-          current++;
-          setDisplayedLength(current);
-
-          if (sound && swarmAudio.isEnabled()) {
-            swarmAudio.playClickSound();
-          }
-
-          if (current >= text.length) {
-            clearInterval(intervalId);
-            setIsTyping(false);
-          }
-        }, speed);
-      }, delay);
+      // Safety net: if cursor doesn't build it within 1.2s, auto-start
+      safetyTimeout = setTimeout(() => {
+        if (!isStartedRef.current) {
+          startTyping();
+        }
+      }, 1200);
     } else if (repeatOnScroll) {
-      // Reset when scrolled out of view
-      setDisplayedLength(0);
-      setIsTyping(false);
+      resetTyping();
     }
 
     return () => {
-      clearTimeout(timeoutId);
-      clearInterval(intervalId);
+      clearTimeout(safetyTimeout);
     };
-  }, [isInView, text, speed, delay, sound, repeatOnScroll]);
+  }, [isInView, repeatOnScroll, startTyping, resetTyping]);
 
   const displayedText = text.slice(0, displayedLength);
 
   return (
-    <Component ref={ref as any} className={cn("inline-block", className)}>
+    <Component
+      ref={ref as any}
+      data-swarm-target="true"
+      data-swarm-action={action}
+      className={cn("inline-block", className)}
+    >
       <span>{displayedText}</span>
       {showCursor && (
         <span

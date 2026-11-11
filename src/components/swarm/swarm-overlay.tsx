@@ -12,14 +12,14 @@ const AGENT_TEMPLATES: SwarmAgentData[] = [
   { id: "a2", name: "Linus", color: "#0D99FF" },     // Figma Blue
   { id: "a3", name: "Grace", color: "#0ACF83" },     // Figma Green
   { id: "a4", name: "Alan", color: "#A259FF" },      // Figma Purple
-  { id: "a5", name: "Margaret", color: "#FFC700" },  // Figma Amber
-  { id: "a6", name: "Sophie", color: "#FF7262" },    // Figma Coral
 ];
+
+const MAX_ACTIVE_AGENTS = 2; // At most 2-3 agents on screen simultaneously
 
 export default function SwarmOverlay() {
   const [active, setActive] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(false);
-  const [statusText, setStatusText] = useState("Swarm active");
+  const [statusText, setStatusText] = useState("Swarm ready");
   const [agents, setAgents] = useState<AgentState[]>([]);
   const [boxes, setBoxes] = useState<InspectionBox[]>([]);
 
@@ -27,146 +27,32 @@ export default function SwarmOverlay() {
   const boxesRef = useRef<InspectionBox[]>([]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animFrameRef = useRef<number | null>(null);
-  const userMouseRef = useRef<{ x: number; y: number; active: boolean }>({
-    x: -9999,
-    y: -9999,
-    active: false,
-  });
 
-  // Determine context verb for an element
-  const getContextAction = useCallback((el: HTMLElement): string => {
-    const text = el.innerText?.toLowerCase() || "";
-    const id = el.closest("section")?.id || "";
-
-    if (id === "hero") {
-      if (text.includes("rian")) return "identifying engineer";
-      return "reading bio";
-    }
-    if (id === "about") return "analyzing background";
-    if (id === "work") {
-      if (text.includes("mbois")) return "reviewing PT Mbois";
-      if (text.includes("howarts")) return "inspecting Howarts";
-      if (text.includes("infitech")) return "checking UNP lead";
-      return "verifying role";
-    }
-    if (id === "education") return "checking degree";
-    if (id === "skills") {
-      const firstWord = text.split(/\s+/)[0];
-      return firstWord ? `evaluating ${firstWord}` : "tagging skills";
-    }
-    if (id === "projects") {
-      if (text.includes("siakad")) return "testing SIAKAD";
-      if (text.includes("sinergis")) return "inspecting LPPM";
-      if (text.includes("sumatrans")) return "testing Sumatrans";
-      if (text.includes("sicanting")) return "testing SiCanting";
-      if (text.includes("replan")) return "inspecting SaaS";
-      if (text.includes("paud")) return "checking PAUD gov";
-      if (text.includes("medclass")) return "inspecting MedClass";
-      if (text.includes("phyxel")) return "testing IoT game";
-      return "inspecting project";
-    }
-    if (id === "certifications") {
-      if (text.includes("mikrotik") || text.includes("mtcna")) return "verifying MTCNA";
-      if (text.includes("aws")) return "validating AWS";
-      return "verifying credential";
-    }
-    if (id === "contact") return "copying email";
-
-    return "observing";
-  }, []);
-
-  // Pick a visible target element
-  const pickTarget = useCallback(
-    (agent: AgentState): { x: number; y: number; el: HTMLElement | null; action: string } => {
-      if (typeof window === "undefined") {
-        return { x: 400, y: 300, el: null, action: "exploring" };
-      }
-
-      // Collect eligible targets currently visible in window
-      const selector =
-        "#hero h1, #hero p, #about, #work [data-state], #education a, #skills .border, #projects .border, #certifications .border, #contact a";
-      const candidates = Array.from(document.querySelectorAll<HTMLElement>(selector)).filter((el) => {
-        const r = el.getBoundingClientRect();
-        return r.top < window.innerHeight && r.bottom > 0 && r.width > 20 && r.height > 10;
-      });
-
-      if (candidates.length === 0) {
-        // Fallback random roam within viewport
-        return {
-          x: 60 + Math.random() * (window.innerWidth - 120),
-          y: 60 + Math.random() * (window.innerHeight - 160),
-          el: null,
-          action: "scouting viewport",
-        };
-      }
-
-      // Choose random candidate
-      const targetEl = candidates[Math.floor(Math.random() * candidates.length)];
-      const rect = targetEl.getBoundingClientRect();
-
-      // Pick point inside element
-      const tx = rect.left + Math.random() * Math.max(10, rect.width * 0.7);
-      const ty = rect.top + Math.random() * Math.max(10, rect.height * 0.7);
-      const action = getContextAction(targetEl);
-
-      return { x: tx, y: ty, el: targetEl, action };
-    },
-    [getContextAction]
-  );
-
-  // Initialize Agents
+  // Initialize pool of agents (all initially docked & hidden)
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Fewer agents on mobile screens
-    const count = window.innerWidth < 768 ? 3 : AGENT_TEMPLATES.length;
-    const initialAgents: AgentState[] = AGENT_TEMPLATES.slice(0, count).map((t, idx) => {
-      const startX = 80 + (idx * (window.innerWidth - 160)) / count;
-      const startY = 100 + Math.random() * 200;
-      return {
-        id: t.id,
-        name: t.name,
-        color: t.color,
-        x: startX,
-        y: startY,
-        vx: (Math.random() - 0.5) * 2,
-        vy: (Math.random() - 0.5) * 2,
-        targetX: startX,
-        targetY: startY,
-        action: "joining",
-        mode: "roam",
-        targetElement: null,
-        inspectDuration: 0,
-        inspectStart: 0,
-        trail: [],
-      };
-    });
+    const pool: AgentState[] = AGENT_TEMPLATES.map((t) => ({
+      id: t.id,
+      name: t.name,
+      color: t.color,
+      x: -100,
+      y: -100,
+      vx: 0,
+      vy: 0,
+      targetX: -100,
+      targetY: -100,
+      action: "idle",
+      mode: "docked",
+      targetElement: null,
+      inspectDuration: 0,
+      inspectStart: 0,
+      opacity: 0,
+      trail: [],
+    }));
 
-    agentsRef.current = initialAgents;
-    setAgents(initialAgents);
-  }, []);
-
-  // Track User Mouse
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      userMouseRef.current = {
-        x: e.clientX,
-        y: e.clientY,
-        active: true,
-      };
-    };
-
-    const handleMouseLeave = () => {
-      userMouseRef.current.active = false;
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    document.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-    };
+    agentsRef.current = pool;
+    setAgents(pool);
   }, []);
 
   // Resize canvas handler
@@ -186,7 +72,42 @@ export default function SwarmOverlay() {
     return () => window.removeEventListener("resize", resizeCanvas);
   }, []);
 
-  // Main Animation Physics Loop
+  // Find next unbuilt element that NO OTHER AGENT is currently working on
+  const findNextUnbuiltTarget = useCallback((): HTMLElement | null => {
+    if (typeof window === "undefined") return null;
+
+    const targets = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-swarm-target="true"]')
+    );
+
+    // Get elements currently claimed by active agents
+    const claimedElements = new Set(
+      agentsRef.current
+        .filter((a) => a.mode !== "docked" && a.targetElement)
+        .map((a) => a.targetElement!)
+    );
+
+    for (const el of targets) {
+      const status = el.dataset.swarmStatus;
+      if (status === "built" || status === "building") continue;
+      if (claimedElements.has(el)) continue;
+
+      const r = el.getBoundingClientRect();
+      // Check if visible inside the viewport
+      if (
+        r.top < window.innerHeight - 40 &&
+        r.bottom > 40 &&
+        r.width > 20 &&
+        r.height > 10
+      ) {
+        return el;
+      }
+    }
+
+    return null;
+  }, []);
+
+  // Main Animation Physics & Dispatch Loop
   useEffect(() => {
     if (!active) {
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
@@ -201,20 +122,17 @@ export default function SwarmOverlay() {
 
       const canvas = canvasRef.current;
       const ctx = canvas?.getContext("2d");
-
-      // Clear trail canvas with gentle fade
       if (ctx && canvas) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
 
       const curAgents = agentsRef.current;
       const curBoxes = [...boxesRef.current];
-      const userMouse = userMouseRef.current;
 
-      // Update Inspection Boxes opacity & expiration
+      // Update Inspection Boxes opacity & fadeout
       const updatedBoxes: InspectionBox[] = [];
       for (const box of curBoxes) {
-        box.opacity = Math.max(0, box.opacity - 0.02);
+        box.opacity = Math.max(0, box.opacity - 0.025);
         if (box.opacity > 0.05) {
           updatedBoxes.push(box);
         }
@@ -222,124 +140,154 @@ export default function SwarmOverlay() {
       boxesRef.current = updatedBoxes;
       setBoxes(updatedBoxes);
 
-      // Active inspecting agent summary
-      const inspectingAgent = curAgents.find((a) => a.mode === "inspect");
-      if (inspectingAgent) {
-        setStatusText(`${inspectingAgent.name} · ${inspectingAgent.action}`);
-      } else {
-        setStatusText(`${curAgents.length} agents exploring`);
+      // Check how many agents are currently active
+      const activeCount = curAgents.filter((a) => a.mode !== "docked").length;
+
+      // If active agents < MAX_ACTIVE_AGENTS, try to dispatch a docked agent
+      if (activeCount < MAX_ACTIVE_AGENTS) {
+        const targetEl = findNextUnbuiltTarget();
+        if (targetEl) {
+          // Find first docked agent
+          const idleAgent = curAgents.find((a) => a.mode === "docked");
+          if (idleAgent) {
+            // Claim element immediately
+            targetEl.dataset.swarmStatus = "building";
+            idleAgent.targetElement = targetEl;
+
+            const rect = targetEl.getBoundingClientRect();
+            idleAgent.targetX = rect.left + Math.min(16, rect.width * 0.2);
+            idleAgent.targetY = rect.top + Math.min(16, rect.height * 0.3);
+
+            // Spawn near the edge closest to target
+            idleAgent.x = idleAgent.targetX + (Math.random() > 0.5 ? 80 : -80);
+            idleAgent.y = Math.max(20, idleAgent.targetY - 60);
+            idleAgent.vx = 0;
+            idleAgent.vy = 0;
+            idleAgent.mode = "fly";
+            idleAgent.opacity = 1;
+            idleAgent.action = targetEl.dataset.swarmAction || "inspecting";
+            idleAgent.trail = [];
+          }
+        }
       }
 
-      // Update each agent
+      // Update Status Bar text
+      const workingAgent = curAgents.find((a) => a.mode === "inspect");
+      const flyingAgent = curAgents.find((a) => a.mode === "fly");
+      if (workingAgent) {
+        setStatusText(`${workingAgent.name} · ${workingAgent.action}`);
+      } else if (flyingAgent) {
+        setStatusText(`${flyingAgent.name} · moving to target`);
+      } else {
+        setStatusText("All visible elements built");
+      }
+
+      // Physics and state update per agent
       curAgents.forEach((agent) => {
-        // If inspecting
+        if (agent.mode === "docked") {
+          agent.opacity = Math.max(0, agent.opacity - 0.05);
+          return;
+        }
+
+        // Mode: Inspecting
         if (agent.mode === "inspect") {
-          if (time - agent.inspectStart > agent.inspectDuration) {
-            // Finished inspecting, choose next target
-            const next = pickTarget(agent);
-            agent.targetX = next.x;
-            agent.targetY = next.y;
-            agent.targetElement = next.el;
-            agent.action = next.action;
-            agent.mode = "seek";
-          } else {
-            // Subtle breathing micro-motion while inspecting
-            agent.x += Math.sin(time * 0.005 + agent.x) * 0.3;
-            agent.y += Math.cos(time * 0.005 + agent.y) * 0.3;
+          const el = agent.targetElement;
+          if (el && document.body.contains(el)) {
+            const r = el.getBoundingClientRect();
+            agent.targetX = r.left + 14;
+            agent.targetY = r.top + 14;
           }
-        } else {
-          // Seeking or Roaming
+
+          if (time - agent.inspectStart > agent.inspectDuration) {
+            // Work complete! Mark element as built and dock agent
+            if (agent.targetElement) {
+              agent.targetElement.dataset.swarmStatus = "built";
+            }
+            agent.mode = "docked";
+            agent.targetElement = null;
+          } else {
+            // Micro hovering motion
+            agent.x = agent.targetX + Math.sin(time * 0.006) * 1.5;
+            agent.y = agent.targetY + Math.cos(time * 0.006) * 1.5;
+          }
+        }
+        // Mode: Flying to target
+        else if (agent.mode === "fly") {
+          const el = agent.targetElement;
+          if (!el || !document.body.contains(el)) {
+            agent.mode = "docked";
+            return;
+          }
+
+          const r = el.getBoundingClientRect();
+          agent.targetX = r.left + 14;
+          agent.targetY = r.top + 14;
+
           const dx = agent.targetX - agent.x;
           const dy = agent.targetY - agent.y;
           const dist = Math.hypot(dx, dy);
 
-          // Force towards target
-          const speed = dist > 300 ? 0.045 : 0.035;
-          agent.vx += dx * speed;
-          agent.vy += dy * speed;
+          // Smooth spring physics towards target
+          agent.vx += dx * 0.05;
+          agent.vy += dy * 0.05;
+          agent.vx *= 0.82;
+          agent.vy *= 0.82;
 
-          // User Mouse Avoidance (scatter gently if user cursor approaches)
-          if (userMouse.active) {
-            const mdx = agent.x - userMouse.x;
-            const mdy = agent.y - userMouse.y;
-            const mdist = Math.hypot(mdx, mdy);
-            if (mdist < 100 && mdist > 0) {
-              const repulse = (100 - mdist) * 0.08;
-              agent.vx += (mdx / mdist) * repulse;
-              agent.vy += (mdy / mdist) * repulse;
-              agent.action = "stepping aside";
-            }
-          }
-
-          // Damping friction
-          agent.vx *= 0.86;
-          agent.vy *= 0.86;
-
-          // Apply velocity
           agent.x += agent.vx;
           agent.y += agent.vy;
 
-          // Arrived at target
+          // Arrived at target element!
           if (dist < 18) {
             agent.mode = "inspect";
             agent.inspectStart = time;
-            agent.inspectDuration = 1400 + Math.random() * 1200;
+            agent.inspectDuration = 1200 + Math.random() * 600;
 
-            // Trigger sound & selection box
+            // 1. TRIGGER THE ELEMENT'S ANIMATION (Starts right as cursor works!)
+            el.dispatchEvent(new CustomEvent("swarm:build"));
+
+            // 2. Play Audio click & inspect chime
             swarmAudio.playInspectSound(agent.x / window.innerWidth);
 
-            if (agent.targetElement && document.body.contains(agent.targetElement)) {
-              const r = agent.targetElement.getBoundingClientRect();
-              if (r.width > 20 && r.height > 10) {
-                // Add inspection box (limit to max 2 concurrent boxes)
-                const newBox: InspectionBox = {
-                  id: `${agent.id}-${time}`,
-                  agentName: agent.name,
-                  color: agent.color,
-                  x: r.left,
-                  y: r.top,
-                  width: r.width,
-                  height: r.height,
-                  label: agent.name,
-                  opacity: 0.9,
-                };
-                boxesRef.current = [...boxesRef.current.slice(-1), newBox];
-              }
+            // 3. Create Figma Selection Box around the element
+            if (r.width > 20 && r.height > 10) {
+              const newBox: InspectionBox = {
+                id: `${agent.id}-${time}`,
+                agentName: agent.name,
+                color: agent.color,
+                x: r.left,
+                y: r.top,
+                width: r.width,
+                height: r.height,
+                label: agent.name,
+                opacity: 0.9,
+              };
+              boxesRef.current = [...boxesRef.current.slice(-1), newBox];
             }
           }
         }
 
-        // Keep inside screen bounds
-        agent.x = Math.max(10, Math.min(window.innerWidth - 20, agent.x));
-        agent.y = Math.max(10, Math.min(window.innerHeight - 20, agent.y));
-
-        // Manage motion trails
-        agent.trail.push({ x: agent.x, y: agent.y });
-        if (agent.trail.length > 7) {
-          agent.trail.shift();
-        }
-
-        // Draw particle trails onto canvas
-        if (ctx && agent.trail.length > 2) {
-          ctx.beginPath();
-          ctx.moveTo(agent.trail[0].x, agent.trail[0].y);
-          for (let i = 1; i < agent.trail.length; i++) {
-            ctx.lineTo(agent.trail[i].x, agent.trail[i].y);
+        // Motion Trails
+        if (agent.opacity > 0.1) {
+          agent.trail.push({ x: agent.x, y: agent.y });
+          if (agent.trail.length > 6) {
+            agent.trail.shift();
           }
-          ctx.strokeStyle = `${agent.color}40`; // 25% opacity
-          ctx.lineWidth = 1.5;
-          ctx.lineCap = "round";
-          ctx.stroke();
 
-          // Small fading dot at trail head
-          ctx.beginPath();
-          ctx.arc(agent.x, agent.y, 2, 0, Math.PI * 2);
-          ctx.fillStyle = agent.color;
-          ctx.fill();
+          if (ctx && agent.trail.length > 2) {
+            ctx.beginPath();
+            ctx.moveTo(agent.trail[0].x, agent.trail[0].y);
+            for (let i = 1; i < agent.trail.length; i++) {
+              ctx.lineTo(agent.trail[i].x, agent.trail[i].y);
+            }
+            ctx.strokeStyle = `${agent.color}40`;
+            ctx.lineWidth = 1.5;
+            ctx.lineCap = "round";
+            ctx.stroke();
+          }
         }
       });
 
-      // Commit agent positions to React state
+      // Commit visible agents state
       setAgents([...curAgents]);
 
       animFrameRef.current = requestAnimationFrame(loop);
@@ -350,27 +298,30 @@ export default function SwarmOverlay() {
     return () => {
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
-  }, [active, pickTarget]);
+  }, [active, findNextUnbuiltTarget]);
 
-  // Handle Scroll to re-target
+  // Handle Scroll: Reset off-screen elements so scrolling back up triggers rebuilding!
   useEffect(() => {
-    if (!active) return;
-
     let scrollTimeout: NodeJS.Timeout;
+
     const handleScroll = () => {
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
-        // Redirect idle agents to newly visible sections
-        agentsRef.current.forEach((agent) => {
-          if (agent.mode !== "inspect") {
-            const next = pickTarget(agent);
-            agent.targetX = next.x;
-            agent.targetY = next.y;
-            agent.targetElement = next.el;
-            agent.action = next.action;
+        const targets = Array.from(
+          document.querySelectorAll<HTMLElement>('[data-swarm-target="true"]')
+        );
+
+        targets.forEach((el) => {
+          const r = el.getBoundingClientRect();
+          // If scrolled off-screen (well above or below viewport)
+          if (r.bottom < -80 || r.top > window.innerHeight + 80) {
+            if (el.dataset.swarmStatus === "built") {
+              el.dataset.swarmStatus = "idle";
+              el.dispatchEvent(new CustomEvent("swarm:reset"));
+            }
           }
         });
-      }, 150);
+      }, 100);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -378,7 +329,7 @@ export default function SwarmOverlay() {
       window.removeEventListener("scroll", handleScroll);
       clearTimeout(scrollTimeout);
     };
-  }, [active, pickTarget]);
+  }, []);
 
   const handleToggleActive = () => {
     setActive((prev) => !prev);
@@ -390,6 +341,11 @@ export default function SwarmOverlay() {
     setSoundEnabled(nextVal);
     swarmAudio.setEnabled(nextVal);
   };
+
+  // Only render agents that are actively working / flying (not docked)
+  const visibleAgents = agents.filter(
+    (a) => a.mode !== "docked" || a.opacity > 0.02
+  );
 
   return (
     <>
@@ -410,9 +366,9 @@ export default function SwarmOverlay() {
             <InspectionBoxView key={box.id} box={box} />
           ))}
 
-        {/* Multi-Agent Figma Cursors */}
+        {/* Multi-Agent Figma Cursors (Only Active / Working Agents are Rendered) */}
         {active &&
-          agents.map((agent) => (
+          visibleAgents.map((agent) => (
             <SwarmCursor
               key={agent.id}
               name={agent.name}
@@ -421,6 +377,7 @@ export default function SwarmOverlay() {
               y={agent.y}
               action={agent.action}
               isInspecting={agent.mode === "inspect"}
+              opacity={agent.opacity}
             />
           ))}
       </div>
@@ -437,4 +394,3 @@ export default function SwarmOverlay() {
     </>
   );
 }
-

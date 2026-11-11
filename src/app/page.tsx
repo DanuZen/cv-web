@@ -26,6 +26,7 @@ export default function Page() {
                   text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
                   speed={38}
                   delay={100}
+                  action="writing headline"
                   repeatOnScroll={true}
                 />
               </h1>
@@ -34,11 +35,17 @@ export default function Page() {
                   text={DATA.description}
                   speed={15}
                   delay={350}
+                  action="reviewing bio"
                   repeatOnScroll={true}
                 />
               </p>
             </div>
-            <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
+            <BlurFade
+              delay={BLUR_FADE_DELAY}
+              waitForSwarm={true}
+              action="inspecting avatar"
+              className="order-1 md:order-2"
+            >
               <Avatar className="size-28 md:size-36 border rounded-full shadow-lg ring-4 ring-muted">
                 <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
                 <AvatarFallback>{DATA.initials}</AvatarFallback>
@@ -56,7 +63,11 @@ export default function Page() {
               description="A brief overview of my engineering background, technical expertise, and experience building scalable web solutions."
             />
           </BlurFade>
-          <BlurFade delay={BLUR_FADE_DELAY * 4}>
+          <BlurFade
+            delay={BLUR_FADE_DELAY * 4}
+            waitForSwarm={true}
+            action="reading summary"
+          >
             <div className="prose max-w-4xl mx-auto text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert text-base sm:text-lg">
               <Markdown>
                 {DATA.summary}
@@ -93,6 +104,8 @@ export default function Page() {
               <BlurFade
                 key={education.school}
                 delay={BLUR_FADE_DELAY * 8 + index * 0.05}
+                waitForSwarm={true}
+                action="checking degree"
               >
                 <Link
                   href={education.href}
@@ -142,16 +155,23 @@ export default function Page() {
               description="Comprehensive modern stack covering frontend, backend, databases, DevOps, and cloud infrastructure."
             />
           </BlurFade>
-          <div className="flex flex-wrap gap-2.5 sm:gap-3 justify-center max-w-4xl mx-auto py-2">
-            {DATA.skills.map((skill, id) => (
-              <BlurFade key={skill.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
-                <div className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-9 w-fit px-4 flex items-center gap-2 hover:bg-muted/50 transition-colors">
+          <BlurFade
+            waitForSwarm={true}
+            action="tagging tech stack"
+            className="w-full"
+          >
+            <div className="flex flex-wrap gap-2.5 sm:gap-3 justify-center max-w-4xl mx-auto py-2">
+              {DATA.skills.map((skill) => (
+                <div
+                  key={skill.name}
+                  className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-9 w-fit px-4 flex items-center gap-2 hover:bg-muted/50 transition-colors"
+                >
                   {"icon" in skill && skill.icon && <skill.icon className="size-4 rounded overflow-hidden object-contain" />}
                   <span className="text-foreground text-sm font-medium">{skill.name}</span>
                 </div>
-              </BlurFade>
-            ))}
-          </div>
+              ))}
+            </div>
+          </BlurFade>
         </div>
       </section>
       <section id="projects" className="scroll-mt-24">

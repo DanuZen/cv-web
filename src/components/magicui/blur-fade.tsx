@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView, Variants } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 interface BlurFadeProps {
   children: React.ReactNode;
@@ -14,6 +14,8 @@ interface BlurFadeProps {
   inViewMargin?: string;
   blur?: string;
   once?: boolean;
+  waitForSwarm?: boolean;
+  action?: string;
 }
 
 const BlurFade = ({
@@ -27,14 +29,61 @@ const BlurFade = ({
   inViewMargin = "-20px",
   blur = "8px",
   once = false,
+  waitForSwarm = false,
+  action = "revealing component",
 }: BlurFadeProps) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inViewResult = useInView(ref, {
     once,
     amount: 0.1,
     ...(inViewMargin ? { margin: inViewMargin as any } : {}),
   });
-  const isInView = inView ? inViewResult : true;
+
+  const [swarmTriggered, setSwarmTriggered] = useState(!waitForSwarm);
+
+  useEffect(() => {
+    if (!waitForSwarm) return;
+    const el = ref.current;
+    if (!el) return;
+
+    const handleBuild = () => {
+      setSwarmTriggered(true);
+    };
+
+    const handleReset = () => {
+      if (!once) {
+        setSwarmTriggered(false);
+      }
+    };
+
+    el.addEventListener("swarm:build", handleBuild);
+    el.addEventListener("swarm:reset", handleReset);
+
+    return () => {
+      el.removeEventListener("swarm:build", handleBuild);
+      el.removeEventListener("swarm:reset", handleReset);
+    };
+  }, [waitForSwarm, once]);
+
+  // Safety net: if in view for more than 1.4s and not triggered yet, auto-reveal
+  useEffect(() => {
+    if (!waitForSwarm) return;
+    let timer: NodeJS.Timeout;
+
+    if (inViewResult && !swarmTriggered) {
+      timer = setTimeout(() => {
+        setSwarmTriggered(true);
+      }, 1400);
+    } else if (!inViewResult && !once) {
+      setSwarmTriggered(false);
+    }
+
+    return () => clearTimeout(timer);
+  }, [inViewResult, waitForSwarm, once, swarmTriggered]);
+
+  const shouldBeVisible = inView
+    ? inViewResult && (waitForSwarm ? swarmTriggered : true)
+    : true;
 
   const defaultVariants: Variants = {
     hidden: { y: yOffset, opacity: 0, filter: `blur(${blur})`, scale: 0.96 },
@@ -45,8 +94,10 @@ const BlurFade = ({
   return (
     <motion.div
       ref={ref}
+      data-swarm-target={waitForSwarm ? "true" : undefined}
+      data-swarm-action={waitForSwarm ? action : undefined}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      animate={shouldBeVisible ? "visible" : "hidden"}
       variants={combinedVariants}
       transition={{
         delay: 0.02 + delay,

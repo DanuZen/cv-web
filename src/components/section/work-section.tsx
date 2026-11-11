@@ -37,7 +37,12 @@ export default function WorkSection() {
   return (
     <Accordion type="single" collapsible className="w-full grid gap-4 sm:gap-5">
       {DATA.work.map((work, idx) => (
-        <BlurFade key={work.company} delay={idx * 0.06}>
+        <BlurFade
+          key={work.company}
+          delay={idx * 0.05}
+          waitForSwarm={true}
+          action={`reviewing ${work.company}`}
+        >
           <AccordionItem
             value={work.company}
             className="w-full border border-border/50 hover:border-border rounded-xl p-4 sm:p-5 bg-card/30 hover:bg-card/60 transition-all duration-200"

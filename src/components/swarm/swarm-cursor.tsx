@@ -9,6 +9,7 @@ interface SwarmCursorProps {
   y: number;
   action: string;
   isInspecting?: boolean;
+  opacity?: number;
 }
 
 export const SwarmCursor: React.FC<SwarmCursorProps> = ({
@@ -18,12 +19,16 @@ export const SwarmCursor: React.FC<SwarmCursorProps> = ({
   y,
   action,
   isInspecting = false,
+  opacity = 1,
 }) => {
+  if (opacity <= 0.01) return null;
+
   return (
     <div
-      className="absolute top-0 left-0 pointer-events-none z-50 select-none will-change-transform transition-[opacity] duration-300"
+      className="absolute top-0 left-0 pointer-events-none z-50 select-none will-change-transform transition-opacity duration-300"
       style={{
         transform: `translate3d(${x}px, ${y}px, 0)`,
+        opacity,
       }}
     >
       {/* Figma-style SVG Arrow Pointer */}
@@ -64,4 +69,3 @@ export const SwarmCursor: React.FC<SwarmCursorProps> = ({
     </div>
   );
 };
-
