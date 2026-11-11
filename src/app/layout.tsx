@@ -9,6 +9,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { LightRays } from "@/components/ui/light-rays";
+import { ProgressiveBlur } from "@/components/ui/progressive-blur";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -96,6 +97,17 @@ export default function RootLayout({
             <div className="relative z-10 max-w-6xl mx-auto py-14 sm:py-24 pb-36 sm:pb-44 px-4 sm:px-8 md:px-12">
               {children}
             </div>
+            {/* Native App-Style Progressive Blur Edges */}
+            <ProgressiveBlur
+              position="bottom"
+              height="110px"
+              className="fixed bottom-0 inset-x-0 z-20 pointer-events-none"
+            />
+            <ProgressiveBlur
+              position="top"
+              height="40px"
+              className="fixed top-0 inset-x-0 z-20 pointer-events-none"
+            />
             <SwarmOverlay />
             <Navbar />
           </TooltipProvider>

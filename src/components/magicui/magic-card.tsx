@@ -222,3 +222,4 @@ export function MagicCard(props: MagicCardProps) {
 }
 
 export default MagicCard;
+
