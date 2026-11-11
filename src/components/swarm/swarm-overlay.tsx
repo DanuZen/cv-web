@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { SwarmAgentData, AgentState, InspectionBox } from "./types";
 import { SwarmCursor } from "./swarm-cursor";
 import { InspectionBoxView } from "./inspection-box";
-import { SwarmBar } from "./swarm-bar";
 import { swarmAudio } from "./audio";
 
 const AGENT_TEMPLATES: SwarmAgentData[] = [
@@ -18,8 +17,6 @@ const MAX_ACTIVE_AGENTS = 3; // Ambient workers
 
 export default function SwarmOverlay() {
   const [active, setActive] = useState(true);
-  const [soundEnabled, setSoundEnabled] = useState(false);
-  const [statusText, setStatusText] = useState("Swarm ready");
   const [agents, setAgents] = useState<AgentState[]>([]);
   const [boxes, setBoxes] = useState<InspectionBox[]>([]);
 
@@ -339,19 +336,6 @@ export default function SwarmOverlay() {
         activeAmbientCount++;
       }
 
-      // Update Status Bar text
-      const workingAgent = curAgents.find((a) => a.mode === "inspect");
-      const flyingAgent = curAgents.find((a) => a.mode === "fly");
-      if (approachedCard) {
-        setStatusText("A-03 · inspecting card under cursor");
-      } else if (workingAgent) {
-        setStatusText(`${workingAgent.name} · ${workingAgent.action}`);
-      } else if (flyingAgent) {
-        setStatusText(`${flyingAgent.name} · moving to target`);
-      } else {
-        setStatusText("Swarm ready · hover any card");
-      }
-
       // Physics and state update for ambient agents
       curAgents.forEach((agent) => {
         // Skip hover copilot (handled by dedicated hover tracker above)
@@ -553,66 +537,42 @@ export default function SwarmOverlay() {
     };
   }, []);
 
-  const handleToggleActive = () => {
-    setActive((prev) => !prev);
-    swarmAudio.playClickSound();
-  };
-
-  const handleToggleSound = () => {
-    const nextVal = !soundEnabled;
-    setSoundEnabled(nextVal);
-    swarmAudio.setEnabled(nextVal);
-  };
-
   // Only render agents that are actively working / flying / inspecting (not docked)
   const visibleAgents = agents.filter(
     (a) => a.mode !== "docked" || a.opacity > 0.02
   );
 
   return (
-    <>
-      {/* Fullscreen Overlay for Cursors, Trails, and Selection Boxes */}
-      <div
-        className="fixed inset-0 pointer-events-none z-30 overflow-hidden"
-        aria-hidden="true"
-      >
-        {/* Canvas for motion particle trails */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 size-full pointer-events-none"
-        />
-
-        {/* Figma Selection Boxes (including Hover Co-Pilot Box with corner handles & dimensions) */}
-        {active &&
-          boxes.map((box) => (
-            <InspectionBoxView key={box.id} box={box} />
-          ))}
-
-        {/* Multi-Agent Figma Cursors */}
-        {active &&
-          visibleAgents.map((agent) => (
-            <SwarmCursor
-              key={agent.id}
-              name={agent.name}
-              color={agent.color}
-              x={agent.x}
-              y={agent.y}
-              action={agent.action}
-              isInspecting={agent.mode === "inspect"}
-              opacity={agent.opacity}
-            />
-          ))}
-      </div>
-
-      {/* Floating Control Pill Bar */}
-      <SwarmBar
-        active={active}
-        onToggleActive={handleToggleActive}
-        soundEnabled={soundEnabled}
-        onToggleSound={handleToggleSound}
-        agents={AGENT_TEMPLATES}
-        statusText={statusText}
+    <div
+      className="fixed inset-0 pointer-events-none z-30 overflow-hidden"
+      aria-hidden="true"
+    >
+      {/* Canvas for motion particle trails */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 size-full pointer-events-none"
       />
-    </>
+
+      {/* Figma Selection Boxes (including Hover Co-Pilot Box with corner handles & dimensions) */}
+      {active &&
+        boxes.map((box) => (
+          <InspectionBoxView key={box.id} box={box} />
+        ))}
+
+      {/* Multi-Agent Figma Cursors */}
+      {active &&
+        visibleAgents.map((agent) => (
+          <SwarmCursor
+            key={agent.id}
+            name={agent.name}
+            color={agent.color}
+            x={agent.x}
+            y={agent.y}
+            action={agent.action}
+            isInspecting={agent.mode === "inspect"}
+            opacity={agent.opacity}
+          />
+        ))}
+    </div>
   );
 }
