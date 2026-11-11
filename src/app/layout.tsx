@@ -1,4 +1,5 @@
 import Navbar from "@/components/navbar";
+import SwarmOverlay from "@/components/swarm/swarm-overlay";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
@@ -86,6 +87,7 @@ export default function RootLayout({
             <div className="relative z-10 max-w-6xl mx-auto py-14 sm:py-24 pb-36 sm:pb-44 px-4 sm:px-8 md:px-12">
               {children}
             </div>
+            <SwarmOverlay />
             <Navbar />
           </TooltipProvider>
         </ThemeProvider>
