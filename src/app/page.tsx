@@ -10,6 +10,7 @@ import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
 import { SectionHeader } from "@/components/section-header";
 import { TypingAnimation } from "@/components/ui/typing-animation";
+import { NumberTicker } from "@/components/ui/number-ticker";
 import { ArrowUpRight, GraduationCap } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -53,6 +54,36 @@ export default function Page() {
                 <AvatarFallback>{DATA.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-4 pt-4 border-t border-border/40">
+            <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 rounded-xl border border-border/50 bg-card/30">
+              <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
+                <NumberTicker value={12} className="text-foreground" />
+                <span className="text-primary font-bold">+</span>
+              </div>
+              <span className="text-xs sm:text-sm text-muted-foreground font-medium">Enterprise Apps</span>
+            </div>
+            <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 rounded-xl border border-border/50 bg-card/30">
+              <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
+                <NumberTicker value={DATA.skills.length} className="text-foreground" />
+                <span className="text-primary font-bold">+</span>
+              </div>
+              <span className="text-xs sm:text-sm text-muted-foreground font-medium">Tech Stacks</span>
+            </div>
+            <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 rounded-xl border border-border/50 bg-card/30">
+              <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
+                <NumberTicker value={DATA.certifications.length} className="text-foreground" />
+                <span className="text-primary font-bold">+</span>
+              </div>
+              <span className="text-xs sm:text-sm text-muted-foreground font-medium">Certifications</span>
+            </div>
+            <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 rounded-xl border border-border/50 bg-card/30">
+              <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
+                <NumberTicker value={100} className="text-foreground" />
+                <span className="text-primary font-bold">%</span>
+              </div>
+              <span className="text-xs sm:text-sm text-muted-foreground font-medium">Production Delivery</span>
+            </div>
           </div>
         </div>
       </section>
