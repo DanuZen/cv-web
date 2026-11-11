@@ -127,3 +127,4 @@ export function NumberTicker({
 }
 
 export default NumberTicker;
+
