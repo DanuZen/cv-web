@@ -11,6 +11,7 @@ import { DATA } from "@/data/resume";
 import { ChevronDown, ChevronRight, Briefcase } from "lucide-react";
 import { cn } from "@/lib/utils";
 import BlurFade from "@/components/magicui/blur-fade";
+import { MagicCard } from "@/components/ui/magic-card";
 
 function LogoImage({ src, alt }: { src: string; alt: string }) {
   const [imageError, setImageError] = useState(false);
@@ -43,63 +44,65 @@ export default function WorkSection() {
           waitForSwarm={true}
           action={`reviewing ${work.company}`}
         >
-          <AccordionItem
-            value={work.company}
-            className="w-full border border-border/50 hover:border-border rounded-xl p-4 sm:p-5 bg-card/30 hover:bg-card/60 transition-all duration-200"
-          >
-            <AccordionTrigger className="hover:no-underline p-0 cursor-pointer transition-colors rounded-none group [&>svg]:hidden">
-              <div className="flex items-center gap-x-4 justify-between w-full text-left">
-                <div className="flex items-center gap-x-4 flex-1 min-w-0">
-                  <LogoImage src={work.logoUrl} alt={work.company} />
-                  <div className="flex-1 min-w-0 gap-1 flex flex-col">
-                    <div className="font-semibold leading-none flex items-center gap-2 text-base">
-                      <span>{work.company}</span>
-                      <span className="relative inline-flex items-center w-3.5 h-3.5">
-                        <ChevronRight
-                          className={cn(
-                            "absolute h-3.5 w-3.5 shrink-0 text-muted-foreground stroke-2 transition-all duration-300 ease-out",
-                            "translate-x-0 opacity-0",
-                            "group-hover:translate-x-1 group-hover:opacity-100",
-                            "group-data-[state=open]:opacity-0 group-data-[state=open]:translate-x-0"
-                          )}
-                        />
-                        <ChevronDown
-                          className={cn(
-                            "absolute h-3.5 w-3.5 shrink-0 text-muted-foreground stroke-2 transition-all duration-200",
-                            "opacity-0 rotate-0",
-                            "group-data-[state=open]:opacity-100 group-data-[state=open]:rotate-180"
-                          )}
-                        />
-                      </span>
-                    </div>
-                    <div className="font-sans text-xs sm:text-sm text-muted-foreground flex items-center gap-2 flex-wrap">
-                      <span>{work.title}</span>
-                      {work.badges && work.badges.length > 0 && (
-                        <span className="hidden sm:inline-flex items-center gap-1">
-                          {work.badges.map((badge) => (
-                            <span
-                              key={badge}
-                              className="text-[10px] font-medium px-2 py-0.5 rounded-full border border-border/60 bg-muted/40 text-muted-foreground"
-                            >
-                              {badge}
-                            </span>
-                          ))}
+          <MagicCard gradientSize={260} className="w-full rounded-xl">
+            <AccordionItem
+              value={work.company}
+              className="w-full border-none p-4 sm:p-5 transition-all duration-200"
+            >
+              <AccordionTrigger className="hover:no-underline p-0 cursor-pointer transition-colors rounded-none group [&>svg]:hidden">
+                <div className="flex items-center gap-x-4 justify-between w-full text-left">
+                  <div className="flex items-center gap-x-4 flex-1 min-w-0">
+                    <LogoImage src={work.logoUrl} alt={work.company} />
+                    <div className="flex-1 min-w-0 gap-1 flex flex-col">
+                      <div className="font-semibold leading-none flex items-center gap-2 text-base">
+                        <span>{work.company}</span>
+                        <span className="relative inline-flex items-center w-3.5 h-3.5">
+                          <ChevronRight
+                            className={cn(
+                              "absolute h-3.5 w-3.5 shrink-0 text-muted-foreground stroke-2 transition-all duration-300 ease-out",
+                              "translate-x-0 opacity-0",
+                              "group-hover:translate-x-1 group-hover:opacity-100",
+                              "group-data-[state=open]:opacity-0 group-data-[state=open]:translate-x-0"
+                            )}
+                          />
+                          <ChevronDown
+                            className={cn(
+                              "absolute h-3.5 w-3.5 shrink-0 text-muted-foreground stroke-2 transition-all duration-200",
+                              "opacity-0 rotate-0",
+                              "group-data-[state=open]:opacity-100 group-data-[state=open]:rotate-180"
+                            )}
+                          />
                         </span>
-                      )}
+                      </div>
+                      <div className="font-sans text-xs sm:text-sm text-muted-foreground flex items-center gap-2 flex-wrap">
+                        <span>{work.title}</span>
+                        {work.badges && work.badges.length > 0 && (
+                          <span className="hidden sm:inline-flex items-center gap-1">
+                            {work.badges.map((badge) => (
+                              <span
+                                key={badge}
+                                className="text-[10px] font-medium px-2 py-0.5 rounded-full border border-border/60 bg-muted/40 text-muted-foreground"
+                              >
+                                {badge}
+                              </span>
+                            ))}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
+                  <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-right flex-none font-medium">
+                    <span>
+                      {work.start} - {work.end ?? "Present"}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-right flex-none font-medium">
-                  <span>
-                    {work.start} - {work.end ?? "Present"}
-                  </span>
-                </div>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="pt-3 mt-3 border-t border-border/40 text-xs sm:text-sm leading-relaxed text-muted-foreground">
-              {work.description}
-            </AccordionContent>
-          </AccordionItem>
+              </AccordionTrigger>
+              <AccordionContent className="pt-3 mt-3 border-t border-border/40 text-xs sm:text-sm leading-relaxed text-muted-foreground">
+                {work.description}
+              </AccordionContent>
+            </AccordionItem>
+          </MagicCard>
         </BlurFade>
       ))}
     </Accordion>

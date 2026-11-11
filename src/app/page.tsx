@@ -11,6 +11,7 @@ import WorkSection from "@/components/section/work-section";
 import { SectionHeader } from "@/components/section-header";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { NumberTicker } from "@/components/ui/number-ticker";
+import { MagicCard } from "@/components/ui/magic-card";
 import { ArrowUpRight, GraduationCap } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -56,34 +57,42 @@ export default function Page() {
             </BlurFade>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-4 pt-4 border-t border-border/40">
-            <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 rounded-xl border border-border/50 bg-card/30">
-              <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
-                <NumberTicker value={12} className="text-foreground" />
-                <span className="text-primary font-bold">+</span>
+            <MagicCard gradientSize={180} className="rounded-xl">
+              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5">
+                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
+                  <NumberTicker value={12} className="text-foreground" />
+                  <span className="text-primary font-bold">+</span>
+                </div>
+                <span className="text-xs sm:text-sm text-muted-foreground font-medium">Enterprise Apps</span>
               </div>
-              <span className="text-xs sm:text-sm text-muted-foreground font-medium">Enterprise Apps</span>
-            </div>
-            <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 rounded-xl border border-border/50 bg-card/30">
-              <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
-                <NumberTicker value={DATA.skills.length} className="text-foreground" />
-                <span className="text-primary font-bold">+</span>
+            </MagicCard>
+            <MagicCard gradientSize={180} className="rounded-xl">
+              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5">
+                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
+                  <NumberTicker value={DATA.skills.length} className="text-foreground" />
+                  <span className="text-primary font-bold">+</span>
+                </div>
+                <span className="text-xs sm:text-sm text-muted-foreground font-medium">Tech Stacks</span>
               </div>
-              <span className="text-xs sm:text-sm text-muted-foreground font-medium">Tech Stacks</span>
-            </div>
-            <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 rounded-xl border border-border/50 bg-card/30">
-              <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
-                <NumberTicker value={DATA.certifications.length} className="text-foreground" />
-                <span className="text-primary font-bold">+</span>
+            </MagicCard>
+            <MagicCard gradientSize={180} className="rounded-xl">
+              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5">
+                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
+                  <NumberTicker value={DATA.certifications.length} className="text-foreground" />
+                  <span className="text-primary font-bold">+</span>
+                </div>
+                <span className="text-xs sm:text-sm text-muted-foreground font-medium">Certifications</span>
               </div>
-              <span className="text-xs sm:text-sm text-muted-foreground font-medium">Certifications</span>
-            </div>
-            <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 rounded-xl border border-border/50 bg-card/30">
-              <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
-                <NumberTicker value={100} className="text-foreground" />
-                <span className="text-primary font-bold">%</span>
+            </MagicCard>
+            <MagicCard gradientSize={180} className="rounded-xl">
+              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5">
+                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
+                  <NumberTicker value={100} className="text-foreground" />
+                  <span className="text-primary font-bold">%</span>
+                </div>
+                <span className="text-xs sm:text-sm text-muted-foreground font-medium">Production Delivery</span>
               </div>
-              <span className="text-xs sm:text-sm text-muted-foreground font-medium">Production Delivery</span>
-            </div>
+            </MagicCard>
           </div>
         </div>
       </section>
@@ -132,40 +141,42 @@ export default function Page() {
                 waitForSwarm={true}
                 action="checking degree"
               >
-                <Link
-                  href={education.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-x-4 justify-between group p-4 sm:p-5 rounded-xl border border-border/50 hover:border-border hover:bg-card/60 bg-card/30 transition-all duration-200"
-                >
-                  <div className="flex items-center gap-x-4 flex-1 min-w-0">
-                    {education.logoUrl ? (
-                      <img
-                        src={education.logoUrl}
-                        alt={education.school}
-                        className="size-10 md:size-11 p-1.5 border rounded-full shadow ring-2 ring-border overflow-hidden object-contain flex-none bg-background"
-                      />
-                    ) : (
-                      <div className="size-10 md:size-11 p-1.5 border rounded-full shadow ring-2 ring-border bg-muted flex items-center justify-center flex-none">
-                        <GraduationCap className="size-5 text-primary" />
-                      </div>
-                    )}
-                    <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-                      <div className="font-semibold leading-none flex items-center gap-2 text-base">
-                        <span>{education.school}</span>
-                        <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
-                      </div>
-                      <div className="font-sans text-xs sm:text-sm text-muted-foreground">
-                        {education.degree}
+                <MagicCard gradientSize={220} className="rounded-xl transition-all duration-200">
+                  <Link
+                    href={education.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-x-4 justify-between group p-4 sm:p-5 w-full"
+                  >
+                    <div className="flex items-center gap-x-4 flex-1 min-w-0">
+                      {education.logoUrl ? (
+                        <img
+                          src={education.logoUrl}
+                          alt={education.school}
+                          className="size-10 md:size-11 p-1.5 border rounded-full shadow ring-2 ring-border overflow-hidden object-contain flex-none bg-background"
+                        />
+                      ) : (
+                        <div className="size-10 md:size-11 p-1.5 border rounded-full shadow ring-2 ring-border bg-muted flex items-center justify-center flex-none">
+                          <GraduationCap className="size-5 text-primary" />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0 flex flex-col gap-0.5">
+                        <div className="font-semibold leading-none flex items-center gap-2 text-base">
+                          <span>{education.school}</span>
+                          <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
+                        </div>
+                        <div className="font-sans text-xs sm:text-sm text-muted-foreground">
+                          {education.degree}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-right flex-none font-medium">
-                    <span>
-                      {education.start} - {education.end}
-                    </span>
-                  </div>
-                </Link>
+                    <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-right flex-none font-medium">
+                      <span>
+                        {education.start} - {education.end}
+                      </span>
+                    </div>
+                  </Link>
+                </MagicCard>
               </BlurFade>
             ))}
           </div>

@@ -6,6 +6,7 @@ import { Timeline, TimelineItem, TimelineConnectItem } from "@/components/timeli
 import { Award } from "lucide-react";
 import { SectionHeader } from "@/components/section-header";
 import BlurFade from "@/components/magicui/blur-fade";
+import { MagicCard } from "@/components/ui/magic-card";
 
 export default function CertificationsSection() {
   const certifications = DATA.certifications;
@@ -41,39 +42,44 @@ export default function CertificationsSection() {
                   </div>
                 )}
               </TimelineConnectItem>
-              <div className="flex flex-1 flex-col justify-start gap-2.5 min-w-0 p-4 sm:p-5 rounded-xl border border-border/50 bg-card/30 hover:bg-card/60 transition-all duration-200">
-                <div className="flex items-center justify-between gap-2 flex-wrap">
-                  <h3 className="font-semibold text-base leading-tight">{cert.title}</h3>
-                  {cert.dates && (
-                    <time className="text-xs sm:text-sm font-medium tabular-nums text-muted-foreground">{cert.dates}</time>
+              <MagicCard
+                gradientSize={240}
+                className="flex flex-1 flex-col justify-start min-w-0 rounded-xl transition-all duration-200"
+              >
+                <div className="flex flex-col gap-2.5 p-4 sm:p-5">
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <h3 className="font-semibold text-base leading-tight">{cert.title}</h3>
+                    {cert.dates && (
+                      <time className="text-xs sm:text-sm font-medium tabular-nums text-muted-foreground">{cert.dates}</time>
+                    )}
+                  </div>
+                  <p className="text-xs sm:text-sm font-medium text-primary">
+                    {cert.issuer} • <span className="text-muted-foreground">{cert.location}</span>
+                  </p>
+                  {cert.description && (
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      {cert.description}
+                    </p>
+                  )}
+                  {cert.links && cert.links.length > 0 && (
+                    <div className="mt-1 flex flex-row flex-wrap items-start gap-2">
+                      {cert.links.map((link, lIdx) => (
+                        <Link
+                          href={link.href}
+                          key={lIdx}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Badge className="flex items-center gap-1.5 text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+                            {link.icon}
+                            {link.title}
+                          </Badge>
+                        </Link>
+                      ))}
+                    </div>
                   )}
                 </div>
-                <p className="text-xs sm:text-sm font-medium text-primary">
-                  {cert.issuer} • <span className="text-muted-foreground">{cert.location}</span>
-                </p>
-                {cert.description && (
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    {cert.description}
-                  </p>
-                )}
-                {cert.links && cert.links.length > 0 && (
-                  <div className="mt-1 flex flex-row flex-wrap items-start gap-2">
-                    {cert.links.map((link, lIdx) => (
-                      <Link
-                        href={link.href}
-                        key={lIdx}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Badge className="flex items-center gap-1.5 text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
-                          {link.icon}
-                          {link.title}
-                        </Badge>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
+              </MagicCard>
             </TimelineItem>
           </BlurFade>
         ))}

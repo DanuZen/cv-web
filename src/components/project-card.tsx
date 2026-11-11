@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Markdown from "react-markdown";
 import { TypingAnimation } from "@/components/ui/typing-animation";
+import { MagicCard } from "@/components/ui/magic-card";
 
 function ProjectImage({ src, alt }: { src: string; alt: string }) {
   const [imageError, setImageError] = useState(false);
@@ -56,9 +57,10 @@ export function ProjectCard({
   className,
 }: Props) {
   return (
-    <div
+    <MagicCard
+      gradientSize={280}
       className={cn(
-        "flex flex-col h-full border border-border rounded-xl overflow-hidden hover:ring-2 cursor-pointer hover:ring-muted transition-all duration-200",
+        "flex flex-col h-full rounded-xl overflow-hidden cursor-pointer transition-all duration-200",
         className
       )}
     >
@@ -159,6 +161,6 @@ export function ProjectCard({
           </div>
         )}
       </div>
-    </div>
+    </MagicCard>
   );
 }

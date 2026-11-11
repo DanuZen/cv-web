@@ -336,3 +336,4 @@ export const AnimatedThemeToggler = ({
 };
 
 export default AnimatedThemeToggler;
+

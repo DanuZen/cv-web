@@ -5,3 +5,4 @@ export type {
 } from "@/components/magicui/animated-theme-toggler";
 export default AnimatedThemeToggler;
 import { AnimatedThemeToggler } from "@/components/magicui/animated-theme-toggler";
+
