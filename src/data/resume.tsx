@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, Code2, Award, Mail } from "lucide-react";
+import { HomeIcon, Briefcase, Code2, Award, Mail } from "lucide-react";
 import { ReactLight } from "@/components/ui/svgs/reactLight";
 import { NextjsIconDark } from "@/components/ui/svgs/nextjsIconDark";
 import { Typescript } from "@/components/ui/svgs/typescript";
@@ -42,6 +42,7 @@ export const DATA = {
   ],
   navbar: [
     { href: "/#hero", icon: HomeIcon, label: "Home" },
+    { href: "/#work", icon: Briefcase, label: "Experience" },
     { href: "/#projects", icon: Code2, label: "Projects" },
     { href: "/#certifications", icon: Award, label: "Certifications" },
     { href: "/#contact", icon: Mail, label: "Contact" },

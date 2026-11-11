@@ -9,7 +9,7 @@ import ContactSection from "@/components/section/contact-section";
 import CertificationsSection from "@/components/section/certifications-section";
 import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
-import BlogSection from "@/components/section/blog-section";
+import { SectionHeader } from "@/components/section-header";
 import { ArrowUpRight, GraduationCap } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -43,9 +43,13 @@ export default function Page() {
         </div>
       </section>
       <section id="about">
-        <div className="flex min-h-0 flex-col gap-y-4">
+        <div className="flex min-h-0 flex-col gap-y-6">
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
-            <h2 className="text-xl font-bold">About</h2>
+            <SectionHeader
+              badge="About Me"
+              title="Summary & Overview"
+              description="A brief overview of my engineering background, technical expertise, and experience building scalable web solutions."
+            />
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 4}>
             <div className="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
@@ -59,7 +63,11 @@ export default function Page() {
       <section id="work">
         <div className="flex min-h-0 flex-col gap-y-6">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-xl font-bold">Work Experience</h2>
+            <SectionHeader
+              badge="Work Experience"
+              title="Where I've Built & Shipped"
+              description="Hands-on production engineering, full-stack web development, and digital public service platforms."
+            />
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 6}>
             <WorkSection />
@@ -69,7 +77,11 @@ export default function Page() {
       <section id="education">
         <div className="flex min-h-0 flex-col gap-y-6">
           <BlurFade delay={BLUR_FADE_DELAY * 7}>
-            <h2 className="text-xl font-bold">Education</h2>
+            <SectionHeader
+              badge="Education"
+              title="Academic Background"
+              description="Formal university education in informatics engineering and computer science."
+            />
           </BlurFade>
           <div className="flex flex-col gap-8">
             {DATA.education.map((education, index) => (
@@ -117,11 +129,15 @@ export default function Page() {
         </div>
       </section>
       <section id="skills">
-        <div className="flex min-h-0 flex-col gap-y-4">
+        <div className="flex min-h-0 flex-col gap-y-6">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-bold">Skills</h2>
+            <SectionHeader
+              badge="Skills & Technologies"
+              title="What I Bring to the Table"
+              description="Comprehensive modern stack covering frontend, backend, databases, DevOps, and cloud infrastructure."
+            />
           </BlurFade>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 justify-center">
             {DATA.skills.map((skill, id) => (
               <BlurFade key={skill.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
                 <div className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2">
@@ -143,13 +159,8 @@ export default function Page() {
           <CertificationsSection />
         </BlurFade>
       </section>
-      <section id="blog">
-        <BlurFade delay={BLUR_FADE_DELAY * 15}>
-          <BlogSection />
-        </BlurFade>
-      </section>
       <section id="contact">
-        <BlurFade delay={BLUR_FADE_DELAY * 16}>
+        <BlurFade delay={BLUR_FADE_DELAY * 15}>
           <ContactSection />
         </BlurFade>
       </section>
