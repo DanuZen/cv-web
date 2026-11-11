@@ -7,6 +7,7 @@ import { ArrowUpRight, Globe } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import Markdown from "react-markdown";
+import { TypewriterText } from "@/components/ui/typewriter-text";
 
 function ProjectImage({ src, alt }: { src: string; alt: string }) {
   const [imageError, setImageError] = useState(false);
@@ -89,7 +90,14 @@ export function ProjectCard({
               <div className="flex items-center gap-2 text-muted-foreground text-xs font-mono">
                 <Globe className="size-3.5 text-primary shrink-0" />
                 <span className="truncate max-w-[260px]">
-                  {href ? href.replace(/^https?:\/\//, "").replace(/\/$/, "") : title}
+                  <TypewriterText
+                    text={href ? href.replace(/^https?:\/\//, "").replace(/\/$/, "") : title}
+                    speed={20}
+                    delay={180}
+                    repeatOnScroll={true}
+                    cursorChar="▍"
+                    cursorClassName="text-primary text-[10px]"
+                  />
                 </span>
               </div>
             </div>

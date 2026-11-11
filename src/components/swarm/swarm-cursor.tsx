@@ -64,3 +64,4 @@ export const SwarmCursor: React.FC<SwarmCursorProps> = ({
     </div>
   );
 };
+

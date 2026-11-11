@@ -119,3 +119,4 @@ export const SwarmBar: React.FC<SwarmBarProps> = ({
     </aside>
   );
 };
+

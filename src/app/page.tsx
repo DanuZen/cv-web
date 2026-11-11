@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import BlurFade from "@/components/magicui/blur-fade";
-import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
@@ -10,6 +9,7 @@ import CertificationsSection from "@/components/section/certifications-section";
 import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
 import { SectionHeader } from "@/components/section-header";
+import { TypewriterText } from "@/components/ui/typewriter-text";
 import { ArrowUpRight, GraduationCap } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -21,17 +21,22 @@ export default function Page() {
         <div className="w-full space-y-8">
           <div className="gap-6 flex flex-col md:flex-row justify-between items-start md:items-center">
             <div className="gap-3 flex flex-col order-2 md:order-1 flex-1">
-              <BlurFadeText
-                delay={BLUR_FADE_DELAY}
-                className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
-                yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
-              />
-              <BlurFadeText
-                className="text-muted-foreground max-w-3xl md:text-lg lg:text-xl leading-relaxed"
-                delay={BLUR_FADE_DELAY}
-                text={DATA.description}
-              />
+              <h1 className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl min-h-[44px]">
+                <TypewriterText
+                  text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
+                  speed={38}
+                  delay={100}
+                  repeatOnScroll={true}
+                />
+              </h1>
+              <p className="text-muted-foreground max-w-3xl md:text-lg lg:text-xl leading-relaxed min-h-[56px]">
+                <TypewriterText
+                  text={DATA.description}
+                  speed={15}
+                  delay={350}
+                  repeatOnScroll={true}
+                />
+              </p>
             </div>
             <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
               <Avatar className="size-28 md:size-36 border rounded-full shadow-lg ring-4 ring-muted">

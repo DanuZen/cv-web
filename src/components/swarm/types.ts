@@ -33,3 +33,4 @@ export interface InspectionBox {
   label: string;
   opacity: number;
 }
+

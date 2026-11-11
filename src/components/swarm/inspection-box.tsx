@@ -52,3 +52,4 @@ export const InspectionBoxView: React.FC<Props> = ({ box }) => {
     </div>
   );
 };
+
