@@ -83,7 +83,7 @@ export default function RootLayout({
                 }}
               />
             </div>
-            <div className="relative z-10 max-w-6xl mx-auto py-12 pb-28 sm:py-20 px-4 sm:px-8 md:px-12">
+            <div className="relative z-10 max-w-6xl mx-auto py-14 sm:py-24 pb-36 sm:pb-44 px-4 sm:px-8 md:px-12">
               {children}
             </div>
             <Navbar />
