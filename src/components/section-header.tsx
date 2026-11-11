@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "motion/react";
-import { TypewriterText } from "@/components/ui/typewriter-text";
+import { TypingAnimation } from "@/components/ui/typing-animation";
 
 interface SectionHeaderProps {
   badge: string;
@@ -109,15 +109,16 @@ export function SectionHeader({
 
       {/* Title & Description with Separate Granular Targets */}
       <div className="flex flex-col gap-y-3 items-center justify-center text-center">
-        {/* Title (Judul) - targeted directly by TypewriterText */}
+        {/* Title (Judul) - targeted directly by TypingAnimation */}
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-center min-h-[40px]">
-          <TypewriterText
-            text={title}
-            speed={16}
+          <TypingAnimation
+            typeSpeed={16}
             delay={20}
-            repeatOnScroll={true}
             action={`writing ${title}`}
-          />
+            className="text-3xl font-bold tracking-tighter sm:text-4xl text-center"
+          >
+            {title}
+          </TypingAnimation>
         </h2>
 
         {/* Description (Keterangan) - targeted as its own separate block */}

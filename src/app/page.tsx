@@ -9,7 +9,7 @@ import CertificationsSection from "@/components/section/certifications-section";
 import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
 import { SectionHeader } from "@/components/section-header";
-import { TypewriterText } from "@/components/ui/typewriter-text";
+import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ArrowUpRight, GraduationCap } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -22,22 +22,24 @@ export default function Page() {
           <div className="gap-6 flex flex-col md:flex-row justify-between items-start md:items-center">
             <div className="gap-3 flex flex-col order-2 md:order-1 flex-1">
               <h1 className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl min-h-[44px]">
-                <TypewriterText
-                  text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
-                  speed={22}
+                <TypingAnimation
+                  typeSpeed={20}
                   delay={20}
                   action="writing headline"
-                  repeatOnScroll={true}
-                />
+                  className="font-semibold tracking-tighter"
+                >
+                  {`Hi, I'm ${DATA.name.split(" ")[0]}`}
+                </TypingAnimation>
               </h1>
               <p className="text-muted-foreground max-w-3xl md:text-lg lg:text-xl leading-relaxed min-h-[56px]">
-                <TypewriterText
-                  text={DATA.description}
-                  speed={12}
+                <TypingAnimation
+                  typeSpeed={12}
                   delay={40}
                   action="reviewing bio"
-                  repeatOnScroll={true}
-                />
+                  className="text-muted-foreground leading-relaxed"
+                >
+                  {DATA.description}
+                </TypingAnimation>
               </p>
             </div>
             <BlurFade

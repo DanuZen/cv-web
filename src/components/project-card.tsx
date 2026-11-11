@@ -7,7 +7,7 @@ import { ArrowUpRight, Globe } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import Markdown from "react-markdown";
-import { TypewriterText } from "@/components/ui/typewriter-text";
+import { TypingAnimation } from "@/components/ui/typing-animation";
 
 function ProjectImage({ src, alt }: { src: string; alt: string }) {
   const [imageError, setImageError] = useState(false);
@@ -90,15 +90,15 @@ export function ProjectCard({
               <div className="flex items-center gap-2 text-muted-foreground text-xs font-mono">
                 <Globe className="size-3.5 text-primary shrink-0" />
                 <span className="truncate max-w-[260px]">
-                  <TypewriterText
-                    text={href ? href.replace(/^https?:\/\//, "").replace(/\/$/, "") : title}
-                    speed={12}
+                  <TypingAnimation
+                    typeSpeed={12}
                     delay={40}
-                    repeatOnScroll={true}
                     waitForSwarm={false}
-                    cursorChar="▍"
-                    cursorClassName="text-primary text-[10px]"
-                  />
+                    cursorStyle="block"
+                    className="text-xs font-mono text-muted-foreground"
+                  >
+                    {href ? href.replace(/^https?:\/\//, "").replace(/\/$/, "") : title}
+                  </TypingAnimation>
                 </span>
               </div>
             </div>
