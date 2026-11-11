@@ -96,12 +96,13 @@ export default function SwarmOverlay() {
 
       const r = el.getBoundingClientRect();
 
-      // Check if visible inside the viewport (with 40px anticipation so cursor starts immediately)
+      const isTarget = el.dataset.swarmTarget === "true";
+
+      // Check if visible inside the viewport (with 50px anticipation so cursor starts immediately)
       if (
-        r.top < window.innerHeight + 40 &&
-        r.bottom > -20 &&
-        r.width > 15 &&
-        r.height > 8
+        r.top < window.innerHeight + 50 &&
+        r.bottom > -30 &&
+        (isTarget || (r.width > 15 && r.height > 8))
       ) {
         eligible.push({ el, top: r.top });
       }

@@ -36,10 +36,10 @@ export default function Page() {
               </h1>
               <p className="text-muted-foreground max-w-3xl md:text-lg lg:text-xl leading-relaxed min-h-[56px]">
                 <TypingAnimation
-                  typeSpeed={12}
-                  delay={40}
+                  typeSpeed={10}
+                  delay={60}
                   action="reviewing bio"
-                  className="text-muted-foreground leading-relaxed"
+                  className="text-muted-foreground leading-relaxed inline-block w-full"
                 >
                   {DATA.description}
                 </TypingAnimation>

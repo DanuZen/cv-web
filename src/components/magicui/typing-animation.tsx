@@ -83,7 +83,7 @@ export function TypingAnimation({
   waitForSwarm = true,
   action = "writing text",
   sound = true,
-  repeatOnScroll = true,
+  repeatOnScroll = false,
   ...props
 }: TypingAnimationProps) {
   const MotionComponent = motionElements[
@@ -168,6 +168,18 @@ export function TypingAnimation({
       setPhase("typing");
     }
   }, [isInView, repeatOnScroll, waitForSwarm]);
+
+  // Fail-safe: If in view and swarm hasn't triggered after 800ms, auto-trigger so text is never left empty
+  useEffect(() => {
+    if (!waitForSwarm || swarmTriggered) return;
+    if (!isInView) return;
+
+    const timer = setTimeout(() => {
+      setSwarmTriggered(true);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, [waitForSwarm, swarmTriggered, isInView]);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout> | null = null;
@@ -281,7 +293,7 @@ export function TypingAnimation({
       data-swarm-target={waitForSwarm ? "true" : undefined}
       data-swarm-action={waitForSwarm ? action : undefined}
       className={cn(
-        "tracking-[-0.02em]",
+        "tracking-[-0.02em] min-h-[1.2em]",
         Component === "span" && "inline-block",
         className
       )}
