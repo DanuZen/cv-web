@@ -6,7 +6,7 @@ import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
 import ContactSection from "@/components/section/contact-section";
-import HackathonsSection from "@/components/section/hackathons-section";
+import CertificationsSection from "@/components/section/certifications-section";
 import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
 import BlogSection from "@/components/section/blog-section";
@@ -136,9 +136,9 @@ export default function Page() {
           <ProjectsSection />
         </BlurFade>
       </section>
-      <section id="hackathons">
+      <section id="certifications">
         <BlurFade delay={BLUR_FADE_DELAY * 13}>
-          <HackathonsSection />
+          <CertificationsSection />
         </BlurFade>
       </section>
       <section id="blog">

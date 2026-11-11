@@ -234,3 +234,33 @@
   }
 
 }
+
+@media print {
+  /* Hide interactive dock navbar, background canvas, and noise */
+  .fixed,
+  .pointer-events-none,
+  [data-radix-popper-content-wrapper],
+  nav,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Automatically expand accordion contents for print so full work experience is visible */
+  [data-state="closed"] [data-radix-accordion-content],
+  [data-state="closed"] > div[role="region"] {
+    display: block !important;
+    height: auto !important;
+    opacity: 1 !important;
+  }
+
+  /* Ensure high contrast clean typography for ATS print */
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Remove page break awkwardness */
+  section {
+    break-inside: avoid;
+  }
+}
