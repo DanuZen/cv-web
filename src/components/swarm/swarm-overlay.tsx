@@ -175,29 +175,45 @@ export default function SwarmOverlay() {
       // 1. DEDICATED HOVER CO-PILOT AGENT (A-03): Tracks card approached by mouse
       // =========================================================================
       let approachedCard: HTMLElement | null = null;
-      let minDistance = 85; // Proximity threshold in pixels
+      let bestScore = Infinity;
 
       if (mousePosRef.current) {
         const { x, y } = mousePosRef.current;
+        // Strictly target INDIVIDUAL cards marked with data-swarm-hover-card="true"
+        // (Per card only - never section containers or whole rows)
         const candidateCards = Array.from(
           document.querySelectorAll<HTMLElement>(
-            '[data-swarm-hover-card="true"], [data-swarm-target="true"]'
+            '[data-swarm-hover-card="true"]'
           )
         );
 
         for (const card of candidateCards) {
           const r = card.getBoundingClientRect();
-          // Filter out tiny elements, only target substantial cards / sections
-          if (r.width < 140 || r.height < 50) continue;
-          if (r.bottom < -20 || r.top > window.innerHeight + 20) continue;
+          // Filter out tiny or invisible elements, include individual badges (>= 45x20) up to large cards
+          if (r.width < 45 || r.height < 20) continue;
+          if (r.bottom < -10 || r.top > window.innerHeight + 10) continue;
 
-          // Distance from mouse to rectangle
+          const isInside =
+            x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
           const dx = Math.max(r.left - x, 0, x - r.right);
           const dy = Math.max(r.top - y, 0, y - r.bottom);
           const dist = Math.hypot(dx, dy);
 
-          if (dist < minDistance) {
-            minDistance = dist;
+          let score: number;
+          if (isInside) {
+            // Direct hover takes absolute priority!
+            // In case of multiple nested/overlapping cards, prefer the smaller specific card
+            const area = r.width * r.height;
+            score = area * 0.0001;
+          } else if (dist < 40) {
+            // Proximity threshold of 40px when cursor is close to a specific card
+            score = 1000 + dist;
+          } else {
+            continue;
+          }
+
+          if (score < bestScore) {
+            bestScore = score;
             approachedCard = card;
           }
         }
@@ -214,17 +230,20 @@ export default function SwarmOverlay() {
             lastSoundHoverCardRef.current = approachedCard;
           }
 
-          // Target position: Near top-right corner of card (exact screenshot match!)
-          const cursorTargetX = r.right - Math.min(48, r.width * 0.14) + Math.sin(time * 0.005) * 2;
-          const cursorTargetY = r.top + Math.min(22, r.height * 0.14) + Math.cos(time * 0.005) * 2;
+          // Target position: Pointer arrow tip precisely at top-right corner handle (matching Figma reference)
+          const isNearRightEdge = r.right + 110 > window.innerWidth;
+          const cursorTargetX = isNearRightEdge
+            ? r.right - 18
+            : r.right + 2;
+          const cursorTargetY = r.top - 2;
 
           hoverAgent.targetX = cursorTargetX;
           hoverAgent.targetY = cursorTargetY;
 
           // If agent was hidden, smoothly spawn nearby
           if (hoverAgent.opacity < 0.1) {
-            hoverAgent.x = cursorTargetX + 35;
-            hoverAgent.y = cursorTargetY - 25;
+            hoverAgent.x = cursorTargetX + 30;
+            hoverAgent.y = cursorTargetY - 20;
             hoverAgent.vx = 0;
             hoverAgent.vy = 0;
           }
@@ -244,7 +263,7 @@ export default function SwarmOverlay() {
           hoverAgent.x += hoverAgent.vx;
           hoverAgent.y += hoverAgent.vy;
 
-          // Live hover inspection box pinned to the card
+          // Live hover inspection box pinned to the individual card
           hoverBoxRef.current = {
             id: "hover-copilot-box",
             agentName: hoverAgent.name,

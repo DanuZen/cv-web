@@ -7,7 +7,10 @@ import BlurFade from "@/components/magicui/blur-fade";
 export default function ContactSection() {
   return (
     <BlurFade waitForSwarm={true} action="opening contact section">
-      <div className="border border-border/70 rounded-2xl p-8 sm:p-14 relative bg-card/20 shadow-sm">
+      <div
+        data-swarm-hover-card="true"
+        className="border border-border/70 rounded-2xl p-8 sm:p-14 relative bg-card/20 shadow-sm"
+      >
         <div className="absolute -top-4 border bg-primary z-10 rounded-xl px-5 py-1.5 left-1/2 -translate-x-1/2 shadow-sm">
           <span className="text-background text-xs sm:text-sm font-medium tracking-wide">Contact</span>
         </div>
