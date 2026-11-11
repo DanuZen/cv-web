@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { DATA } from "@/data/resume";
 import { Timeline, TimelineItem, TimelineConnectItem } from "@/components/timeline";
+import { Award } from "lucide-react";
 
 export default function CertificationsSection() {
   const certifications = DATA.certifications;
@@ -39,7 +40,9 @@ export default function CertificationsSection() {
                     className="size-10 bg-card z-10 shrink-0 overflow-hidden p-1 border rounded-full shadow ring-2 ring-border object-contain flex-none"
                   />
                 ) : (
-                  <div className="size-10 bg-card z-10 shrink-0 overflow-hidden p-1 border rounded-full shadow ring-2 ring-border flex-none" />
+                  <div className="size-10 bg-card z-10 shrink-0 overflow-hidden p-1 border rounded-full shadow ring-2 ring-border flex items-center justify-center flex-none">
+                    <Award className="size-5 text-primary" />
+                  </div>
                 )}
               </TimelineConnectItem>
               <div className="flex flex-1 flex-col justify-start gap-2 min-w-0">

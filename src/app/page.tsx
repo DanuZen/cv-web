@@ -10,7 +10,7 @@ import CertificationsSection from "@/components/section/certifications-section";
 import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
 import BlogSection from "@/components/section/blog-section";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, GraduationCap } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -91,7 +91,9 @@ export default function Page() {
                         className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border overflow-hidden object-contain flex-none"
                       />
                     ) : (
-                      <div className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border bg-muted flex-none" />
+                      <div className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border bg-muted flex items-center justify-center flex-none">
+                        <GraduationCap className="size-4 text-muted-foreground" />
+                      </div>
                     )}
                     <div className="flex-1 min-w-0 flex flex-col gap-0.5">
                       <div className="font-semibold leading-none flex items-center gap-2">
@@ -123,7 +125,7 @@ export default function Page() {
             {DATA.skills.map((skill, id) => (
               <BlurFade key={skill.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
                 <div className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2">
-                  {skill.icon && <skill.icon className="size-4 rounded overflow-hidden object-contain" />}
+                  {"icon" in skill && skill.icon && <skill.icon className="size-4 rounded overflow-hidden object-contain" />}
                   <span className="text-foreground text-sm font-medium">{skill.name}</span>
                 </div>
               </BlurFade>
