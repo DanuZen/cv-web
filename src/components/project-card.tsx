@@ -92,8 +92,8 @@ export function ProjectCard({
                 <span className="truncate max-w-[260px]">
                   <TypewriterText
                     text={href ? href.replace(/^https?:\/\//, "").replace(/\/$/, "") : title}
-                    speed={20}
-                    delay={180}
+                    speed={12}
+                    delay={40}
                     repeatOnScroll={true}
                     waitForSwarm={false}
                     cursorChar="▍"

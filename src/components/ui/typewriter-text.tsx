@@ -23,8 +23,8 @@ interface TypewriterTextProps {
 export function TypewriterText({
   text,
   className = "",
-  speed = 22,
-  delay = 50,
+  speed = 15,
+  delay = 20,
   showCursor = true,
   cursorChar = "|",
   cursorClassName = "text-primary",

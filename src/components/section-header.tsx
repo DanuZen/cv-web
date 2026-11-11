@@ -113,8 +113,8 @@ export function SectionHeader({
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-center min-h-[40px]">
           <TypewriterText
             text={title}
-            speed={25}
-            delay={80}
+            speed={16}
+            delay={20}
             repeatOnScroll={true}
             action={`writing ${title}`}
           />

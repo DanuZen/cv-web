@@ -24,7 +24,7 @@ export default function ContactSection() {
         </div>
         <div className="relative flex flex-col items-center gap-5 text-center mt-2">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl min-h-[48px]">
-            <TypewriterText text="Get in Touch" speed={35} delay={100} repeatOnScroll={true} />
+            <TypewriterText text="Get in Touch" speed={18} delay={20} repeatOnScroll={true} />
           </h2>
           <p className="mx-auto max-w-xl text-muted-foreground text-balance text-base sm:text-lg leading-relaxed">
             Tertarik untuk berkolaborasi atau mendiskusikan proyek baru? Jangan ragu untuk menghubungi saya melalui{" "}

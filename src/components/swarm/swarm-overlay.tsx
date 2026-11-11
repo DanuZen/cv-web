@@ -14,7 +14,7 @@ const AGENT_TEMPLATES: SwarmAgentData[] = [
   { id: "a4", name: "Alan", color: "#A259FF" },      // Figma Purple
 ];
 
-const MAX_ACTIVE_AGENTS = 3; // Up to 3 active agents working concurrently on distinct elements
+const MAX_ACTIVE_AGENTS = 4; // Up to 4 active agents working concurrently on distinct elements
 
 export default function SwarmOverlay() {
   const [active, setActive] = useState(true);
@@ -96,10 +96,10 @@ export default function SwarmOverlay() {
 
       const r = el.getBoundingClientRect();
 
-      // Check if visible inside the viewport
+      // Check if visible inside the viewport (with 40px anticipation so cursor starts immediately)
       if (
-        r.top < window.innerHeight - 30 &&
-        r.bottom > 30 &&
+        r.top < window.innerHeight + 40 &&
+        r.bottom > -20 &&
         r.width > 15 &&
         r.height > 8
       ) {
@@ -147,40 +147,38 @@ export default function SwarmOverlay() {
       boxesRef.current = updatedBoxes;
       setBoxes(updatedBoxes);
 
-      // Check how many agents are currently active
-      const activeCount = curAgents.filter((a) => a.mode !== "docked").length;
-
-      // If active agents < MAX_ACTIVE_AGENTS, try to dispatch a docked agent
-      if (activeCount < MAX_ACTIVE_AGENTS) {
+      // Dispatch all available docked agents up to MAX_ACTIVE_AGENTS simultaneously!
+      let activeCount = curAgents.filter((a) => a.mode !== "docked").length;
+      while (activeCount < MAX_ACTIVE_AGENTS) {
         const targetEl = findNextUnbuiltTarget();
-        if (targetEl) {
-          // Find first docked agent
-          const idleAgent = curAgents.find((a) => a.mode === "docked");
-          if (idleAgent) {
-            // Claim element immediately
-            targetEl.dataset.swarmStatus = "building";
-            idleAgent.targetElement = targetEl;
+        if (!targetEl) break;
 
-            const rect = targetEl.getBoundingClientRect();
-            if (rect.width < 180) {
-              idleAgent.targetX = rect.left + rect.width / 2;
-              idleAgent.targetY = rect.top + rect.height / 2;
-            } else {
-              idleAgent.targetX = rect.left + Math.min(24, rect.width * 0.15);
-              idleAgent.targetY = rect.top + Math.min(24, rect.height * 0.4);
-            }
+        const idleAgent = curAgents.find((a) => a.mode === "docked");
+        if (!idleAgent) break;
 
-            // Spawn near the edge closest to target
-            idleAgent.x = idleAgent.targetX + (Math.random() > 0.5 ? 80 : -80);
-            idleAgent.y = Math.max(20, idleAgent.targetY - 60);
-            idleAgent.vx = 0;
-            idleAgent.vy = 0;
-            idleAgent.mode = "fly";
-            idleAgent.opacity = 1;
-            idleAgent.action = targetEl.dataset.swarmAction || "inspecting";
-            idleAgent.trail = [];
-          }
+        // Claim element immediately
+        targetEl.dataset.swarmStatus = "building";
+        idleAgent.targetElement = targetEl;
+
+        const rect = targetEl.getBoundingClientRect();
+        if (rect.width < 180) {
+          idleAgent.targetX = rect.left + rect.width / 2;
+          idleAgent.targetY = rect.top + rect.height / 2;
+        } else {
+          idleAgent.targetX = rect.left + Math.min(24, rect.width * 0.15);
+          idleAgent.targetY = rect.top + Math.min(24, rect.height * 0.4);
         }
+
+        // Snappy spawn close to target for immediate fast response
+        idleAgent.x = idleAgent.targetX + (Math.random() > 0.5 ? 40 : -40);
+        idleAgent.y = Math.max(10, idleAgent.targetY - 30);
+        idleAgent.vx = 0;
+        idleAgent.vy = 0;
+        idleAgent.mode = "fly";
+        idleAgent.opacity = 1;
+        idleAgent.action = targetEl.dataset.swarmAction || "inspecting";
+        idleAgent.trail = [];
+        activeCount++;
       }
 
       // Update Status Bar text
@@ -256,20 +254,20 @@ export default function SwarmOverlay() {
           const dy = agent.targetY - agent.y;
           const dist = Math.hypot(dx, dy);
 
-          // Snappy spring physics towards target
-          agent.vx += dx * 0.08;
-          agent.vy += dy * 0.08;
-          agent.vx *= 0.78;
-          agent.vy *= 0.78;
+          // High-speed snappy spring physics towards target
+          agent.vx += dx * 0.18;
+          agent.vy += dy * 0.18;
+          agent.vx *= 0.68;
+          agent.vy *= 0.68;
 
           agent.x += agent.vx;
           agent.y += agent.vy;
 
           // Arrived at target element!
-          if (dist < 18) {
+          if (dist < 26) {
             agent.mode = "inspect";
             agent.inspectStart = time;
-            agent.inspectDuration = 800 + Math.random() * 400;
+            agent.inspectDuration = 450 + Math.random() * 200;
 
             // 1. TRIGGER THE ELEMENT'S ANIMATION (Starts right as cursor works!)
             el.dispatchEvent(new CustomEvent("swarm:build"));
@@ -361,7 +359,7 @@ export default function SwarmOverlay() {
             }
           }
         });
-      }, 100);
+      }, 35);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });

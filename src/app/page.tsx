@@ -24,8 +24,8 @@ export default function Page() {
               <h1 className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl min-h-[44px]">
                 <TypewriterText
                   text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
-                  speed={38}
-                  delay={100}
+                  speed={22}
+                  delay={20}
                   action="writing headline"
                   repeatOnScroll={true}
                 />
@@ -33,8 +33,8 @@ export default function Page() {
               <p className="text-muted-foreground max-w-3xl md:text-lg lg:text-xl leading-relaxed min-h-[56px]">
                 <TypewriterText
                   text={DATA.description}
-                  speed={15}
-                  delay={350}
+                  speed={12}
+                  delay={40}
                   action="reviewing bio"
                   repeatOnScroll={true}
                 />
