@@ -86,6 +86,29 @@ export default function SwarmOverlay() {
     };
   }, []);
 
+  // Listen for elements signaling completion
+  useEffect(() => {
+    const handleCompleted = (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (!target) return;
+      target.dataset.swarmStatus = "built";
+
+      // Instantly dock any agent inspecting this element
+      agentsRef.current.forEach((agent) => {
+        if (agent.targetElement === target) {
+          agent.mode = "docked";
+          agent.targetElement = null;
+          agent.opacity = 0;
+        }
+      });
+    };
+
+    document.addEventListener("swarm:completed", handleCompleted, true);
+    return () => {
+      document.removeEventListener("swarm:completed", handleCompleted, true);
+    };
+  }, []);
+
   // Find next unbuilt element that NO OTHER AGENT is currently working on (Top-to-Bottom order)
   const findNextUnbuiltTarget = useCallback((): HTMLElement | null => {
     if (typeof window === "undefined") return null;
@@ -361,25 +384,28 @@ export default function SwarmOverlay() {
             // Check if element is still actively running its typing or build animation
             const isStillBuilding = el.dataset.swarmStatus === "building";
             const elapsed = time - agent.inspectStart;
-            const minTime = agent.inspectDuration || 600;
-            const timeout = elapsed > 12000; // safety ceiling
+            const timeout = elapsed > 800; // Fast safety ceiling (max 800ms, never 12s)
 
-            // CRITICAL: Agent cursor MUST STAY at that part while the animation is still running!
-            if ((!isStillBuilding && elapsed >= minTime) || timeout) {
+            // Instantly dock as soon as element finishes building or times out
+            if (!isStillBuilding || timeout) {
               el.dataset.swarmStatus = "built";
               agent.mode = "docked";
               agent.targetElement = null;
+              agent.opacity = 0;
             }
           } else {
             agent.mode = "docked";
             agent.targetElement = null;
+            agent.opacity = 0;
           }
         }
         // Mode: Flying to target
         else if (agent.mode === "fly") {
           const el = agent.targetElement;
-          if (!el || !document.body.contains(el)) {
+          if (!el || !document.body.contains(el) || el.dataset.swarmStatus === "built") {
             agent.mode = "docked";
+            agent.targetElement = null;
+            agent.opacity = 0;
             return;
           }
 
@@ -449,7 +475,8 @@ export default function SwarmOverlay() {
         if (
           agent.mode === "inspect" &&
           agent.targetElement &&
-          document.body.contains(agent.targetElement)
+          document.body.contains(agent.targetElement) &&
+          agent.targetElement.dataset.swarmStatus === "building"
         ) {
           const r = agent.targetElement.getBoundingClientRect();
           if (

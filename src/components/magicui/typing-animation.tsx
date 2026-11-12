@@ -97,6 +97,7 @@ export function TypingAnimation({
   const [swarmTriggered, setSwarmTriggered] = useState(!waitForSwarm);
 
   const elementRef = useRef<HTMLElement | null>(null);
+  const isCompleteRef = useRef(false);
   const isInView = useInView(elementRef as RefObject<Element>, {
     amount: 0.2,
     once: !repeatOnScroll,
@@ -136,7 +137,12 @@ export function TypingAnimation({
 
     const handleBuild = () => {
       setSwarmTriggered(true);
-      el.dataset.swarmStatus = "building";
+      if (isCompleteRef.current) {
+        el.dataset.swarmStatus = "built";
+        el.dispatchEvent(new CustomEvent("swarm:completed"));
+      } else {
+        el.dataset.swarmStatus = "building";
+      }
     };
 
     const handleReset = () => {
@@ -283,6 +289,10 @@ export function TypingAnimation({
     currentWordIndex === wordsToAnimate.length - 1 &&
     currentCharIndex >= currentWordGraphemes.length &&
     phase !== "deleting";
+
+  useEffect(() => {
+    isCompleteRef.current = isComplete;
+  }, [isComplete]);
 
   const shouldShowCursor =
     showCursor &&
