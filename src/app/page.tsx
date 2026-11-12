@@ -11,7 +11,6 @@ import WorkSection from "@/components/section/work-section";
 import { SkillsSection } from "@/components/skills-section";
 import { SectionHeader } from "@/components/section-header";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { NumberTicker } from "@/components/ui/number-ticker";
 import { MagicCard } from "@/components/ui/magic-card";
 import { ArrowUpRight, GraduationCap } from "lucide-react";
 
@@ -56,44 +55,6 @@ export default function Page() {
                 <AvatarFallback>{DATA.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 pt-4 border-t border-border/40">
-            <MagicCard gradientSize={180} className="rounded-xl">
-              <div className="flex flex-col gap-0.5 p-2.5 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
-                <div className="text-xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
-                  <NumberTicker value={12} className="text-foreground" />
-                  <span className="text-primary font-bold">+</span>
-                </div>
-                <span className="text-[11px] sm:text-sm text-muted-foreground font-medium truncate sm:overflow-visible max-w-full">Enterprise Apps</span>
-              </div>
-            </MagicCard>
-            <MagicCard gradientSize={180} className="rounded-xl">
-              <div className="flex flex-col gap-0.5 p-2.5 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
-                <div className="text-xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
-                  <NumberTicker value={DATA.skills.length} className="text-foreground" />
-                  <span className="text-primary font-bold">+</span>
-                </div>
-                <span className="text-[11px] sm:text-sm text-muted-foreground font-medium truncate sm:overflow-visible max-w-full">Tech Stacks</span>
-              </div>
-            </MagicCard>
-            <MagicCard gradientSize={180} className="rounded-xl">
-              <div className="flex flex-col gap-0.5 p-2.5 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
-                <div className="text-xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
-                  <NumberTicker value={DATA.certifications.length} className="text-foreground" />
-                  <span className="text-primary font-bold">+</span>
-                </div>
-                <span className="text-[11px] sm:text-sm text-muted-foreground font-medium truncate sm:overflow-visible max-w-full">Certifications</span>
-              </div>
-            </MagicCard>
-            <MagicCard gradientSize={180} className="rounded-xl">
-              <div className="flex flex-col gap-0.5 p-2.5 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
-                <div className="text-xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
-                  <NumberTicker value={100} className="text-foreground" />
-                  <span className="text-primary font-bold">%</span>
-                </div>
-                <span className="text-[11px] sm:text-sm text-muted-foreground font-medium truncate sm:overflow-visible max-w-full">Production Delivery</span>
-              </div>
-            </MagicCard>
           </div>
         </div>
       </section>
