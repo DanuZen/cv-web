@@ -22,7 +22,7 @@ const BlurFade = ({
   children,
   className,
   variant,
-  duration = 0.45,
+  duration = 0.55,
   delay = 0,
   yOffset = 16,
   inView = true,
@@ -41,18 +41,38 @@ const BlurFade = ({
 
   const [swarmTriggered, setSwarmTriggered] = useState(!waitForSwarm);
 
+  // Synchronize state during render when scrolled out of view (React standard pattern)
+  const [prevInView, setPrevInView] = useState(inViewResult);
+  if (prevInView !== inViewResult) {
+    setPrevInView(inViewResult);
+    if (!inViewResult && !once && waitForSwarm) {
+      setSwarmTriggered(false);
+    }
+  }
+
   useEffect(() => {
     if (!waitForSwarm) return;
     const el = ref.current;
     if (!el) return;
 
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
     const handleBuild = () => {
       setSwarmTriggered(true);
+      el.dataset.swarmStatus = "building";
+      timer = setTimeout(() => {
+        if (el) {
+          el.dataset.swarmStatus = "built";
+          el.dispatchEvent(new CustomEvent("swarm:completed"));
+        }
+      }, (duration + delay) * 1000 + 100);
     };
 
     const handleReset = () => {
       if (!once) {
         setSwarmTriggered(false);
+        el.dataset.swarmStatus = "idle";
+        if (timer) clearTimeout(timer);
       }
     };
 
@@ -62,16 +82,21 @@ const BlurFade = ({
     return () => {
       el.removeEventListener("swarm:build", handleBuild);
       el.removeEventListener("swarm:reset", handleReset);
+      if (timer) clearTimeout(timer);
     };
-  }, [waitForSwarm, once]);
+  }, [waitForSwarm, once, duration, delay]);
 
-  // Reset when scrolled out of view
+  // Fail-safe: If in view and swarm hasn't triggered after 3000ms, auto-trigger so content is never hidden
   useEffect(() => {
-    if (!waitForSwarm) return;
-    if (!inViewResult && !once) {
-      setSwarmTriggered(false);
-    }
-  }, [inViewResult, waitForSwarm, once]);
+    if (!waitForSwarm || swarmTriggered) return;
+    if (!inViewResult) return;
+
+    const timer = setTimeout(() => {
+      setSwarmTriggered(true);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [waitForSwarm, swarmTriggered, inViewResult]);
 
   const shouldBeVisible = inView
     ? inViewResult && (waitForSwarm ? swarmTriggered : true)
@@ -88,6 +113,7 @@ const BlurFade = ({
       ref={ref}
       data-swarm-target={waitForSwarm ? "true" : undefined}
       data-swarm-action={waitForSwarm ? action : undefined}
+      data-swarm-status={waitForSwarm ? (swarmTriggered ? "built" : "idle") : undefined}
       initial="hidden"
       animate={shouldBeVisible ? "visible" : "hidden"}
       variants={combinedVariants}

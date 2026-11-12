@@ -69,7 +69,7 @@ export function TypingAnimation({
   children,
   words,
   className,
-  duration = 80,
+  duration = 50,
   typeSpeed,
   deleteSpeed,
   delay = 0,
@@ -122,12 +122,15 @@ export function TypingAnimation({
     [words, children]
   );
 
-  useEffect(() => {
+  // Synchronize state during render when animationSourceKey changes (React standard pattern)
+  const [prevSourceKey, setPrevSourceKey] = useState(animationSourceKey);
+  if (prevSourceKey !== animationSourceKey) {
+    setPrevSourceKey(animationSourceKey);
     setDisplayedText("");
     setCurrentWordIndex(0);
     setCurrentCharIndex(0);
     setPhase("typing");
-  }, [animationSourceKey]);
+  }
 
   // Swarm Event Listeners
   useEffect(() => {
@@ -137,6 +140,7 @@ export function TypingAnimation({
 
     const handleBuild = () => {
       setSwarmTriggered(true);
+      el.dataset.swarmStatus = "building";
     };
 
     const handleReset = () => {
@@ -146,6 +150,7 @@ export function TypingAnimation({
         setCurrentWordIndex(0);
         setCurrentCharIndex(0);
         setPhase("typing");
+        el.dataset.swarmStatus = "idle";
       }
     };
 
@@ -158,8 +163,10 @@ export function TypingAnimation({
     };
   }, [waitForSwarm, repeatOnScroll]);
 
-  // Reset when scrolled out of view
-  useEffect(() => {
+  // Synchronize state during render when scrolled out of view (React standard pattern)
+  const [prevInView, setPrevInView] = useState(isInView);
+  if (prevInView !== isInView) {
+    setPrevInView(isInView);
     if (!isInView && repeatOnScroll) {
       if (waitForSwarm) setSwarmTriggered(false);
       setDisplayedText("");
@@ -167,16 +174,16 @@ export function TypingAnimation({
       setCurrentCharIndex(0);
       setPhase("typing");
     }
-  }, [isInView, repeatOnScroll, waitForSwarm]);
+  }
 
-  // Fail-safe: If in view and swarm hasn't triggered after 800ms, auto-trigger so text is never left empty
+  // Fail-safe: If in view and swarm hasn't triggered after 3000ms, auto-trigger so text is never left empty
   useEffect(() => {
     if (!waitForSwarm || swarmTriggered) return;
     if (!isInView) return;
 
     const timer = setTimeout(() => {
       setSwarmTriggered(true);
-    }, 800);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [waitForSwarm, swarmTriggered, isInView]);
@@ -206,10 +213,21 @@ export function TypingAnimation({
               );
               setCurrentCharIndex(currentCharIndex + 1);
 
+              // Mark as building while typing characters
+              if (elementRef.current) {
+                elementRef.current.dataset.swarmStatus = "building";
+              }
+
               if (sound && swarmAudio.isEnabled()) {
                 swarmAudio.playClickSound();
               }
             } else {
+              // Typing complete: mark as built and notify swarm listeners
+              if (elementRef.current) {
+                elementRef.current.dataset.swarmStatus = "built";
+                elementRef.current.dispatchEvent(new CustomEvent("swarm:completed"));
+              }
+
               if (hasMultipleWords || loop) {
                 const isLastWord =
                   currentWordIndex === wordsToAnimate.length - 1;
@@ -292,6 +310,7 @@ export function TypingAnimation({
       ref={elementRef}
       data-swarm-target={waitForSwarm ? "true" : undefined}
       data-swarm-action={waitForSwarm ? action : undefined}
+      data-swarm-status={waitForSwarm ? (isComplete ? "built" : shouldStart ? "building" : "idle") : undefined}
       className={cn(
         "tracking-[-0.02em] min-h-[1.2em]",
         Component === "span" && "inline-block",

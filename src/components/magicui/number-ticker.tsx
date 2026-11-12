@@ -71,13 +71,15 @@ export function NumberTicker({
     };
   }, [waitForSwarm, repeatOnScroll, motionValue, direction, startValue, value]);
 
-  // Reset when scrolled out of view
-  useEffect(() => {
+  // Synchronize state during render when scrolled out of view
+  const [prevInView, setPrevInView] = useState(isInView);
+  if (prevInView !== isInView) {
+    setPrevInView(isInView);
     if (!isInView && repeatOnScroll) {
       if (waitForSwarm) setSwarmTriggered(false);
       motionValue.set(direction === "down" ? value : startValue);
     }
-  }, [isInView, repeatOnScroll, waitForSwarm, motionValue, direction, startValue, value]);
+  }
 
   // Trigger spring animation
   useEffect(() => {

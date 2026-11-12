@@ -24,6 +24,16 @@ export function SectionHeader({
   const [badgeBuilt, setBadgeBuilt] = useState(false);
   const [descBuilt, setDescBuilt] = useState(false);
 
+  // Synchronize state during render when scrolled out of view
+  const [prevInView, setPrevInView] = useState(isInView);
+  if (prevInView !== isInView) {
+    setPrevInView(isInView);
+    if (!isInView) {
+      setBadgeBuilt(false);
+      setDescBuilt(false);
+    }
+  }
+
   const badgeRef = useRef<HTMLDivElement>(null);
   const descRef = useRef<HTMLDivElement>(null);
 
@@ -32,14 +42,31 @@ export function SectionHeader({
     const el = badgeRef.current;
     if (!el) return;
 
-    const onBuild = () => setBadgeBuilt(true);
-    const onReset = () => setBadgeBuilt(false);
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    const onBuild = () => {
+      setBadgeBuilt(true);
+      el.dataset.swarmStatus = "building";
+      timer = setTimeout(() => {
+        if (el) {
+          el.dataset.swarmStatus = "built";
+          el.dispatchEvent(new CustomEvent("swarm:completed"));
+        }
+      }, 550);
+    };
+
+    const onReset = () => {
+      setBadgeBuilt(false);
+      el.dataset.swarmStatus = "idle";
+      if (timer) clearTimeout(timer);
+    };
 
     el.addEventListener("swarm:build", onBuild);
     el.addEventListener("swarm:reset", onReset);
     return () => {
       el.removeEventListener("swarm:build", onBuild);
       el.removeEventListener("swarm:reset", onReset);
+      if (timer) clearTimeout(timer);
     };
   }, []);
 
@@ -48,24 +75,33 @@ export function SectionHeader({
     const el = descRef.current;
     if (!el) return;
 
-    const onBuild = () => setDescBuilt(true);
-    const onReset = () => setDescBuilt(false);
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    const onBuild = () => {
+      setDescBuilt(true);
+      el.dataset.swarmStatus = "building";
+      timer = setTimeout(() => {
+        if (el) {
+          el.dataset.swarmStatus = "built";
+          el.dispatchEvent(new CustomEvent("swarm:completed"));
+        }
+      }, 550);
+    };
+
+    const onReset = () => {
+      setDescBuilt(false);
+      el.dataset.swarmStatus = "idle";
+      if (timer) clearTimeout(timer);
+    };
 
     el.addEventListener("swarm:build", onBuild);
     el.addEventListener("swarm:reset", onReset);
     return () => {
       el.removeEventListener("swarm:build", onBuild);
       el.removeEventListener("swarm:reset", onReset);
+      if (timer) clearTimeout(timer);
     };
   }, []);
-
-  // Reset when scrolled out of view
-  useEffect(() => {
-    if (!isInView) {
-      setBadgeBuilt(false);
-      setDescBuilt(false);
-    }
-  }, [isInView]);
 
   return (
     <div
@@ -84,6 +120,7 @@ export function SectionHeader({
         <div
           ref={badgeRef}
           data-swarm-target="true"
+          data-swarm-status={badgeBuilt ? "built" : "idle"}
           data-swarm-action={`placing ${badge} badge`}
           className="z-10 inline-block px-1"
         >
@@ -112,8 +149,8 @@ export function SectionHeader({
         {/* Title (Judul) - targeted directly by TypingAnimation */}
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-center min-h-[40px]">
           <TypingAnimation
-            typeSpeed={16}
-            delay={20}
+            typeSpeed={35}
+            delay={60}
             action={`writing ${title}`}
             className="text-3xl font-bold tracking-tighter sm:text-4xl text-center"
           >
@@ -126,6 +163,7 @@ export function SectionHeader({
           <div
             ref={descRef}
             data-swarm-target="true"
+            data-swarm-status={descBuilt ? "built" : "idle"}
             data-swarm-action="drafting description"
             className="max-w-2xl mx-auto"
           >

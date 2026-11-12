@@ -15,46 +15,38 @@ const AGENT_TEMPLATES: SwarmAgentData[] = [
 
 const MAX_ACTIVE_AGENTS = 3; // Ambient workers
 
+const createInitialPool = (): AgentState[] =>
+  AGENT_TEMPLATES.map((t) => ({
+    id: t.id,
+    name: t.name,
+    color: t.color,
+    x: -100,
+    y: -100,
+    vx: 0,
+    vy: 0,
+    targetX: -100,
+    targetY: -100,
+    action: "idle",
+    mode: "docked",
+    targetElement: null,
+    inspectDuration: 0,
+    inspectStart: 0,
+    opacity: 0,
+    trail: [],
+  }));
+
 export default function SwarmOverlay() {
   const [active, setActive] = useState(true);
-  const [agents, setAgents] = useState<AgentState[]>([]);
+  const [agents, setAgents] = useState<AgentState[]>(createInitialPool);
   const [boxes, setBoxes] = useState<InspectionBox[]>([]);
 
-  const agentsRef = useRef<AgentState[]>([]);
-  const boxesRef = useRef<InspectionBox[]>([]);
+  const agentsRef = useRef<AgentState[]>(createInitialPool());
   const hoverBoxRef = useRef<InspectionBox | null>(null);
   const mousePosRef = useRef<{ x: number; y: number } | null>(null);
   const lastSoundHoverCardRef = useRef<HTMLElement | null>(null);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animFrameRef = useRef<number | null>(null);
-
-  // Initialize pool of agents
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const pool: AgentState[] = AGENT_TEMPLATES.map((t) => ({
-      id: t.id,
-      name: t.name,
-      color: t.color,
-      x: -100,
-      y: -100,
-      vx: 0,
-      vy: 0,
-      targetX: -100,
-      targetY: -100,
-      action: "idle",
-      mode: "docked",
-      targetElement: null,
-      inspectDuration: 0,
-      inspectStart: 0,
-      opacity: 0,
-      trail: [],
-    }));
-
-    agentsRef.current = pool;
-    setAgents(pool);
-  }, []);
 
   // Resize canvas handler
   useEffect(() => {
@@ -156,17 +148,6 @@ export default function SwarmOverlay() {
       }
 
       const curAgents = agentsRef.current;
-      const curBoxes = [...boxesRef.current];
-
-      // Update ambient Inspection Boxes opacity & fadeout
-      const updatedBoxes: InspectionBox[] = [];
-      for (const box of curBoxes) {
-        box.opacity = Math.max(0, box.opacity - 0.025);
-        if (box.opacity > 0.05) {
-          updatedBoxes.push(box);
-        }
-      }
-      boxesRef.current = updatedBoxes;
 
       // =========================================================================
       // 1. DEDICATED HOVER CO-PILOT AGENT (A-03): Tracks card approached by mouse
@@ -292,12 +273,6 @@ export default function SwarmOverlay() {
         }
       }
 
-      // Combine ambient boxes with hover copilot box
-      const finalBoxes = hoverBoxRef.current
-        ? [...updatedBoxes.filter((b) => b.id !== "hover-copilot-box"), hoverBoxRef.current]
-        : updatedBoxes;
-      setBoxes(finalBoxes);
-
       // =========================================================================
       // 2. AMBIENT BUILD WORKERS (Ada, Linus, Alan): Top-to-bottom automatic builds
       // =========================================================================
@@ -316,13 +291,9 @@ export default function SwarmOverlay() {
         idleAgent.targetElement = targetEl;
 
         const rect = targetEl.getBoundingClientRect();
-        if (rect.width < 180) {
-          idleAgent.targetX = rect.left + rect.width / 2;
-          idleAgent.targetY = rect.top + rect.height / 2;
-        } else {
-          idleAgent.targetX = rect.left + Math.min(24, rect.width * 0.15);
-          idleAgent.targetY = rect.top + Math.min(24, rect.height * 0.4);
-        }
+        const isNearRightEdge = rect.right + 110 > window.innerWidth;
+        idleAgent.targetX = isNearRightEdge ? rect.right - 18 : rect.right + 2;
+        idleAgent.targetY = rect.top - 2;
 
         // Snappy spawn close to target for immediate fast response
         idleAgent.x = idleAgent.targetX + (Math.random() > 0.5 ? 40 : -40);
@@ -372,26 +343,36 @@ export default function SwarmOverlay() {
           const el = agent.targetElement;
           if (el && document.body.contains(el)) {
             const r = el.getBoundingClientRect();
-            if (r.width < 180) {
-              agent.targetX = r.left + r.width / 2;
-              agent.targetY = r.top + r.height / 2;
-            } else {
-              agent.targetX = r.left + Math.min(24, r.width * 0.15);
-              agent.targetY = r.top + Math.min(24, r.height * 0.4);
-            }
-          }
+            // Position cursor precisely at top-right handle of element
+            const isNearRightEdge = r.right + 110 > window.innerWidth;
+            agent.targetX = isNearRightEdge ? r.right - 18 : r.right + 2;
+            agent.targetY = r.top - 2;
 
-          if (time - agent.inspectStart > agent.inspectDuration) {
-            // Work complete! Mark element as built and dock agent
-            if (agent.targetElement) {
-              agent.targetElement.dataset.swarmStatus = "built";
+            // Spring follow element as it moves/expands
+            const dx = agent.targetX - agent.x;
+            const dy = agent.targetY - agent.y;
+            agent.vx += dx * 0.22;
+            agent.vy += dy * 0.22;
+            agent.vx *= 0.65;
+            agent.vy *= 0.65;
+            agent.x += agent.vx;
+            agent.y += agent.vy;
+
+            // Check if element is still actively running its typing or build animation
+            const isStillBuilding = el.dataset.swarmStatus === "building";
+            const elapsed = time - agent.inspectStart;
+            const minTime = agent.inspectDuration || 600;
+            const timeout = elapsed > 12000; // safety ceiling
+
+            // CRITICAL: Agent cursor MUST STAY at that part while the animation is still running!
+            if ((!isStillBuilding && elapsed >= minTime) || timeout) {
+              el.dataset.swarmStatus = "built";
+              agent.mode = "docked";
+              agent.targetElement = null;
             }
+          } else {
             agent.mode = "docked";
             agent.targetElement = null;
-          } else {
-            // Micro hovering motion
-            agent.x = agent.targetX + Math.sin(time * 0.006) * 1.5;
-            agent.y = agent.targetY + Math.cos(time * 0.006) * 1.5;
           }
         }
         // Mode: Flying to target
@@ -410,13 +391,9 @@ export default function SwarmOverlay() {
             return;
           }
 
-          if (r.width < 180) {
-            agent.targetX = r.left + r.width / 2;
-            agent.targetY = r.top + r.height / 2;
-          } else {
-            agent.targetX = r.left + Math.min(24, r.width * 0.15);
-            agent.targetY = r.top + Math.min(24, r.height * 0.4);
-          }
+          const isNearRightEdge = r.right + 110 > window.innerWidth;
+          agent.targetX = isNearRightEdge ? r.right - 18 : r.right + 2;
+          agent.targetY = r.top - 2;
 
           const dx = agent.targetX - agent.x;
           const dy = agent.targetY - agent.y;
@@ -435,29 +412,13 @@ export default function SwarmOverlay() {
           if (dist < 26) {
             agent.mode = "inspect";
             agent.inspectStart = time;
-            agent.inspectDuration = 450 + Math.random() * 200;
+            agent.inspectDuration = 600;
 
             // 1. Trigger element build
             el.dispatchEvent(new CustomEvent("swarm:build"));
 
             // 2. Play audio inspect sound
             swarmAudio.playInspectSound(agent.x / window.innerWidth);
-
-            // 3. Create dashed selection box around element
-            if (r.width > 20 && r.height > 10) {
-              const newBox: InspectionBox = {
-                id: `${agent.id}-${time}`,
-                agentName: agent.name,
-                color: agent.color,
-                x: r.left - 3,
-                y: r.top - 3,
-                width: r.width + 6,
-                height: r.height + 6,
-                label: `${agent.name} · ${agent.action}`,
-                opacity: 0.9,
-              };
-              boxesRef.current = [...boxesRef.current.slice(-2), newBox];
-            }
           }
         }
 
@@ -481,6 +442,43 @@ export default function SwarmOverlay() {
           }
         }
       });
+
+      // Active live inspection boxes for all ambient agents currently inspecting
+      const activeInspectionBoxes: InspectionBox[] = [];
+      ambientAgents.forEach((agent) => {
+        if (
+          agent.mode === "inspect" &&
+          agent.targetElement &&
+          document.body.contains(agent.targetElement)
+        ) {
+          const r = agent.targetElement.getBoundingClientRect();
+          if (
+            r.bottom > -20 &&
+            r.top < window.innerHeight + 20 &&
+            r.width > 20 &&
+            r.height > 10
+          ) {
+            activeInspectionBoxes.push({
+              id: `box-${agent.id}`,
+              agentName: agent.name,
+              color: agent.color,
+              x: r.left - 3,
+              y: r.top - 3,
+              width: r.width + 6,
+              height: r.height + 6,
+              label: `${agent.name} · ${agent.action}`,
+              opacity: 0.95,
+            });
+          }
+        }
+      });
+
+      // Combine ambient active boxes with hover copilot box
+      const finalBoxes: InspectionBox[] = [...activeInspectionBoxes];
+      if (hoverBoxRef.current) {
+        finalBoxes.push(hoverBoxRef.current);
+      }
+      setBoxes(finalBoxes);
 
       // Commit visible agents state
       setAgents([...curAgents]);

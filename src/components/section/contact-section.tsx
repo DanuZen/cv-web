@@ -28,8 +28,8 @@ export default function ContactSection() {
         <div className="relative flex flex-col items-center gap-5 text-center mt-2">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl min-h-[48px]">
             <TypingAnimation
-              typeSpeed={18}
-              delay={20}
+              typeSpeed={40}
+              delay={60}
               action="writing contact"
               className="text-3xl font-bold tracking-tighter sm:text-5xl"
             >
