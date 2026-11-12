@@ -154,11 +154,11 @@ export default function Page() {
                         <img
                           src={education.logoUrl}
                           alt={education.school}
-                          className="size-10 md:size-11 p-1.5 border rounded-full shadow ring-2 ring-border overflow-hidden object-contain flex-none bg-background"
+                          className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 overflow-hidden object-contain flex-none bg-white"
                         />
                       ) : (
-                        <div className="size-10 md:size-11 p-1.5 border rounded-full shadow ring-2 ring-border bg-muted flex items-center justify-center flex-none">
-                          <GraduationCap className="size-5 text-primary" />
+                        <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 bg-white flex items-center justify-center flex-none">
+                          <GraduationCap className="size-5 text-neutral-800" />
                         </div>
                       )}
                       <div className="flex-1 min-w-0 flex flex-col gap-0.5">

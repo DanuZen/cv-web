@@ -114,7 +114,7 @@ export const DATA = {
       badges: ["Director", "Leadership"],
       location: "Padang, Indonesia",
       title: "Director",
-      logoUrl: "/pt-mbois.png",
+      logoUrl: "/pt-mbois-black.png",
       start: "2024",
       end: "Present",
       description:
