@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { cn } from "@/lib/utils";
 
 interface SwarmCursorProps {
   name: string;
@@ -30,6 +31,9 @@ export const SwarmCursor: React.FC<SwarmCursorProps> = ({
     color === "#0ACF83";
   const badgeTextColor = isLightColor ? "#09090b" : "#FFFFFF";
 
+  const isNearRightEdge =
+    typeof window !== "undefined" && x > window.innerWidth - 130;
+
   return (
     <div
       className="absolute top-0 left-0 pointer-events-none z-50 select-none will-change-transform transition-opacity duration-300"
@@ -55,9 +59,14 @@ export const SwarmCursor: React.FC<SwarmCursorProps> = ({
         />
       </svg>
 
-      {/* Name and Context Action Badge */}
+      {/* Name and Context Action Badge - auto-flips left if near screen edge */}
       <div
-        className="absolute left-3.5 top-3.5 flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium tracking-tight shadow-md border border-white/20 whitespace-nowrap backdrop-blur-xs transition-transform duration-200"
+        className={cn(
+          "absolute top-3.5 flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-medium tracking-tight shadow-md border border-white/20 whitespace-nowrap backdrop-blur-xs transition-transform duration-200",
+          isNearRightEdge
+            ? "-left-1 -translate-x-full"
+            : "left-3.5"
+        )}
         style={{
           backgroundColor: color,
           color: badgeTextColor,
@@ -67,7 +76,7 @@ export const SwarmCursor: React.FC<SwarmCursorProps> = ({
         {action && (
           <>
             <span className="opacity-60 text-[9px]">●</span>
-            <span className="opacity-95 text-[10px]">{action}</span>
+            <span className="opacity-95 text-[9px] sm:text-[10px] max-w-[120px] sm:max-w-none truncate">{action}</span>
           </>
         )}
         {isInspecting && (

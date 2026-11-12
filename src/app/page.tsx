@@ -57,41 +57,41 @@ export default function Page() {
               </Avatar>
             </BlurFade>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-4 pt-4 border-t border-border/40">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 pt-4 border-t border-border/40">
             <MagicCard gradientSize={180} className="rounded-xl">
-              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
+              <div className="flex flex-col gap-0.5 p-2.5 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
+                <div className="text-xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
                   <NumberTicker value={12} className="text-foreground" />
                   <span className="text-primary font-bold">+</span>
                 </div>
-                <span className="text-xs sm:text-sm text-muted-foreground font-medium">Enterprise Apps</span>
+                <span className="text-[11px] sm:text-sm text-muted-foreground font-medium truncate sm:overflow-visible max-w-full">Enterprise Apps</span>
               </div>
             </MagicCard>
             <MagicCard gradientSize={180} className="rounded-xl">
-              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
+              <div className="flex flex-col gap-0.5 p-2.5 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
+                <div className="text-xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
                   <NumberTicker value={DATA.skills.length} className="text-foreground" />
                   <span className="text-primary font-bold">+</span>
                 </div>
-                <span className="text-xs sm:text-sm text-muted-foreground font-medium">Tech Stacks</span>
+                <span className="text-[11px] sm:text-sm text-muted-foreground font-medium truncate sm:overflow-visible max-w-full">Tech Stacks</span>
               </div>
             </MagicCard>
             <MagicCard gradientSize={180} className="rounded-xl">
-              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
+              <div className="flex flex-col gap-0.5 p-2.5 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
+                <div className="text-xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
                   <NumberTicker value={DATA.certifications.length} className="text-foreground" />
                   <span className="text-primary font-bold">+</span>
                 </div>
-                <span className="text-xs sm:text-sm text-muted-foreground font-medium">Certifications</span>
+                <span className="text-[11px] sm:text-sm text-muted-foreground font-medium truncate sm:overflow-visible max-w-full">Certifications</span>
               </div>
             </MagicCard>
             <MagicCard gradientSize={180} className="rounded-xl">
-              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
+              <div className="flex flex-col gap-0.5 p-2.5 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
+                <div className="text-xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
                   <NumberTicker value={100} className="text-foreground" />
                   <span className="text-primary font-bold">%</span>
                 </div>
-                <span className="text-xs sm:text-sm text-muted-foreground font-medium">Production Delivery</span>
+                <span className="text-[11px] sm:text-sm text-muted-foreground font-medium truncate sm:overflow-visible max-w-full">Production Delivery</span>
               </div>
             </MagicCard>
           </div>
@@ -147,9 +147,9 @@ export default function Page() {
                     href={education.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-x-4 justify-between group p-4 sm:p-5 w-full"
+                    className="flex flex-col sm:flex-row sm:items-center gap-y-2 sm:gap-x-4 justify-between group p-4 sm:p-5 w-full"
                   >
-                    <div className="flex items-center gap-x-4 flex-1 min-w-0">
+                    <div className="flex items-center gap-x-3.5 sm:gap-x-4 flex-1 min-w-0">
                       {education.logoUrl ? (
                         <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 overflow-hidden flex-none bg-background flex items-center justify-center">
                           <img
@@ -164,7 +164,7 @@ export default function Page() {
                         </div>
                       )}
                       <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-                        <div className="font-semibold leading-none flex items-center gap-2 text-base">
+                        <div className="font-semibold leading-snug sm:leading-none flex items-center gap-2 text-sm sm:text-base">
                           <span>{education.school}</span>
                           <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
                         </div>
@@ -173,7 +173,7 @@ export default function Page() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-right flex-none font-medium">
+                    <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-left sm:text-right pl-[54px] sm:pl-0 flex-none font-medium">
                       <span>
                         {education.start} - {education.end}
                       </span>

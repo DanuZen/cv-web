@@ -142,7 +142,7 @@ export function SkillsSection() {
 
       {/* Modern Bottom Quality Assurance Indicator */}
       <BlurFade waitForSwarm={true} action="verifying stack readiness" delay={0.06}>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground/80 mt-1">
+        <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground/80 mt-1 text-center px-2">
           <CheckCircle2 className="size-3.5 text-emerald-500 flex-none" />
           <span>All {DATA.skills.length} technologies actively used in high-traffic production environments</span>
         </div>

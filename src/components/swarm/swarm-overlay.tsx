@@ -246,9 +246,9 @@ export default function SwarmOverlay() {
             id: "hover-copilot-box",
             agentName: hoverAgent.name,
             color: hoverAgent.color,
-            x: r.left - 3,
+            x: Math.max(2, r.left - 3),
             y: r.top - 3,
-            width: r.width + 6,
+            width: Math.min(window.innerWidth - 6, r.width + 6),
             height: r.height + 6,
             label: `${hoverAgent.name} · inspecting`,
             opacity: 1,
@@ -458,15 +458,21 @@ export default function SwarmOverlay() {
             r.width > 20 &&
             r.height > 10
           ) {
+            const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+            const displayAction =
+              isMobile && agent.action.length > 16
+                ? `${agent.action.slice(0, 14)}…`
+                : agent.action;
+
             activeInspectionBoxes.push({
               id: `box-${agent.id}`,
               agentName: agent.name,
               color: agent.color,
-              x: r.left - 3,
+              x: Math.max(2, r.left - 3),
               y: r.top - 3,
-              width: r.width + 6,
+              width: Math.min(window.innerWidth - 6, r.width + 6),
               height: r.height + 6,
-              label: `${agent.name} · ${agent.action}`,
+              label: `${agent.name} · ${displayAction}`,
               opacity: 0.95,
             });
           }

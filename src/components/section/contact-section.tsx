@@ -11,7 +11,7 @@ export default function ContactSection() {
     <BlurFade waitForSwarm={true} action="opening contact section">
       <div
         data-swarm-hover-card="true"
-        className="border border-border/70 rounded-2xl p-8 sm:p-14 relative bg-card/20 shadow-sm"
+        className="border border-border/70 rounded-2xl p-5 sm:p-14 relative bg-card/20 shadow-sm"
       >
         <div className="absolute -top-4 border bg-primary z-10 rounded-xl px-5 py-1.5 left-1/2 -translate-x-1/2 shadow-sm">
           <span className="text-background text-xs sm:text-sm font-medium tracking-wide">Contact</span>
@@ -27,18 +27,18 @@ export default function ContactSection() {
             }}
           />
         </div>
-        <div className="relative flex flex-col items-center gap-6 text-center mt-2">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl min-h-[48px]">
+        <div className="relative flex flex-col items-center gap-5 sm:gap-6 text-center mt-2">
+          <h2 className="text-2xl sm:text-5xl font-bold tracking-tighter min-h-[36px] sm:min-h-[48px]">
             <TypingAnimation
               typeSpeed={40}
               delay={60}
               action="writing contact"
-              className="text-3xl font-bold tracking-tighter sm:text-5xl"
+              className="text-2xl sm:text-5xl font-bold tracking-tighter"
             >
               Get in Touch
             </TypingAnimation>
           </h2>
-          <p className="mx-auto max-w-xl text-muted-foreground text-balance text-base sm:text-lg leading-relaxed">
+          <p className="mx-auto max-w-xl text-muted-foreground text-balance text-sm sm:text-lg leading-relaxed px-1 sm:px-0">
             Interested in collaborating or discussing a new project? Feel free to reach out directly via GitHub, Instagram, or email below.
           </p>
 

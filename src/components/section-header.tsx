@@ -106,7 +106,7 @@ export function SectionHeader({
   return (
     <div
       ref={containerRef}
-      className={`flex flex-col gap-y-5 sm:gap-y-6 items-center justify-center text-center ${className}`}
+      className={`flex flex-col gap-y-7 sm:gap-y-6 items-center justify-center text-center ${className}`}
     >
       {/* Divider with Granular Badge Target (Only badge is targeted, NOT the entire line) */}
       <div className="flex items-center w-full">
@@ -121,14 +121,14 @@ export function SectionHeader({
           ref={badgeRef}
           data-swarm-target="true"
           data-swarm-status={badgeBuilt ? "built" : (isInView ? "building" : "idle")}
-          data-swarm-action={`placing ${badge} badge`}
+          data-swarm-action="placing badge"
           className="z-10 inline-block px-1"
         >
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
             transition={{ duration: 0.3, ease: "backOut" }}
-            className="border bg-primary rounded-xl px-4 py-1.5 shadow-sm"
+            className="border bg-primary rounded-xl px-3.5 py-1 sm:px-4 sm:py-1.5 shadow-sm"
           >
             <span className="text-background text-xs sm:text-sm font-medium tracking-wide">
               {badge}
@@ -145,14 +145,14 @@ export function SectionHeader({
       </div>
 
       {/* Title & Description with Separate Granular Targets */}
-      <div className="flex flex-col gap-y-3 items-center justify-center text-center">
+      <div className="flex flex-col gap-y-2.5 sm:gap-y-3 items-center justify-center text-center w-full max-w-full">
         {/* Title (Judul) - targeted directly by TypingAnimation */}
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-center min-h-[40px]">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-center min-h-[34px] sm:min-h-[40px] px-2 sm:px-0">
           <TypingAnimation
             typeSpeed={18}
             delay={20}
-            action={`writing ${title}`}
-            className="text-3xl font-bold tracking-tighter sm:text-4xl text-center"
+            action="writing heading"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-center"
           >
             {title}
           </TypingAnimation>
@@ -165,13 +165,13 @@ export function SectionHeader({
             data-swarm-target="true"
             data-swarm-status={descBuilt ? "built" : (isInView ? "building" : "idle")}
             data-swarm-action="drafting description"
-            className="max-w-2xl mx-auto"
+            className="max-w-2xl mx-auto px-2 sm:px-0"
           >
             <motion.p
               initial={{ opacity: 0, y: 8 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed text-balance text-center leading-relaxed"
+              className="text-muted-foreground text-xs sm:text-base md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed text-balance text-center leading-relaxed"
             >
               {description}
             </motion.p>

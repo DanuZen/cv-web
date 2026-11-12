@@ -71,8 +71,8 @@ export default function WorkSection() {
               className="w-full border-none p-4 sm:p-5 transition-all duration-200"
             >
               <AccordionTrigger className="hover:no-underline p-0 cursor-pointer transition-colors rounded-none group [&>svg]:hidden">
-                <div className="flex items-center gap-x-4 justify-between w-full text-left">
-                  <div className="flex items-center gap-x-4 flex-1 min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-y-2 sm:gap-x-4 justify-between w-full text-left">
+                  <div className="flex items-center gap-x-3.5 sm:gap-x-4 flex-1 min-w-0">
                     <LogoImage
                       src={work.logoUrl}
                       srcDark={
@@ -83,9 +83,9 @@ export default function WorkSection() {
                       alt={work.company}
                     />
                     <div className="flex-1 min-w-0 gap-1 flex flex-col">
-                      <div className="font-semibold leading-none flex items-center gap-2 text-base">
+                      <div className="font-semibold leading-snug sm:leading-none flex items-center gap-2 text-sm sm:text-base">
                         <span>{work.company}</span>
-                        <span className="relative inline-flex items-center w-3.5 h-3.5">
+                        <span className="relative inline-flex items-center w-3.5 h-3.5 flex-none">
                           <ChevronRight
                             className={cn(
                               "absolute h-3.5 w-3.5 shrink-0 text-muted-foreground stroke-2 transition-all duration-300 ease-out",
@@ -120,7 +120,7 @@ export default function WorkSection() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-right flex-none font-medium">
+                  <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-left sm:text-right pl-[54px] sm:pl-0 flex-none font-medium">
                     <span>
                       {work.start} - {work.end ?? "Present"}
                     </span>

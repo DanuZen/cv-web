@@ -49,18 +49,18 @@ export const InspectionBoxView: React.FC<Props> = ({ box }) => {
 
       {/* Top-Left Agent & Action Badge - exactly matching screenshot (e.g. A-03 · inspecting) */}
       <div
-        className="absolute -top-6 left-0 px-2 py-0.5 rounded text-[11px] font-mono font-semibold shadow-md flex items-center gap-1.5 whitespace-nowrap leading-none select-none border border-black/10"
+        className="absolute -top-5.5 sm:-top-6 left-0 max-w-[calc(100vw-28px)] overflow-hidden px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-mono font-semibold shadow-md flex items-center gap-1.5 whitespace-nowrap leading-none select-none border border-black/10"
         style={{
           backgroundColor: box.color,
           color: badgeTextColor,
         }}
       >
-        <span>{box.label}</span>
+        <span className="truncate">{box.label}</span>
       </div>
 
       {/* Bottom-Right Dimensions Display - exactly matching screenshot (e.g. 441 × 578) */}
       <div
-        className="absolute -bottom-5 right-0 font-mono text-[10px] sm:text-[11px] font-semibold tabular-nums select-none tracking-tight"
+        className="absolute -bottom-4.5 sm:-bottom-5 right-0 font-mono text-[9px] sm:text-[11px] font-semibold tabular-nums select-none tracking-tight"
         style={{ color: box.color }}
       >
         {Math.round(box.width)} × {Math.round(box.height)}

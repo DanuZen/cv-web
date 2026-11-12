@@ -28,7 +28,7 @@ export default function CertificationsSection() {
             waitForSwarm={true}
             action={`verifying ${cert.title}`}
           >
-            <TimelineItem className="w-full flex items-start justify-between gap-4 sm:gap-6">
+            <TimelineItem className="w-full flex items-start justify-between gap-3 sm:gap-6">
               <TimelineConnectItem className="flex items-start justify-center pt-1">
                 {cert.image ? (
                   <img
@@ -46,9 +46,9 @@ export default function CertificationsSection() {
                 gradientSize={240}
                 className="flex flex-1 flex-col justify-start min-w-0 rounded-xl transition-all duration-200"
               >
-                <div className="flex flex-col gap-2.5 p-4 sm:p-5">
-                  <div className="flex items-center justify-between gap-2 flex-wrap">
-                    <h3 className="font-semibold text-base leading-tight">{cert.title}</h3>
+                <div className="flex flex-col gap-2 p-3.5 sm:p-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
+                    <h3 className="font-semibold text-sm sm:text-base leading-snug">{cert.title}</h3>
                     {cert.dates && (
                       <time className="text-xs sm:text-sm font-medium tabular-nums text-muted-foreground">{cert.dates}</time>
                     )}
