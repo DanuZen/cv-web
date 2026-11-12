@@ -26,8 +26,8 @@ export default function Page() {
             <div className="gap-3 flex flex-col items-center text-center md:items-start md:text-left order-2 md:order-1 flex-1">
               <h1 className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl min-h-[44px] text-center md:text-left">
                 <TypingAnimation
-                  typeSpeed={45}
-                  delay={80}
+                  typeSpeed={25}
+                  delay={30}
                   action="writing headline"
                   className="font-semibold tracking-tighter text-center md:text-left"
                 >
@@ -36,8 +36,8 @@ export default function Page() {
               </h1>
               <p className="text-muted-foreground max-w-3xl md:text-lg lg:text-xl leading-relaxed min-h-[56px] text-center md:text-left">
                 <TypingAnimation
-                  typeSpeed={25}
-                  delay={120}
+                  typeSpeed={12}
+                  delay={60}
                   action="reviewing bio"
                   className="text-muted-foreground leading-relaxed inline-block w-full text-center md:text-left"
                 >

@@ -112,22 +112,22 @@ export function SectionHeader({
       <div className="flex items-center w-full">
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
-          animate={isInView && badgeBuilt ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          animate={isInView ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
           className="flex-1 h-px bg-linear-to-r from-transparent from-5% via-border via-95% to-transparent origin-right"
         />
 
         <div
           ref={badgeRef}
           data-swarm-target="true"
-          data-swarm-status={badgeBuilt ? "built" : "idle"}
+          data-swarm-status={badgeBuilt ? "built" : (isInView ? "building" : "idle")}
           data-swarm-action={`placing ${badge} badge`}
           className="z-10 inline-block px-1"
         >
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
-            animate={isInView && badgeBuilt ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
-            transition={{ duration: 0.35, ease: "backOut" }}
+            animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "backOut" }}
             className="border bg-primary rounded-xl px-4 py-1.5 shadow-sm"
           >
             <span className="text-background text-xs sm:text-sm font-medium tracking-wide">
@@ -138,8 +138,8 @@ export function SectionHeader({
 
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
-          animate={isInView && badgeBuilt ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          animate={isInView ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
           className="flex-1 h-px bg-linear-to-l from-transparent from-5% via-border via-95% to-transparent origin-left"
         />
       </div>
@@ -149,8 +149,8 @@ export function SectionHeader({
         {/* Title (Judul) - targeted directly by TypingAnimation */}
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-center min-h-[40px]">
           <TypingAnimation
-            typeSpeed={35}
-            delay={60}
+            typeSpeed={18}
+            delay={20}
             action={`writing ${title}`}
             className="text-3xl font-bold tracking-tighter sm:text-4xl text-center"
           >
@@ -163,14 +163,14 @@ export function SectionHeader({
           <div
             ref={descRef}
             data-swarm-target="true"
-            data-swarm-status={descBuilt ? "built" : "idle"}
+            data-swarm-status={descBuilt ? "built" : (isInView ? "building" : "idle")}
             data-swarm-action="drafting description"
             className="max-w-2xl mx-auto"
           >
             <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={isInView && descBuilt ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-              transition={{ duration: 0.45, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 8 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
               className="text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed text-balance text-center leading-relaxed"
             >
               {description}

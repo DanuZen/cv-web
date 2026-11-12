@@ -111,11 +111,7 @@ export function TypingAnimation({
   const typingSpeed = typeSpeed ?? duration;
   const deletingSpeed = deleteSpeed ?? Math.max(20, typingSpeed / 2);
 
-  const shouldStart = waitForSwarm
-    ? swarmTriggered
-    : startOnView
-      ? isInView
-      : true;
+  const shouldStart = startOnView ? isInView : true;
 
   const animationSourceKey = useMemo(
     () => (words ? words.join("\u0000") : (children ?? "")),

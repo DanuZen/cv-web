@@ -61,7 +61,7 @@ export default function WorkSection() {
       {DATA.work.map((work, idx) => (
         <BlurFade
           key={work.company}
-          delay={idx * 0.05}
+          delay={idx * 0.03}
           waitForSwarm={true}
           action={`reviewing ${work.company}`}
         >

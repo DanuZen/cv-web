@@ -17,7 +17,7 @@ export default function ProjectsSection() {
                 {DATA.projects.map((project, id) => (
                     <BlurFade
                         key={project.title}
-                        delay={0}
+                        delay={id * 0.03}
                         waitForSwarm={true}
                         action={`testing ${project.title}`}
                         className="h-full"

@@ -24,7 +24,7 @@ export default function CertificationsSection() {
         {certifications.map((cert, idx) => (
           <BlurFade
             key={cert.title + cert.dates}
-            delay={idx * 0.08}
+            delay={idx * 0.03}
             waitForSwarm={true}
             action={`verifying ${cert.title}`}
           >
