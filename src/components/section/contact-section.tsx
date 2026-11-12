@@ -3,6 +3,8 @@ import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { DATA } from "@/data/resume";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import BlurFade from "@/components/magicui/blur-fade";
+import { Icons } from "@/components/icons";
+import { ArrowUpRight } from "lucide-react";
 
 export default function ContactSection() {
   return (
@@ -25,7 +27,7 @@ export default function ContactSection() {
             }}
           />
         </div>
-        <div className="relative flex flex-col items-center gap-5 text-center mt-2">
+        <div className="relative flex flex-col items-center gap-6 text-center mt-2">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl min-h-[48px]">
             <TypingAnimation
               typeSpeed={40}
@@ -37,23 +39,42 @@ export default function ContactSection() {
             </TypingAnimation>
           </h2>
           <p className="mx-auto max-w-xl text-muted-foreground text-balance text-base sm:text-lg leading-relaxed">
-            Interested in collaborating or discussing a new project? Feel free to reach out via{" "}
+            Interested in collaborating or discussing a new project? Feel free to reach out directly via GitHub, Instagram, or email below.
+          </p>
+
+          {/* Social Contact Action Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <Link
-              href={`mailto:${DATA.contact.email}`}
-              className="text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm font-medium"
+              href={DATA.contact.social.GitHub.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-4.5 py-2.5 rounded-xl border border-border/80 bg-background/90 hover:bg-muted text-sm font-medium transition-all hover:scale-[1.03] active:scale-[0.98] shadow-xs group"
             >
-              email
-            </Link>{" "}
-            or drop me a direct message on{" "}
+              <Icons.github className="size-4 shrink-0" />
+              <span>GitHub</span>
+              <ArrowUpRight className="size-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
+            </Link>
+
             <Link
               href={DATA.contact.social.Instagram.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm font-medium"
+              className="inline-flex items-center gap-2.5 px-4.5 py-2.5 rounded-xl border border-border/80 bg-background/90 hover:bg-muted text-sm font-medium transition-all hover:scale-[1.03] active:scale-[0.98] shadow-xs group"
             >
-              Instagram (@ryan.septiawan__)
-            </Link>.
-          </p>
+              <Icons.instagram className="size-4 shrink-0" />
+              <span>Instagram</span>
+              <ArrowUpRight className="size-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
+            </Link>
+
+            <Link
+              href={`mailto:${DATA.contact.email}`}
+              className="inline-flex items-center gap-2.5 px-4.5 py-2.5 rounded-xl border border-primary/20 bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-medium transition-all hover:scale-[1.03] active:scale-[0.98] shadow-xs group"
+            >
+              <Icons.email className="size-4 shrink-0" />
+              <span>Email</span>
+              <ArrowUpRight className="size-3.5 opacity-70 group-hover:opacity-100 transition-opacity" />
+            </Link>
+          </div>
         </div>
       </div>
     </BlurFade>
