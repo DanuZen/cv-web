@@ -49,7 +49,7 @@ export default function Page() {
               delay={BLUR_FADE_DELAY}
               waitForSwarm={true}
               action="inspecting avatar"
-              className="order-1 md:order-2 flex justify-center md:block"
+              className="order-1 md:order-2 flex justify-center md:block pt-8 sm:pt-10 md:pt-0"
             >
               <Avatar className="size-28 md:size-36 border rounded-full shadow-lg ring-4 ring-muted">
                 <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
