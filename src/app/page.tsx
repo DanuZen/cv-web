@@ -11,7 +11,8 @@ import WorkSection from "@/components/section/work-section";
 import { SkillsSection } from "@/components/skills-section";
 import { SectionHeader } from "@/components/section-header";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { ArrowUpRight, GraduationCap } from "lucide-react";
+import { Icons } from "@/components/icons";
+import { ArrowUpRight, GraduationCap, Globe, Mail, Phone, MapPin } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -161,8 +162,9 @@ export default function Page() {
           </section>
         </div>
 
-        {/* Right Column (lg:col-span-5): Only Skills & Technologies */}
-        <div className="lg:col-span-5 flex flex-col gap-6 sm:gap-8 p-5 sm:p-7 rounded-3xl bg-muted/20 dark:bg-muted/10 border border-border/50 backdrop-blur-xs min-w-0">
+        {/* Right Column (lg:col-span-5): Skills, Languages, Contact */}
+        <div className="lg:col-span-5 flex flex-col gap-6 sm:gap-7 p-5 sm:p-7 rounded-3xl bg-muted/20 dark:bg-muted/10 border border-border/50 backdrop-blur-xs min-w-0">
+          {/* Skills & Technologies */}
           <section id="skills" className="scroll-mt-24">
             <div className="flex min-h-0 flex-col gap-y-4 sm:gap-y-5">
               <SectionHeader
@@ -173,6 +175,158 @@ export default function Page() {
                 compact
               />
               <SkillsSection compact />
+            </div>
+          </section>
+
+          <div className="h-px w-full bg-border/40" />
+
+          {/* Languages */}
+          <section id="languages" className="scroll-mt-24">
+            <div className="flex min-h-0 flex-col gap-y-3 sm:gap-y-3.5">
+              <SectionHeader
+                badge="Languages"
+                title="Language Proficiency"
+                description="Languages for communication and technical collaboration."
+                align="left"
+                compact
+              />
+              <div className="flex flex-col gap-1 sm:gap-1.5">
+                {DATA.languages.map((lang, idx) => (
+                  <BlurFade
+                    key={lang.name}
+                    delay={BLUR_FADE_DELAY * 2 + idx * 0.04}
+                    waitForSwarm={true}
+                    action={`reviewing ${lang.name} proficiency`}
+                  >
+                    <div className="flex items-center justify-between py-1.5 px-2.5 rounded-lg hover:bg-muted/30 transition-colors text-xs sm:text-sm">
+                      <div className="flex items-center gap-2.5">
+                        <Globe className="size-3.5 text-primary flex-none" />
+                        <span className="font-medium text-foreground">{lang.name}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs">
+                        <span className="text-muted-foreground font-medium">
+                          {lang.level}
+                        </span>
+                        <span className="size-1.5 rounded-full bg-emerald-500 flex-none" />
+                      </div>
+                    </div>
+                  </BlurFade>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <div className="h-px w-full bg-border/40" />
+
+          {/* Contact Details */}
+          <section id="sidebar-contact" className="scroll-mt-24">
+            <div className="flex min-h-0 flex-col gap-y-3 sm:gap-y-3.5">
+              <SectionHeader
+                badge="Contact"
+                title="Direct Channels"
+                description="Channels for direct inquiry, freelance, or tech leadership."
+                align="left"
+                compact
+              />
+              <div className="flex flex-col gap-1 sm:gap-1.5">
+                {/* Email */}
+                <BlurFade
+                  delay={BLUR_FADE_DELAY * 2 + 0.02}
+                  waitForSwarm={true}
+                  action="reviewing contact email"
+                >
+                  <Link
+                    href={`mailto:${DATA.contact.email}`}
+                    className="group flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs sm:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <Mail className="size-3.5 text-primary flex-none" />
+                      <span className="truncate">{DATA.contact.email}</span>
+                    </div>
+                    <ArrowUpRight className="size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
+                  </Link>
+                </BlurFade>
+
+                {/* WhatsApp / Phone */}
+                <BlurFade
+                  delay={BLUR_FADE_DELAY * 2 + 0.05}
+                  waitForSwarm={true}
+                  action="reviewing contact phone"
+                >
+                  <Link
+                    href={`https://wa.me/${DATA.contact.tel.replace(/[^0-9]/g, "")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs sm:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <Phone className="size-3.5 text-primary flex-none" />
+                      <span className="truncate">{DATA.contact.tel}</span>
+                    </div>
+                    <ArrowUpRight className="size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
+                  </Link>
+                </BlurFade>
+
+                {/* Location */}
+                <BlurFade
+                  delay={BLUR_FADE_DELAY * 2 + 0.08}
+                  waitForSwarm={true}
+                  action="reviewing contact location"
+                >
+                  <Link
+                    href={DATA.locationLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs sm:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <MapPin className="size-3.5 text-primary flex-none" />
+                      <span className="truncate">{DATA.location}</span>
+                    </div>
+                    <ArrowUpRight className="size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
+                  </Link>
+                </BlurFade>
+
+                {/* GitHub */}
+                <BlurFade
+                  delay={BLUR_FADE_DELAY * 2 + 0.11}
+                  waitForSwarm={true}
+                  action="reviewing contact github"
+                >
+                  <Link
+                    href={DATA.contact.social.GitHub.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs sm:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <Icons.github className="size-3.5 text-primary flex-none" />
+                      <span className="truncate">github.com/Ryan-infitech</span>
+                    </div>
+                    <ArrowUpRight className="size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
+                  </Link>
+                </BlurFade>
+
+                {/* Instagram */}
+                <BlurFade
+                  delay={BLUR_FADE_DELAY * 2 + 0.14}
+                  waitForSwarm={true}
+                  action="reviewing contact instagram"
+                >
+                  <Link
+                    href={DATA.contact.social.Instagram.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs sm:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <Icons.instagram className="size-3.5 text-primary flex-none" />
+                      <span className="truncate">@ryan.septiawan__</span>
+                    </div>
+                    <ArrowUpRight className="size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
+                  </Link>
+                </BlurFade>
+              </div>
             </div>
           </section>
         </div>

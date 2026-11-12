@@ -75,6 +75,16 @@ export const DATA = {
     { name: "Google Console", icon: GoogleCloud, category: "tools" },
     { name: "JupyterLab", icon: Jupyter, category: "tools" },
   ],
+  languages: [
+    {
+      name: "Bahasa Indonesia",
+      level: "Native",
+    },
+    {
+      name: "English",
+      level: "Proficient",
+    },
+  ],
   navbar: [
     { href: "/#hero", icon: HomeIcon, label: "Home" },
     { href: "/#work", icon: Briefcase, label: "Experience" },
