@@ -10,12 +10,13 @@ import {
   Layout, 
   Server, 
   Database, 
-  Cloud,
+  Terminal,
+  Wrench,
   CheckCircle2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type CategoryKey = "all" | "frontend" | "backend" | "database" | "cloud";
+type CategoryKey = "all" | "frontend" | "backend" | "database" | "devops" | "tools";
 
 interface CategoryFilter {
   key: CategoryKey;
@@ -32,14 +33,16 @@ export function SkillsSection() {
     const frontendCount = DATA.skills.filter((s) => s.category === "frontend").length;
     const backendCount = DATA.skills.filter((s) => s.category === "backend").length;
     const dbCount = DATA.skills.filter((s) => s.category === "database").length;
-    const cloudCount = DATA.skills.filter((s) => s.category === "cloud").length;
+    const devopsCount = DATA.skills.filter((s) => s.category === "devops").length;
+    const toolsCount = DATA.skills.filter((s) => s.category === "tools").length;
 
     return [
       { key: "all", label: "All Stacks", icon: Sparkles, count: total },
       { key: "frontend", label: "Frontend", icon: Layout, count: frontendCount },
-      { key: "backend", label: "Backend & API", icon: Server, count: backendCount },
+      { key: "backend", label: "Backend", icon: Server, count: backendCount },
       { key: "database", label: "Database", icon: Database, count: dbCount },
-      { key: "cloud", label: "DevOps & Cloud", icon: Cloud, count: cloudCount },
+      { key: "devops", label: "DevOps", icon: Terminal, count: devopsCount },
+      { key: "tools", label: "Tools", icon: Wrench, count: toolsCount },
     ];
   }, []);
 
@@ -141,7 +144,7 @@ export function SkillsSection() {
       <BlurFade waitForSwarm={true} action="verifying stack readiness" delay={0.06}>
         <div className="flex items-center gap-2 text-xs text-muted-foreground/80 mt-1">
           <CheckCircle2 className="size-3.5 text-emerald-500 flex-none" />
-          <span>All 20 technologies actively used in high-traffic production environments</span>
+          <span>All {DATA.skills.length} technologies actively used in high-traffic production environments</span>
         </div>
       </BlurFade>
     </div>

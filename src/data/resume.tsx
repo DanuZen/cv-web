@@ -2,24 +2,30 @@ import { Icons } from "@/components/icons";
 import { HomeIcon, Briefcase, Code2, Award, Mail } from "lucide-react";
 import { ReactLight } from "@/components/ui/svgs/reactLight";
 import { NextjsIconDark } from "@/components/ui/svgs/nextjsIconDark";
-import { Typescript } from "@/components/ui/svgs/typescript";
+import { Nuxt } from "@/components/ui/svgs/nuxt";
+import { Flutter } from "@/components/ui/svgs/flutter";
+import { Expo } from "@/components/ui/svgs/expo";
 import { Nodejs } from "@/components/ui/svgs/nodejs";
-import { Nestjs } from "@/components/ui/svgs/nestjs";
-import { Express } from "@/components/ui/svgs/express";
+import { GoFiber } from "@/components/ui/svgs/gofiber";
 import { Laravel } from "@/components/ui/svgs/laravel";
-import { Tailwindcss } from "@/components/ui/svgs/tailwindcss";
+import { FastAPI } from "@/components/ui/svgs/fastapi";
 import { Postgresql } from "@/components/ui/svgs/postgresql";
-import { Mysql } from "@/components/ui/svgs/mysql";
-import { Mongodb } from "@/components/ui/svgs/mongodb";
-import { Supabase } from "@/components/ui/svgs/supabase";
-import { Redis } from "@/components/ui/svgs/redis";
+import { NoSQL } from "@/components/ui/svgs/nosql";
+import { ORM } from "@/components/ui/svgs/orm";
+import { Linux } from "@/components/ui/svgs/linux";
+import { Proxmox } from "@/components/ui/svgs/proxmox";
 import { Docker } from "@/components/ui/svgs/docker";
+import { Kubernetes } from "@/components/ui/svgs/kubernetes";
+import { Grafana } from "@/components/ui/svgs/grafana";
+import { Nginx } from "@/components/ui/svgs/nginx";
+import { PM2 } from "@/components/ui/svgs/pm2";
+import { CICD } from "@/components/ui/svgs/cicd";
+import { GitHub } from "@/components/ui/svgs/github";
+import { GitLab } from "@/components/ui/svgs/gitlab";
 import { Aws } from "@/components/ui/svgs/aws";
-import { Vercel } from "@/components/ui/svgs/vercel";
-import { Git } from "@/components/ui/svgs/git";
-import { Socketio } from "@/components/ui/svgs/socketio";
-import { Midtrans } from "@/components/ui/svgs/midtrans";
-import { RestApi } from "@/components/ui/svgs/restapi";
+import { Azure } from "@/components/ui/svgs/azure";
+import { GoogleCloud } from "@/components/ui/svgs/googlecloud";
+import { Jupyter } from "@/components/ui/svgs/jupyter";
 
 export const DATA = {
   name: "Rian Septiawan",
@@ -33,26 +39,41 @@ export const DATA = {
     "Full-Stack Cross-Platform Developer and Tech Leader with deep expertise in modern web ecosystems (Next.js, React, TypeScript, NestJS, Laravel, and Cloud architectures). Experienced in leading engineering teams and building 12+ enterprise-grade production applications, multi-tenant educational SaaS platforms, university academic portals, local government digital services, and AI & IoT-powered solutions.",
   avatarUrl: "/foto-profil.jpeg",
   skills: [
+    // Frontend
     { name: "React", icon: ReactLight, category: "frontend" },
     { name: "Next.js", icon: NextjsIconDark, category: "frontend" },
-    { name: "TypeScript", icon: Typescript, category: "frontend" },
+    { name: "Nuxt", icon: Nuxt, category: "frontend" },
+    { name: "Flutter", icon: Flutter, category: "frontend" },
+    { name: "Expo", icon: Expo, category: "frontend" },
+
+    // Backend
     { name: "Node.js", icon: Nodejs, category: "backend" },
-    { name: "NestJS", icon: Nestjs, category: "backend" },
-    { name: "Express.js", icon: Express, category: "backend" },
+    { name: "GoFiber", icon: GoFiber, category: "backend" },
     { name: "Laravel", icon: Laravel, category: "backend" },
-    { name: "Tailwind CSS", icon: Tailwindcss, category: "frontend" },
+    { name: "FastAPI", icon: FastAPI, category: "backend" },
+
+    // Database
     { name: "PostgreSQL", icon: Postgresql, category: "database" },
-    { name: "MySQL", icon: Mysql, category: "database" },
-    { name: "MongoDB", icon: Mongodb, category: "database" },
-    { name: "Supabase", icon: Supabase, category: "database" },
-    { name: "Redis", icon: Redis, category: "database" },
-    { name: "Docker", icon: Docker, category: "cloud" },
-    { name: "AWS", icon: Aws, category: "cloud" },
-    { name: "Vercel", icon: Vercel, category: "cloud" },
-    { name: "Git", icon: Git, category: "cloud" },
-    { name: "Socket.IO", icon: Socketio, category: "backend" },
-    { name: "Midtrans", icon: Midtrans, category: "backend" },
-    { name: "REST API", icon: RestApi, category: "backend" },
+    { name: "NoSQL", icon: NoSQL, category: "database" },
+    { name: "ORM", icon: ORM, category: "database" },
+
+    // DevOps
+    { name: "Linux", icon: Linux, category: "devops" },
+    { name: "Proxmox", icon: Proxmox, category: "devops" },
+    { name: "Docker", icon: Docker, category: "devops" },
+    { name: "Kubernetes", icon: Kubernetes, category: "devops" },
+    { name: "Grafana", icon: Grafana, category: "devops" },
+    { name: "Nginx", icon: Nginx, category: "devops" },
+    { name: "PM2", icon: PM2, category: "devops" },
+    { name: "CI/CD", icon: CICD, category: "devops" },
+
+    // Tools
+    { name: "GitHub", icon: GitHub, category: "tools" },
+    { name: "GitLab", icon: GitLab, category: "tools" },
+    { name: "AWS", icon: Aws, category: "tools" },
+    { name: "Azure", icon: Azure, category: "tools" },
+    { name: "Google Console", icon: GoogleCloud, category: "tools" },
+    { name: "JupyterLab", icon: Jupyter, category: "tools" },
   ],
   navbar: [
     { href: "/#hero", icon: HomeIcon, label: "Home" },
