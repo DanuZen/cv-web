@@ -28,9 +28,9 @@ export const DATA = {
   location: "Padang, Indonesia",
   locationLink: "https://www.google.com/maps/place/Padang",
   description:
-    "Direktur PT Mbois Solusi Global, Founder Howarts Studio, & Fullstack Cross Platform Developer.",
+    "Director at PT Mbois Solusi Global, Founder of Howarts Studio, & Full-Stack Cross-Platform Developer.",
   summary:
-    "Seorang Fullstack Cross Platform Developer dan Tech Leader dengan keahlian mendalam dalam ekosistem web modern (Next.js, React, TypeScript, NestJS, Laravel, dan arsitektur Cloud). Berpengalaman memimpin tim teknologi dan membangun 12+ aplikasi production berskala enterprise, platform SaaS multi-tenant pendidikan, portal akademik universitas, sistem pemerintahan daerah, dan platform berbasis AI & IoT.",
+    "Full-Stack Cross-Platform Developer and Tech Leader with deep expertise in modern web ecosystems (Next.js, React, TypeScript, NestJS, Laravel, and Cloud architectures). Experienced in leading engineering teams and building 12+ enterprise-grade production applications, multi-tenant educational SaaS platforms, university academic portals, local government digital services, and AI & IoT-powered solutions.",
   avatarUrl: "/foto-profil.jpeg",
   skills: [
     { name: "React", icon: ReactLight, category: "frontend" },
@@ -92,12 +92,12 @@ export const DATA = {
       href: "#",
       badges: ["Director", "Leadership"],
       location: "Padang, Indonesia",
-      title: "Direktur",
+      title: "Director",
       logoUrl: "",
       start: "2024",
       end: "Present",
       description:
-        "Memimpin visi strategis, manajemen operasional, dan pengembangan solusi teknologi perangkat lunak berstandar enterprise untuk berbagai klien korporat, instansi pemerintah, dan institusi pendidikan tinggi.",
+        "Leading strategic vision, operational execution, and enterprise-grade software engineering for corporate clients, government agencies, and higher education institutions.",
     },
     {
       company: "Howarts Studio",
@@ -109,43 +109,43 @@ export const DATA = {
       start: "2024",
       end: "Present",
       description:
-        "Mendirikan dan mengembangkan software house independen yang berfokus pada riset dan perancangan produk digital, platform SaaS, serta arsitektur web modern skala tinggi.",
+        "Founded and scaled an independent software agency focused on digital product research & engineering, scalable SaaS platforms, and high-load modern web architectures.",
     },
     {
       company: "UK Infitech UNP",
       href: "https://uk-ormawa.unp.ac.id/",
       badges: ["Organization", "President"],
       location: "Universitas Negeri Padang",
-      title: "Ketua Umum",
+      title: "President & Tech Lead",
       logoUrl: "",
       start: "2025",
       end: "2026",
       description:
-        "Memimpin organisasi kemahasiswaan riset dan inovasi teknologi informasi di Universitas Negeri Padang, mengoordinasikan program pengembangan talenta digital, serta memfasilitasi inkubasi karya teknologi mahasiswa.",
+        "Led the student research and IT innovation organization at Universitas Negeri Padang, coordinating digital talent incubation programs and accelerating student tech initiatives.",
     },
     {
       company: "Fullstack Cross Platform Developer (Production & Freelance)",
       href: "https://github.com/DanuZen",
       badges: ["Fullstack", "Production"],
       location: "Padang, Indonesia",
-      title: "Fullstack Cross Platform Developer",
+      title: "Full-Stack Cross-Platform Developer",
       logoUrl: "",
       start: "2024",
       end: "Present",
       description:
-        "Mengembangkan 12+ aplikasi web dan cross-platform level produksi dengan teknologi mutakhir (Next.js 14/15, NestJS, Laravel 12, PostgreSQL, Supabase). Berpengalaman dalam implementasi sistem multi-tenant skala besar, integrasi AI (GPT-4/LangChain), payment gateway Midtrans, dan fitur real-time Socket.IO.",
+        "Engineered and shipped 12+ production web and cross-platform applications leveraging Next.js 14/15, NestJS, Laravel 12, PostgreSQL, and Supabase. Experienced in large-scale multi-tenant architectures, AI integrations (GPT-4 / LangChain), Midtrans payment gateway, and Socket.IO real-time capabilities.",
     },
     {
       company: "Wali Nagari Guguak Malalo",
       href: "#",
       badges: ["Internship", "Government"],
-      location: "Guguak Malalo, Sumatera Barat",
-      title: "Intern Full Stack Web Developer",
+      location: "Guguak Malalo, West Sumatra",
+      title: "Intern Full-Stack Web Developer",
       logoUrl: "",
       start: "2025",
       end: "2025",
       description:
-        "Memimpin pengembangan portal layanan publik digital untuk pemerintahan daerah. Membangun sistem autentikasi multi-role aman dengan JWT serta mengimplementasikan fitur notifikasi real-time interaktif menggunakan Socket.IO.",
+        "Spearheaded the development of a digital public services portal for the regional government. Built secure multi-role JWT authentication and interactive real-time notifications via Socket.IO.",
     },
   ],
 
@@ -153,7 +153,7 @@ export const DATA = {
     {
       school: "Universitas Negeri Padang (UNP)",
       href: "https://unp.ac.id",
-      degree: "S1 Pendidikan Teknik Informatika",
+      degree: "Bachelor of Education in Informatics & Computer Engineering",
       logoUrl: "",
       start: "2021",
       end: "2025",
@@ -164,10 +164,10 @@ export const DATA = {
     {
       title: "SIAKAD ISI Padang Panjang",
       href: "https://siakad.isi-padangpanjang.ac.id/",
-      dates: "2024 - Sekarang",
+      dates: "2024 - Present",
       active: true,
       description:
-        "Sistem Informasi Akademik Institut Seni Indonesia (ISI) Padang Panjang untuk pengelolaan perkuliahan, registrasi mahasiswa, KRS, penilaian dosen, dan administrasi akademik terpadu.",
+        "Integrated Academic Information System for Institut Seni Indonesia (ISI) Padang Panjang, managing course scheduling, student registrations, study plans (KRS), grading, and unified campus administration.",
       technologies: ["PHP", "Laravel", "MySQL", "JavaScript", "Tailwind CSS", "REST API"],
       links: [
         {
@@ -182,10 +182,10 @@ export const DATA = {
     {
       title: "SINERGIS LPPM ISI Padang Panjang",
       href: "https://sinergis.isi-padangpanjang.ac.id/",
-      dates: "2024 - Sekarang",
+      dates: "2024 - Present",
       active: true,
       description:
-        "Sistem Informasi Manajemen Lembaga Penelitian dan Pengabdian kepada Masyarakat (LPPM) ISI Padang Panjang untuk pengelolaan proposal hibah riset, pengabdian masyarakat, dan publikasi ilmiah.",
+        "Research & Community Service Management Information System (LPPM) for ISI Padang Panjang, facilitating research grant proposals, community service programs, and scientific publication tracking.",
       technologies: ["Laravel", "PHP", "PostgreSQL", "REST API", "Tailwind CSS", "Bootstrap"],
       links: [
         {
@@ -203,7 +203,7 @@ export const DATA = {
       dates: "2024",
       active: true,
       description:
-        "Sistem manajemen travel dan transportasi antarkota terintegrasi dengan pemesanan tiket online, manajemen armada/jadwal, pemilihan kursi interaktif, dan integrasi payment gateway Midtrans.",
+        "Integrated intercity transportation and travel management platform featuring online ticket booking, fleet & route scheduling, interactive seat selection, and Midtrans payment gateway integration.",
       technologies: ["Next.js", "NestJS", "TypeScript", "PostgreSQL", "Midtrans", "Tailwind CSS"],
       links: [
         {
@@ -216,12 +216,12 @@ export const DATA = {
       video: "",
     },
     {
-      title: "SiCanting (Deteksi & Pemantauan Stunting)",
+      title: "SiCanting (Stunting Detection & Monitoring)",
       href: "https://sicanting.app/",
-      dates: "2024 - Sekarang",
+      dates: "2024 - Present",
       active: true,
       description:
-        "Platform terintegrasi untuk deteksi dini, pencatatan antropometri balita, dan pemantauan intervensi stunting bagi tenaga kesehatan posyandu dan puskesmas secara terpusat.",
+        "Centralized healthcare platform for early stunting detection, infant anthropometric logging, and nutritional intervention tracking for community clinics and public healthcare centers.",
       technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS", "PWA"],
       links: [
         {
@@ -236,10 +236,10 @@ export const DATA = {
     {
       title: "Replan Works",
       href: "https://replan.works/",
-      dates: "2024 - Sekarang",
+      dates: "2024 - Present",
       active: true,
       description:
-        "Platform SaaS terintegrasi manajemen proyek modern dengan pelacakan tugas kolaboratif, timeline sprint, alokasi beban kerja tim, dan pelaporan produktivitas real-time.",
+        "Integrated SaaS project management platform featuring collaborative task tracking, sprint timelines, team workload balancing, and real-time productivity analytics.",
       technologies: ["Next.js", "NestJS", "PostgreSQL", "Redis", "TypeScript", "Socket.IO"],
       links: [
         {
@@ -252,12 +252,12 @@ export const DATA = {
       video: "",
     },
     {
-      title: "KATUMBA PAUD Kota Bukittinggi",
+      title: "KATUMBA Early Childhood Education Portal",
       href: "https://katumbapaud.bukittinggikota.go.id/",
       dates: "2024",
       active: true,
       description:
-        "Sistem digital monitoring dan pencatatan perkembangan anak-anak Pendidikan Anak Usia Dini (PAUD) resmi Pemerintah Kota Bukittinggi untuk pemantauan tumbuh kembang dan riwayat gizi.",
+        "Official digital monitoring and developmental tracking system for Early Childhood Education (PAUD) by the Bukittinggi City Government, tracking child milestones and nutritional history.",
       technologies: ["Next.js", "NestJS", "PostgreSQL", "Supabase", "Tailwind CSS"],
       links: [
         {
@@ -270,12 +270,12 @@ export const DATA = {
       video: "",
     },
     {
-      title: "Buku Induk Kesetaraan",
+      title: "Equivalency Master Register (Buku Induk)",
       href: "https://bukuinduk-kesetaraan.bukittinggikota.go.id/",
-      dates: "2024 - Sekarang",
+      dates: "2024 - Present",
       active: true,
       description:
-        "Platform SaaS manajemen sekolah untuk pendidikan non-formal (PKBM/SKB) Kota Bukittinggi yang digunakan oleh 100+ lembaga untuk pengelolaan data induk peserta didik (Paket A, B, C).",
+        "School management SaaS platform for non-formal education centers (PKBM/SKB) across Bukittinggi City, utilized by 100+ institutions for student master records (Package A, B, C).",
       technologies: ["Next.js", "NestJS", "PostgreSQL", "Redis", "TypeScript", "Tailwind CSS"],
       links: [
         {
@@ -293,7 +293,7 @@ export const DATA = {
       dates: "2024",
       active: true,
       description:
-        "Platform manajemen medical course for students dan persiapan UKMPPD dengan video pembelajaran interaktif, bank soal medis, simulasi ujian, dan pembayaran otomatis.",
+        "Medical course management and exam preparation platform featuring interactive instructional videos, medical question banks, timed mock exams, and automated payment processing.",
       technologies: ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "Midtrans", "Tailwind CSS"],
       links: [
         {
@@ -311,7 +311,7 @@ export const DATA = {
       dates: "2024",
       active: true,
       description:
-        "Platform gamifikasi edukasi IoT inovatif yang memadukan visualisasi game 2D berbasis web dengan transmisi data sensor perangkat keras IoT secara real-time.",
+        "Innovative IoT educational gamification platform combining 2D browser-based canvas rendering with real-time sensor telemetry from connected hardware devices.",
       technologies: ["Next.js", "Phaser.js", "Socket.IO", "TypeScript", "Node.js", "Tailwind CSS"],
       links: [
         {
@@ -324,12 +324,12 @@ export const DATA = {
       video: "",
     },
     {
-      title: "UK-ORMAWA UNP",
+      title: "UK-ORMAWA Student Organization Portal",
       href: "https://uk-ormawa.unp.ac.id/",
       dates: "2024",
       active: true,
       description:
-        "Portal resmi Organisasi Mahasiswa Universitas Negeri Padang untuk memfasilitasi legalitas ormawa, pengajuan proposal kegiatan, perizinan, dan koordinasi kemahasiswaan terpadu.",
+        "Official student affairs portal for Universitas Negeri Padang, facilitating organizational accreditation, activity proposals, event permits, and campus-wide governance.",
       technologies: ["Laravel 12", "PHP 8.2", "MySQL", "REST API", "Bootstrap"],
       links: [
         {
@@ -347,7 +347,7 @@ export const DATA = {
       dates: "2024",
       active: true,
       description:
-        "Platform event end-to-end expo internasional animasi dan game tahunan di Padang, mencakup registrasi peserta, kurasi karya pameran, ticketing, dan jadwal expo.",
+        "End-to-end event platform for the annual international animation and gaming expo in Padang, handling attendee registration, exhibit curation, ticketing, and scheduling.",
       technologies: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Prisma ORM"],
       links: [
         {
@@ -365,7 +365,7 @@ export const DATA = {
       dates: "2024",
       active: true,
       description:
-        "Platform manajemen hotel dan hospitality terintegrasi untuk reservasi kamar online, sinkronisasi ketersediaan kamar real-time, manajemen tamu, dan sistem kasir/POS.",
+        "Integrated hotel and hospitality management solution featuring real-time room availability sync, online booking, guest administration, and point-of-sale (POS) cashier systems.",
       technologies: ["Next.js", "NestJS", "TypeScript", "PostgreSQL", "Redis", "Tailwind CSS"],
       links: [
         {
@@ -386,7 +386,7 @@ export const DATA = {
       dates: "2025",
       location: "Network Engineering",
       description:
-        "Validasi kompetensi profesional dalam konfigurasi jaringan komputer, routing RouterOS, firewall filtering, bandwidth management, dan wireless networking.",
+        "Professional certification validating computer networking competence, RouterOS routing configurations, firewall filtering, bandwidth traffic shaping, and wireless networking.",
       image: "",
       links: [
         {
@@ -402,7 +402,7 @@ export const DATA = {
       dates: "2024",
       location: "Cloud Architecture",
       description:
-        "Validasi kemampuan teknis dalam mengembangkan, menguji, men-deploy, dan mengoptimalkan aplikasi cloud-native menggunakan layanan AWS (Lambda, ECS, DynamoDB, API Gateway, S3, IAM).",
+        "Technical validation of proficiency in architecting, developing, deploying, and maintaining cloud-native applications on AWS (Lambda, ECS, DynamoDB, API Gateway, S3, IAM).",
       image: "",
       links: [
         {

@@ -37,14 +37,14 @@ export default function ContactSection() {
             </TypingAnimation>
           </h2>
           <p className="mx-auto max-w-xl text-muted-foreground text-balance text-base sm:text-lg leading-relaxed">
-            Tertarik untuk berkolaborasi atau mendiskusikan proyek baru? Jangan ragu untuk menghubungi saya melalui{" "}
+            Interested in collaborating or discussing a new project? Feel free to reach out via{" "}
             <Link
               href={`mailto:${DATA.contact.email}`}
               className="text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm font-medium"
             >
               email
             </Link>{" "}
-            atau kirim pesan melalui{" "}
+            or drop me a direct message on{" "}
             <Link
               href={DATA.contact.social.Instagram.url}
               target="_blank"
