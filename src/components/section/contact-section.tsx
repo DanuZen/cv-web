@@ -13,8 +13,8 @@ export default function ContactSection() {
         data-swarm-hover-card="true"
         className="border border-border/70 rounded-2xl p-4 sm:p-14 relative bg-card/20 shadow-sm"
       >
-        <div className="absolute -top-4 border bg-primary z-10 rounded-xl px-5 py-1.5 left-1/2 -translate-x-1/2 shadow-sm">
-          <span className="text-background text-xs sm:text-sm font-medium tracking-wide">Contact</span>
+        <div className="absolute -top-4 border border-white/80 dark:border-white/70 bg-linear-to-b from-white via-neutral-100 to-neutral-200 dark:from-white dark:via-neutral-100 dark:to-neutral-200 z-10 rounded-full px-5 py-1.5 left-1/2 -translate-x-1/2 shadow-[0_1px_3px_rgba(0,0,0,0.12)] dark:shadow-[0_0_12px_rgba(255,255,255,0.12)]">
+          <span className="text-neutral-950 text-xs sm:text-sm font-semibold tracking-wide">Contact</span>
         </div>
         <div className="absolute inset-0 top-0 left-0 right-0 h-1/2 rounded-2xl overflow-hidden pointer-events-none">
           <FlickeringGrid
