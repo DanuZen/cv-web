@@ -152,6 +152,17 @@
     @apply bg-background text-foreground;
   }
 
+  /* Justify all body paragraphs (rata kiri-kanan) */
+  p {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .prose p {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
   /* Shiki dual theme support */
   .shiki,
   .shiki span {

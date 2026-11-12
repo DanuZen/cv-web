@@ -109,7 +109,7 @@ export default function Page() {
             waitForSwarm={true}
             action="reading summary"
           >
-            <div className="prose max-w-4xl mx-auto text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert text-base sm:text-lg">
+            <div className="prose max-w-4xl mx-auto font-sans leading-relaxed text-muted-foreground dark:prose-invert text-base sm:text-lg text-justify">
               <Markdown>
                 {DATA.summary}
               </Markdown>

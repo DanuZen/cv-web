@@ -144,7 +144,7 @@ export function ProjectCard({
             <ArrowUpRight className="h-4 w-4" aria-hidden />
           </Link>
         </div>
-        <div className="text-xs sm:text-sm flex-1 prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
+        <div className="text-xs sm:text-sm flex-1 prose max-w-full font-sans leading-relaxed text-muted-foreground dark:prose-invert text-justify">
           <Markdown>{description}</Markdown>
         </div>
         {tags && tags.length > 0 && (

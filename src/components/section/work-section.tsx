@@ -98,7 +98,7 @@ export default function WorkSection() {
                   </div>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="pt-3 mt-3 border-t border-border/40 text-xs sm:text-sm leading-relaxed text-muted-foreground">
+              <AccordionContent className="pt-3 mt-3 border-t border-border/40 text-xs sm:text-sm leading-relaxed text-muted-foreground text-justify">
                 {work.description}
               </AccordionContent>
             </AccordionItem>

@@ -57,7 +57,7 @@ export default function CertificationsSection() {
                     {cert.issuer} • <span className="text-muted-foreground">{cert.location}</span>
                   </p>
                   {cert.description && (
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-justify">
                       {cert.description}
                     </p>
                   )}
