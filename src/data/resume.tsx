@@ -147,7 +147,7 @@ export const DATA = {
         "Led the student research and IT innovation organization at Universitas Negeri Padang, coordinating digital talent incubation programs and accelerating student tech initiatives.",
     },
     {
-      company: "Fullstack Cross Platform Developer (Production & Freelance)",
+      company: "Fullstack Cross Platform Developer",
       href: "https://github.com/Ryan-infitech",
       badges: ["Fullstack", "Production"],
       location: "Padang, Indonesia",
