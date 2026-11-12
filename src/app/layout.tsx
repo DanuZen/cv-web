@@ -1,5 +1,6 @@
 import Navbar from "@/components/navbar";
 import SwarmOverlay from "@/components/swarm/swarm-overlay";
+import { ScrollToTop } from "@/components/scroll-to-top";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
@@ -65,6 +66,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if ('scrollRestoration' in history) {
+                  history.scrollRestoration = 'manual';
+                }
+                window.scrollTo(0, 0);
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased relative",
@@ -72,6 +87,7 @@ export default function RootLayout({
           geistMono.variable
         )}
       >
+        <ScrollToTop />
         <ThemeProvider attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>
             <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
