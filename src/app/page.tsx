@@ -11,7 +11,6 @@ import WorkSection from "@/components/section/work-section";
 import { SkillsSection } from "@/components/skills-section";
 import { SectionHeader } from "@/components/section-header";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { MagicCard } from "@/components/ui/magic-card";
 import { ArrowUpRight, GraduationCap } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -111,7 +110,7 @@ export default function Page() {
                 align="left"
                 compact
               />
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col divide-y divide-border/40">
                 {DATA.education.map((education, index) => (
                   <BlurFade
                     key={education.school}
@@ -119,44 +118,42 @@ export default function Page() {
                     waitForSwarm={true}
                     action="checking degree"
                   >
-                    <MagicCard gradientSize={220} className="rounded-xl transition-all duration-200">
-                      <Link
-                        href={education.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex flex-col sm:flex-row sm:items-center gap-y-2 sm:gap-x-4 justify-between group p-4 sm:p-5 w-full"
-                      >
-                        <div className="flex items-center gap-x-3.5 sm:gap-x-4 flex-1 min-w-0">
-                          {education.logoUrl ? (
-                            <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 overflow-hidden flex-none bg-background flex items-center justify-center">
-                              <img
-                                src={education.logoUrl}
-                                alt={education.school}
-                                className="size-full object-contain"
-                              />
-                            </div>
-                          ) : (
-                            <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 bg-background flex items-center justify-center flex-none">
-                              <GraduationCap className="size-5 text-foreground/80" />
-                            </div>
-                          )}
-                          <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-                            <div className="font-semibold leading-snug sm:leading-none flex items-center gap-2 text-sm sm:text-base">
-                              <span>{education.school}</span>
-                              <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
-                            </div>
-                            <div className="font-sans text-xs sm:text-sm text-muted-foreground">
-                              {education.degree}
-                            </div>
+                    <Link
+                      href={education.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-col sm:flex-row sm:items-center gap-y-1.5 sm:gap-x-3.5 justify-between group py-3 sm:py-3.5 px-2 sm:px-3 hover:bg-muted/30 rounded-xl transition-all duration-200 w-full"
+                    >
+                      <div className="flex items-center gap-x-3 sm:gap-x-3.5 flex-1 min-w-0">
+                        {education.logoUrl ? (
+                          <div className="size-9 sm:size-10 p-1 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 overflow-hidden flex-none bg-background flex items-center justify-center">
+                            <img
+                              src={education.logoUrl}
+                              alt={education.school}
+                              className="size-full object-contain"
+                            />
+                          </div>
+                        ) : (
+                          <div className="size-9 sm:size-10 p-1 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 bg-background flex items-center justify-center flex-none">
+                            <GraduationCap className="size-4 text-foreground/80" />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0 flex flex-col gap-0.5">
+                          <div className="font-semibold leading-snug sm:leading-none flex items-center gap-2 text-sm sm:text-base">
+                            <span>{education.school}</span>
+                            <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
+                          </div>
+                          <div className="font-sans text-xs sm:text-sm text-muted-foreground">
+                            {education.degree}
                           </div>
                         </div>
-                        <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-left sm:text-right pl-[54px] sm:pl-0 flex-none font-medium">
-                          <span>
-                            {education.start} - {education.end}
-                          </span>
-                        </div>
-                      </Link>
-                    </MagicCard>
+                      </div>
+                      <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-left sm:text-right pl-[46px] sm:pl-0 flex-none font-medium">
+                        <span>
+                          {education.start} - {education.end}
+                        </span>
+                      </div>
+                    </Link>
                   </BlurFade>
                 ))}
               </div>
