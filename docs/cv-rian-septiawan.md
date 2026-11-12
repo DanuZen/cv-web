@@ -3,7 +3,7 @@
 **Posisi / Peran:** Direktur PT Mbois Solusi Global | Founder Howarts Studio | Fullstack Cross Platform Developer  
 **Lokasi:** Padang, Indonesia  
 **Foto Profil:** `public/foto-profil.jpeg`  
-**GitHub:** [github.com/DanuZen](https://github.com/DanuZen)  
+**GitHub:** [github.com/Ryan-infitech](https://github.com/Ryan-infitech)  
 **Email:** rianseptiawan@student.unp.ac.id  
 **Telepon / WhatsApp:** +6285157617798  
 **Instagram:** [@ryan.septiawan__](https://instagram.com/ryan.septiawan__)  

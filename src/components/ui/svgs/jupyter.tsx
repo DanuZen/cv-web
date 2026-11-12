@@ -20,3 +20,4 @@ export function Jupyter(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+

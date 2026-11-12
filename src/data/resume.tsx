@@ -30,7 +30,7 @@ import { Jupyter } from "@/components/ui/svgs/jupyter";
 export const DATA = {
   name: "Rian Septiawan",
   initials: "RS",
-  url: "https://github.com/DanuZen",
+  url: "https://github.com/Ryan-infitech",
   location: "Padang, Indonesia",
   locationLink: "https://www.google.com/maps/place/Padang",
   description:
@@ -88,7 +88,7 @@ export const DATA = {
     social: {
       GitHub: {
         name: "GitHub",
-        url: "https://github.com/DanuZen",
+        url: "https://github.com/Ryan-infitech",
         icon: Icons.github,
         navbar: true,
       },
@@ -146,7 +146,7 @@ export const DATA = {
     },
     {
       company: "Fullstack Cross Platform Developer (Production & Freelance)",
-      href: "https://github.com/DanuZen",
+      href: "https://github.com/Ryan-infitech",
       badges: ["Fullstack", "Production"],
       location: "Padang, Indonesia",
       title: "Full-Stack Cross-Platform Developer",

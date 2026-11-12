@@ -19,3 +19,4 @@ export function Nuxt(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+

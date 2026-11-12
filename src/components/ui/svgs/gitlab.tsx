@@ -10,3 +10,4 @@ export function GitLab(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+

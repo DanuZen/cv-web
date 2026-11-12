@@ -7,3 +7,4 @@ export function Expo(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+

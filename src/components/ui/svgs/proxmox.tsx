@@ -24,3 +24,4 @@ export function Proxmox(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+

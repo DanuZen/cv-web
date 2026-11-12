@@ -20,3 +20,4 @@ export function Grafana(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+

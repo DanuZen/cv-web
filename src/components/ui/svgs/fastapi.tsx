@@ -14,3 +14,4 @@ export function FastAPI(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+

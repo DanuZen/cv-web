@@ -17,3 +17,4 @@ export function CICD(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+

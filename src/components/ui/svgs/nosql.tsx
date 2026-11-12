@@ -20,3 +20,4 @@ export function NoSQL(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+

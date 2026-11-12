@@ -15,3 +15,4 @@ export function PM2(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+

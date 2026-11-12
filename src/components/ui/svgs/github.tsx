@@ -11,3 +11,4 @@ export function GitHub(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+

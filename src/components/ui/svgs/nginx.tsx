@@ -14,3 +14,4 @@ export function Nginx(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+
