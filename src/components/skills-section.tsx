@@ -49,7 +49,7 @@ export function SkillsSection({ compact = false }: { compact?: boolean } = {}) {
   }, []);
 
   return (
-    <div className="w-full flex flex-col gap-y-4 sm:gap-y-4.5">
+    <div className="w-full flex flex-col gap-y-2.5 sm:gap-y-3.5 lg:gap-y-4.5">
       {groupedSkills.map((cat, idx) => {
         const CategoryIcon = cat.icon;
         return (
@@ -58,28 +58,28 @@ export function SkillsSection({ compact = false }: { compact?: boolean } = {}) {
             delay={idx * 0.03}
             waitForSwarm={true}
             action={`reviewing ${cat.label} stack`}
-            className="flex flex-col gap-1 sm:gap-1.5"
+            className="flex flex-col gap-0.5 sm:gap-1 lg:gap-1.5"
           >
             {/* Category Heading */}
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground tracking-tight">
-              <CategoryIcon className="size-3.5 text-primary flex-none" />
+            <div className="flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] lg:text-xs font-semibold text-foreground tracking-tight">
+              <CategoryIcon className="size-3 sm:size-3.5 text-primary flex-none" />
               <span>{cat.label}</span>
-              <span className="text-[10px] font-mono text-muted-foreground/60 font-normal">
+              <span className="text-[8.5px] sm:text-[9.5px] lg:text-[10px] font-mono text-muted-foreground/60 font-normal">
                 ({cat.items.length})
               </span>
             </div>
 
             {/* List of Technologies separated by dots */}
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground leading-relaxed pl-5">
+            <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 sm:gap-x-2 sm:gap-y-1 text-[9.5px] sm:text-[11px] lg:text-xs text-muted-foreground leading-relaxed pl-1.5 sm:pl-3 lg:pl-5">
               {cat.items.map((skill, sIdx) => {
                 const IconComponent = "icon" in skill && skill.icon ? skill.icon : null;
                 return (
                   <span
                     key={skill.name}
-                    className="inline-flex items-center gap-1.5 text-foreground/90 font-medium hover:text-foreground transition-colors"
+                    className="inline-flex items-center gap-1 sm:gap-1.5 text-foreground/90 font-medium hover:text-foreground transition-colors"
                   >
                     {IconComponent && (
-                      <span className="size-3.5 inline-flex items-center justify-center flex-none">
+                      <span className="size-3 sm:size-3.5 inline-flex items-center justify-center flex-none">
                         <IconComponent className="size-full object-contain overflow-visible" />
                       </span>
                     )}
@@ -96,8 +96,8 @@ export function SkillsSection({ compact = false }: { compact?: boolean } = {}) {
       })}
 
       {/* Quality indicator */}
-      <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/80 pt-2 border-t border-border/30">
-        <CheckCircle2 className="size-3 text-emerald-500 flex-none" />
+      <div className="flex items-center gap-1 sm:gap-1.5 text-[8.5px] sm:text-[10px] lg:text-[11px] text-muted-foreground/80 pt-1.5 sm:pt-2 border-t border-border/30">
+        <CheckCircle2 className="size-2.5 sm:size-3 text-emerald-500 flex-none" />
         <span>All {DATA.skills.length} technologies actively used in production environments</span>
       </div>
     </div>

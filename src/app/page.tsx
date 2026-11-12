@@ -59,12 +59,12 @@ export default function Page() {
           </div>
         </section>
         {/* ================= COMPACT RESUME / CV SECTION (About, Work, Education, Skills) ================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-        {/* Left Column (lg:col-span-7): About Me, Work Experience & Education */}
-        <div className="lg:col-span-7 flex flex-col gap-10 sm:gap-12 min-w-0">
+        <div className="grid grid-cols-12 gap-2 sm:gap-4 md:gap-6 lg:gap-10 items-start">
+        {/* Left Column (col-span-7): About Me, Work Experience & Education */}
+        <div className="col-span-7 flex flex-col gap-4 sm:gap-7 lg:gap-10 min-w-0">
           {/* About Me */}
           <section id="about" className="scroll-mt-24">
-            <div className="flex min-h-0 flex-col gap-y-4 sm:gap-y-5">
+            <div className="flex min-h-0 flex-col gap-y-2 sm:gap-y-4 lg:gap-y-5">
               <SectionHeader
                 badge="About Me"
                 title="Summary & Overview"
@@ -77,7 +77,7 @@ export default function Page() {
                 waitForSwarm={true}
                 action="reading summary"
               >
-                <div className="prose font-sans leading-relaxed text-muted-foreground dark:prose-invert text-sm sm:text-base text-justify">
+                <div className="prose font-sans leading-relaxed text-muted-foreground dark:prose-invert text-[10.5px] sm:text-sm lg:text-base text-justify">
                   <Markdown>
                     {DATA.summary}
                   </Markdown>
@@ -88,7 +88,7 @@ export default function Page() {
 
           {/* Work Experience */}
           <section id="work" className="scroll-mt-24">
-            <div className="flex min-h-0 flex-col gap-y-5 sm:gap-y-6">
+            <div className="flex min-h-0 flex-col gap-y-2.5 sm:gap-y-5 lg:gap-y-6">
               <SectionHeader
                 badge="Work Experience"
                 title="Where I've Built & Shipped"
@@ -102,7 +102,7 @@ export default function Page() {
 
           {/* Education */}
           <section id="education" className="scroll-mt-24">
-            <div className="flex min-h-0 flex-col gap-y-5 sm:gap-y-6">
+            <div className="flex min-h-0 flex-col gap-y-2.5 sm:gap-y-5 lg:gap-y-6">
               <SectionHeader
                 badge="Education"
                 title="Academic Background"
@@ -122,11 +122,11 @@ export default function Page() {
                       href={education.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex flex-col sm:flex-row sm:items-center gap-y-1.5 sm:gap-x-3.5 justify-between group py-3 sm:py-3.5 px-2 sm:px-3 hover:bg-muted/30 rounded-xl transition-all duration-200 w-full"
+                      className="flex flex-col sm:flex-row sm:items-center gap-y-1 sm:gap-x-2.5 lg:gap-x-3.5 justify-between group py-1.5 sm:py-2.5 lg:py-3.5 px-1 sm:px-2 lg:px-3 hover:bg-muted/30 rounded-lg sm:rounded-xl transition-all duration-200 w-full"
                     >
-                      <div className="flex items-center gap-x-3 sm:gap-x-3.5 flex-1 min-w-0">
+                      <div className="flex items-center gap-x-1.5 sm:gap-x-2.5 lg:gap-x-3.5 flex-1 min-w-0">
                         {education.logoUrl ? (
-                          <div className="size-9 sm:size-10 p-1 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 overflow-hidden flex-none bg-background flex items-center justify-center">
+                          <div className="size-6 sm:size-8 lg:size-10 p-0.5 sm:p-1 border border-border/80 rounded-full shadow-xs ring-1 sm:ring-2 ring-border/50 overflow-hidden flex-none bg-background flex items-center justify-center">
                             <img
                               src={education.logoUrl}
                               alt={education.school}
@@ -134,21 +134,21 @@ export default function Page() {
                             />
                           </div>
                         ) : (
-                          <div className="size-9 sm:size-10 p-1 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 bg-background flex items-center justify-center flex-none">
-                            <GraduationCap className="size-4 text-foreground/80" />
+                          <div className="size-6 sm:size-8 lg:size-10 p-0.5 sm:p-1 border border-border/80 rounded-full shadow-xs ring-1 sm:ring-2 ring-border/50 bg-background flex items-center justify-center flex-none">
+                            <GraduationCap className="size-3 sm:size-3.5 lg:size-4 text-foreground/80" />
                           </div>
                         )}
                         <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-                          <div className="font-semibold leading-snug sm:leading-none flex items-center gap-2 text-sm sm:text-base">
-                            <span>{education.school}</span>
-                            <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
+                          <div className="font-semibold leading-snug sm:leading-none flex items-center gap-1.5 text-[11px] sm:text-sm lg:text-base">
+                            <span className="truncate">{education.school}</span>
+                            <ArrowUpRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
                           </div>
-                          <div className="font-sans text-xs sm:text-sm text-muted-foreground">
+                          <div className="font-sans text-[9.5px] sm:text-xs lg:text-sm text-muted-foreground truncate">
                             {education.degree}
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-left sm:text-right pl-[46px] sm:pl-0 flex-none font-medium">
+                      <div className="flex items-center gap-1 text-[8.5px] sm:text-xs lg:text-sm tabular-nums text-muted-foreground text-left sm:text-right pl-7 sm:pl-[38px] lg:pl-0 flex-none font-medium">
                         <span>
                           {education.start} - {education.end}
                         </span>
@@ -161,11 +161,11 @@ export default function Page() {
           </section>
         </div>
 
-        {/* Right Column (lg:col-span-5): Skills, Languages, Contact */}
-        <div className="lg:col-span-5 flex flex-col gap-6 sm:gap-7 p-5 sm:p-7 rounded-3xl bg-muted/20 dark:bg-muted/10 border border-border/50 backdrop-blur-xs min-w-0">
+        {/* Right Column (col-span-5): Skills, Languages, Contact */}
+        <div className="col-span-5 flex flex-col gap-3.5 sm:gap-5 lg:gap-7 p-2 sm:p-4 lg:p-7 rounded-2xl sm:rounded-3xl bg-muted/20 dark:bg-muted/10 border border-border/50 backdrop-blur-xs min-w-0">
           {/* Skills & Technologies */}
           <section id="skills" className="scroll-mt-24">
-            <div className="flex min-h-0 flex-col gap-y-4 sm:gap-y-5">
+            <div className="flex min-h-0 flex-col gap-y-2 sm:gap-y-4 lg:gap-y-5">
               <SectionHeader
                 badge="Skills & Technologies"
                 title="What I Bring to the Table"
@@ -181,7 +181,7 @@ export default function Page() {
 
           {/* Languages */}
           <section id="languages" className="scroll-mt-24">
-            <div className="flex min-h-0 flex-col gap-y-3 sm:gap-y-3.5">
+            <div className="flex min-h-0 flex-col gap-y-2 sm:gap-y-3 lg:gap-y-3.5">
               <SectionHeader
                 badge="Languages"
                 title="Language Proficiency"
@@ -189,7 +189,7 @@ export default function Page() {
                 align="left"
                 compact
               />
-              <div className="flex flex-col gap-1 sm:gap-1.5">
+              <div className="flex flex-col gap-0.5 sm:gap-1 lg:gap-1.5">
                 {DATA.languages.map((lang, idx) => (
                   <BlurFade
                     key={lang.name}
@@ -197,16 +197,16 @@ export default function Page() {
                     waitForSwarm={true}
                     action={`reviewing ${lang.name} proficiency`}
                   >
-                    <div className="flex items-center justify-between py-1.5 px-2.5 rounded-lg hover:bg-muted/30 transition-colors text-xs sm:text-sm">
-                      <div className="flex items-center gap-2.5">
-                        <Globe className="size-3.5 text-primary flex-none" />
-                        <span className="font-medium text-foreground">{lang.name}</span>
+                    <div className="flex items-center justify-between py-1 sm:py-1.5 px-1.5 sm:px-2.5 rounded-md sm:rounded-lg hover:bg-muted/30 transition-colors text-[10px] sm:text-xs lg:text-sm">
+                      <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0">
+                        <Globe className="size-3 sm:size-3.5 text-primary flex-none" />
+                        <span className="font-medium text-foreground truncate">{lang.name}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-xs">
+                      <div className="flex items-center gap-1.5 sm:gap-2 text-[9px] sm:text-xs flex-none">
                         <span className="text-muted-foreground font-medium">
                           {lang.level}
                         </span>
-                        <span className="size-1.5 rounded-full bg-emerald-500 flex-none" />
+                        <span className="size-1 sm:size-1.5 rounded-full bg-emerald-500 flex-none" />
                       </div>
                     </div>
                   </BlurFade>
@@ -219,7 +219,7 @@ export default function Page() {
 
           {/* Contact Details */}
           <section id="sidebar-contact" className="scroll-mt-24">
-            <div className="flex min-h-0 flex-col gap-y-3 sm:gap-y-3.5">
+            <div className="flex min-h-0 flex-col gap-y-2 sm:gap-y-3 lg:gap-y-3.5">
               <SectionHeader
                 badge="Contact"
                 title="Direct Channels"
@@ -227,7 +227,7 @@ export default function Page() {
                 align="left"
                 compact
               />
-              <div className="flex flex-col gap-1 sm:gap-1.5">
+              <div className="flex flex-col gap-0.5 sm:gap-1 lg:gap-1.5">
                 {/* Email */}
                 <BlurFade
                   delay={BLUR_FADE_DELAY * 2 + 0.02}
@@ -236,13 +236,13 @@ export default function Page() {
                 >
                   <Link
                     href={`mailto:${DATA.contact.email}`}
-                    className="group flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs sm:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
+                    className="group flex items-center justify-between py-1 sm:py-1.5 px-1.5 sm:px-2.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs lg:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <Mail className="size-3.5 text-primary flex-none" />
+                    <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0">
+                      <Mail className="size-3 sm:size-3.5 text-primary flex-none" />
                       <span className="truncate">{DATA.contact.email}</span>
                     </div>
-                    <ArrowUpRight className="size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
+                    <ArrowUpRight className="size-2.5 sm:size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
                   </Link>
                 </BlurFade>
 
@@ -256,13 +256,13 @@ export default function Page() {
                     href={`https://wa.me/${DATA.contact.tel.replace(/[^0-9]/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs sm:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
+                    className="group flex items-center justify-between py-1 sm:py-1.5 px-1.5 sm:px-2.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs lg:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <Phone className="size-3.5 text-primary flex-none" />
+                    <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0">
+                      <Phone className="size-3 sm:size-3.5 text-primary flex-none" />
                       <span className="truncate">{DATA.contact.tel}</span>
                     </div>
-                    <ArrowUpRight className="size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
+                    <ArrowUpRight className="size-2.5 sm:size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
                   </Link>
                 </BlurFade>
 
@@ -276,13 +276,13 @@ export default function Page() {
                     href={DATA.locationLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs sm:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
+                    className="group flex items-center justify-between py-1.5 px-2.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs lg:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <MapPin className="size-3.5 text-primary flex-none" />
+                    <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0">
+                      <MapPin className="size-3 sm:size-3.5 text-primary flex-none" />
                       <span className="truncate">{DATA.location}</span>
                     </div>
-                    <ArrowUpRight className="size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
+                    <ArrowUpRight className="size-2.5 sm:size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
                   </Link>
                 </BlurFade>
               </div>

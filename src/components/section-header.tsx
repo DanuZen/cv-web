@@ -111,10 +111,12 @@ export function SectionHeader({
     return (
       <div
         ref={containerRef}
-        className={`flex flex-col gap-y-3 sm:gap-y-3.5 items-start text-left w-full ${className}`}
+        className={`flex flex-col ${
+          compact ? "gap-y-1.5 sm:gap-y-2.5 lg:gap-y-3.5" : "gap-y-3 sm:gap-y-3.5"
+        } items-start text-left w-full ${className}`}
       >
         {/* Divider with Granular Badge Target (Left-aligned badge with line extending right) */}
-        <div className="flex items-center gap-2.5 sm:gap-3 w-full">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 lg:gap-3 w-full">
           <div
             ref={badgeRef}
             data-swarm-target="true"
@@ -126,9 +128,19 @@ export function SectionHeader({
               initial={{ scale: 0.8, opacity: 0 }}
               animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.3, ease: "backOut" }}
-              className="border bg-primary rounded-lg px-2.5 py-0.5 sm:px-3 sm:py-1 shadow-xs"
+              className={
+                compact
+                  ? "border bg-primary rounded-md sm:rounded-lg px-1.5 py-0.5 sm:px-2.5 sm:py-0.5 lg:px-3 lg:py-1 shadow-xs"
+                  : "border bg-primary rounded-lg px-2.5 py-0.5 sm:px-3 sm:py-1 shadow-xs"
+              }
             >
-              <span className="text-background text-[11px] sm:text-xs font-semibold tracking-wide">
+              <span
+                className={
+                  compact
+                    ? "text-background text-[9px] sm:text-[10px] md:text-[11px] lg:text-xs font-semibold tracking-wide whitespace-nowrap"
+                    : "text-background text-[11px] sm:text-xs font-semibold tracking-wide"
+                }
+              >
                 {badge}
               </span>
             </motion.div>
@@ -143,13 +155,23 @@ export function SectionHeader({
         </div>
 
         {/* Title & Description with Separate Granular Targets */}
-        <div className="flex flex-col gap-y-1 sm:gap-y-1.5 items-start text-left w-full">
-          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-left min-h-[28px] sm:min-h-[32px]">
+        <div className="flex flex-col gap-y-0.5 sm:gap-y-1 lg:gap-y-1.5 items-start text-left w-full">
+          <h2
+            className={
+              compact
+                ? "text-xs sm:text-base md:text-xl lg:text-2xl font-bold tracking-tight text-left min-h-[18px] sm:min-h-[24px] lg:min-h-[32px] leading-snug"
+                : "text-xl sm:text-2xl font-bold tracking-tight text-left min-h-[28px] sm:min-h-[32px]"
+            }
+          >
             <TypingAnimation
               typeSpeed={18}
               delay={20}
               action="writing heading"
-              className="text-xl sm:text-2xl font-bold tracking-tight text-left"
+              className={
+                compact
+                  ? "text-xs sm:text-base md:text-xl lg:text-2xl font-bold tracking-tight text-left leading-snug"
+                  : "text-xl sm:text-2xl font-bold tracking-tight text-left"
+              }
             >
               {title}
             </TypingAnimation>
@@ -167,7 +189,11 @@ export function SectionHeader({
                 initial={{ opacity: 0, y: 6 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="text-muted-foreground text-xs sm:text-sm leading-relaxed text-left"
+                className={
+                  compact
+                    ? "text-muted-foreground text-[9.5px] sm:text-xs lg:text-sm leading-relaxed text-left"
+                    : "text-muted-foreground text-xs sm:text-sm leading-relaxed text-left"
+                }
               >
                 {description}
               </motion.p>
