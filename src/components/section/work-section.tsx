@@ -56,20 +56,21 @@ function LogoImage({
 
 export default function WorkSection() {
   return (
-    <Accordion type="single" collapsible className="w-full flex flex-col divide-y divide-border/40">
+    <Accordion type="single" collapsible className="w-full min-w-0 flex flex-col divide-y divide-border/40">
       {DATA.work.map((work, idx) => (
         <BlurFade
           key={work.company}
           delay={idx * 0.03}
           waitForSwarm={true}
           action={`reviewing ${work.company}`}
+          className="w-full min-w-0"
         >
           <AccordionItem
             value={work.company}
-            className="w-full border-none py-1.5 sm:py-2.5 lg:py-3.5 px-1 sm:px-2 lg:px-3 hover:bg-muted/30 rounded-lg sm:rounded-xl transition-all duration-200"
+            className="w-full min-w-0 border-none py-1.5 sm:py-2.5 lg:py-3.5 px-1 sm:px-2 lg:px-3 hover:bg-muted/30 rounded-lg sm:rounded-xl transition-all duration-200"
           >
-            <AccordionTrigger className="hover:no-underline p-0 cursor-pointer transition-colors rounded-none group [&>svg]:hidden">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-y-1 sm:gap-x-2.5 lg:gap-x-3.5 justify-between w-full text-left">
+            <AccordionTrigger className="hover:no-underline p-0 cursor-pointer transition-colors rounded-none group [&>svg]:hidden w-full min-w-0">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-y-1 sm:gap-x-2.5 lg:gap-x-3.5 justify-between w-full text-left min-w-0">
                 <div className="flex items-center gap-x-1.5 sm:gap-x-2.5 lg:gap-x-3.5 flex-1 min-w-0">
                   <LogoImage
                     src={work.logoUrl}
@@ -81,8 +82,8 @@ export default function WorkSection() {
                     alt={work.company}
                   />
                   <div className="flex-1 min-w-0 gap-0.5 flex flex-col">
-                    <div className="font-semibold leading-snug sm:leading-none flex items-center gap-1.5 text-[11px] sm:text-sm lg:text-base">
-                      <span className="truncate">{work.company}</span>
+                    <div className="font-semibold leading-snug sm:leading-none flex items-center gap-1.5 text-[11px] sm:text-sm lg:text-base min-w-0 w-full">
+                      <span className="truncate block flex-1 min-w-0">{work.company}</span>
                       <span className="relative inline-flex items-center w-3 h-3 sm:w-3.5 sm:h-3.5 flex-none">
                         <ChevronRight
                           className={cn(
@@ -101,8 +102,8 @@ export default function WorkSection() {
                         />
                       </span>
                     </div>
-                    <div className="font-sans text-[9.5px] sm:text-xs lg:text-sm text-muted-foreground flex items-center gap-1 sm:gap-2 flex-wrap">
-                      <span className="truncate">{work.title}</span>
+                    <div className="font-sans text-[9.5px] sm:text-xs lg:text-sm text-muted-foreground flex items-center gap-1 sm:gap-2 flex-wrap min-w-0 w-full">
+                      <span className="truncate block flex-1 min-w-0">{work.title}</span>
                       {work.badges && work.badges.length > 0 && (
                         <span className="hidden sm:inline-flex items-center gap-1">
                           {work.badges.map((badge) => (
