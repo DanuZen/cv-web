@@ -9,6 +9,8 @@ interface SectionHeaderProps {
   title: string;
   description?: string;
   className?: string;
+  align?: "left" | "center";
+  compact?: boolean;
 }
 
 export function SectionHeader({
@@ -16,6 +18,8 @@ export function SectionHeader({
   title,
   description,
   className = "",
+  align = "center",
+  compact = false,
 }: SectionHeaderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.15 });
@@ -102,6 +106,77 @@ export function SectionHeader({
       if (timer) clearTimeout(timer);
     };
   }, []);
+
+  if (align === "left") {
+    return (
+      <div
+        ref={containerRef}
+        className={`flex flex-col gap-y-3 sm:gap-y-3.5 items-start text-left w-full ${className}`}
+      >
+        {/* Divider with Granular Badge Target (Left-aligned badge with line extending right) */}
+        <div className="flex items-center gap-2.5 sm:gap-3 w-full">
+          <div
+            ref={badgeRef}
+            data-swarm-target="true"
+            data-swarm-status={badgeBuilt ? "built" : (isInView ? "building" : "idle")}
+            data-swarm-action="placing badge"
+            className="z-10 inline-block flex-none"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "backOut" }}
+              className="border bg-primary rounded-lg px-2.5 py-0.5 sm:px-3 sm:py-1 shadow-xs"
+            >
+              <span className="text-background text-[11px] sm:text-xs font-semibold tracking-wide">
+                {badge}
+              </span>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={isInView ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="flex-1 h-px bg-linear-to-r from-border/80 via-border/40 to-transparent origin-left"
+          />
+        </div>
+
+        {/* Title & Description with Separate Granular Targets */}
+        <div className="flex flex-col gap-y-1 sm:gap-y-1.5 items-start text-left w-full">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-left min-h-[28px] sm:min-h-[32px]">
+            <TypingAnimation
+              typeSpeed={18}
+              delay={20}
+              action="writing heading"
+              className="text-xl sm:text-2xl font-bold tracking-tight text-left"
+            >
+              {title}
+            </TypingAnimation>
+          </h2>
+
+          {description && (
+            <div
+              ref={descRef}
+              data-swarm-target="true"
+              data-swarm-status={descBuilt ? "built" : (isInView ? "building" : "idle")}
+              data-swarm-action="drafting description"
+              className="w-full"
+            >
+              <motion.p
+                initial={{ opacity: 0, y: 6 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="text-muted-foreground text-xs sm:text-sm leading-relaxed text-left"
+              >
+                {description}
+              </motion.p>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

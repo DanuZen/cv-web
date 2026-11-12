@@ -97,104 +97,131 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <section id="about" className="scroll-mt-24">
-        <div className="flex min-h-0 flex-col gap-y-8 sm:gap-y-10">
-          <SectionHeader
-            badge="About Me"
-            title="Summary & Overview"
-            description="A brief overview of my engineering background, technical expertise, and experience building scalable web solutions."
-          />
-          <BlurFade
-            delay={BLUR_FADE_DELAY * 2}
-            waitForSwarm={true}
-            action="reading summary"
-          >
-            <div className="prose max-w-4xl mx-auto font-sans leading-relaxed text-muted-foreground dark:prose-invert text-base sm:text-lg text-justify">
-              <Markdown>
-                {DATA.summary}
-              </Markdown>
+      {/* ================= COMPACT RESUME / CV SECTION (About, Work, Education, Skills) ================= */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+        {/* Left Column (lg:col-span-7): Work Experience & Education */}
+        <div className="lg:col-span-7 flex flex-col gap-10 sm:gap-12 min-w-0">
+          {/* Work Experience */}
+          <section id="work" className="scroll-mt-24">
+            <div className="flex min-h-0 flex-col gap-y-5 sm:gap-y-6">
+              <SectionHeader
+                badge="Work Experience"
+                title="Where I've Built & Shipped"
+                description="Hands-on production engineering, full-stack web development, and digital public service platforms."
+                align="left"
+                compact
+              />
+              <WorkSection />
             </div>
-          </BlurFade>
-        </div>
-      </section>
-      <section id="work" className="scroll-mt-24">
-        <div className="flex min-h-0 flex-col gap-y-8 sm:gap-y-10">
-          <SectionHeader
-            badge="Work Experience"
-            title="Where I've Built & Shipped"
-            description="Hands-on production engineering, full-stack web development, and digital public service platforms."
-          />
-          <WorkSection />
-        </div>
-      </section>
-      <section id="education" className="scroll-mt-24">
-        <div className="flex min-h-0 flex-col gap-y-8 sm:gap-y-10">
-          <SectionHeader
-            badge="Education"
-            title="Academic Background"
-            description="Formal university education in informatics engineering and computer science."
-          />
-          <div className="flex flex-col gap-4 sm:gap-6">
-            {DATA.education.map((education, index) => (
-              <BlurFade
-                key={education.school}
-                delay={index * 0.05}
-                waitForSwarm={true}
-                action="checking degree"
-              >
-                <MagicCard gradientSize={220} className="rounded-xl transition-all duration-200">
-                  <Link
-                    href={education.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-col sm:flex-row sm:items-center gap-y-2 sm:gap-x-4 justify-between group p-4 sm:p-5 w-full"
+          </section>
+
+          {/* Education */}
+          <section id="education" className="scroll-mt-24">
+            <div className="flex min-h-0 flex-col gap-y-5 sm:gap-y-6">
+              <SectionHeader
+                badge="Education"
+                title="Academic Background"
+                description="Formal university education in informatics engineering and computer science."
+                align="left"
+                compact
+              />
+              <div className="flex flex-col gap-4">
+                {DATA.education.map((education, index) => (
+                  <BlurFade
+                    key={education.school}
+                    delay={index * 0.05}
+                    waitForSwarm={true}
+                    action="checking degree"
                   >
-                    <div className="flex items-center gap-x-3.5 sm:gap-x-4 flex-1 min-w-0">
-                      {education.logoUrl ? (
-                        <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 overflow-hidden flex-none bg-background flex items-center justify-center">
-                          <img
-                            src={education.logoUrl}
-                            alt={education.school}
-                            className="size-full object-contain"
-                          />
+                    <MagicCard gradientSize={220} className="rounded-xl transition-all duration-200">
+                      <Link
+                        href={education.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex flex-col sm:flex-row sm:items-center gap-y-2 sm:gap-x-4 justify-between group p-4 sm:p-5 w-full"
+                      >
+                        <div className="flex items-center gap-x-3.5 sm:gap-x-4 flex-1 min-w-0">
+                          {education.logoUrl ? (
+                            <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 overflow-hidden flex-none bg-background flex items-center justify-center">
+                              <img
+                                src={education.logoUrl}
+                                alt={education.school}
+                                className="size-full object-contain"
+                              />
+                            </div>
+                          ) : (
+                            <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 bg-background flex items-center justify-center flex-none">
+                              <GraduationCap className="size-5 text-foreground/80" />
+                            </div>
+                          )}
+                          <div className="flex-1 min-w-0 flex flex-col gap-0.5">
+                            <div className="font-semibold leading-snug sm:leading-none flex items-center gap-2 text-sm sm:text-base">
+                              <span>{education.school}</span>
+                              <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
+                            </div>
+                            <div className="font-sans text-xs sm:text-sm text-muted-foreground">
+                              {education.degree}
+                            </div>
+                          </div>
                         </div>
-                      ) : (
-                        <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 bg-background flex items-center justify-center flex-none">
-                          <GraduationCap className="size-5 text-foreground/80" />
+                        <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-left sm:text-right pl-[54px] sm:pl-0 flex-none font-medium">
+                          <span>
+                            {education.start} - {education.end}
+                          </span>
                         </div>
-                      )}
-                      <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-                        <div className="font-semibold leading-snug sm:leading-none flex items-center gap-2 text-sm sm:text-base">
-                          <span>{education.school}</span>
-                          <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
-                        </div>
-                        <div className="font-sans text-xs sm:text-sm text-muted-foreground">
-                          {education.degree}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 text-xs sm:text-sm tabular-nums text-muted-foreground text-left sm:text-right pl-[54px] sm:pl-0 flex-none font-medium">
-                      <span>
-                        {education.start} - {education.end}
-                      </span>
-                    </div>
-                  </Link>
-                </MagicCard>
+                      </Link>
+                    </MagicCard>
+                  </BlurFade>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+
+        {/* Right Column (lg:col-span-5): About Me & Skills with sidebar styling matching the reference */}
+        <div className="lg:col-span-5 flex flex-col gap-8 sm:gap-10 p-5 sm:p-7 rounded-3xl bg-muted/20 dark:bg-muted/10 border border-border/50 backdrop-blur-xs min-w-0">
+          {/* About Me */}
+          <section id="about" className="scroll-mt-24">
+            <div className="flex min-h-0 flex-col gap-y-4 sm:gap-y-5">
+              <SectionHeader
+                badge="About Me"
+                title="Summary & Overview"
+                description="Engineering leadership and technical background."
+                align="left"
+                compact
+              />
+              <BlurFade
+                delay={BLUR_FADE_DELAY * 2}
+                waitForSwarm={true}
+                action="reading summary"
+              >
+                <div className="prose font-sans leading-relaxed text-muted-foreground dark:prose-invert text-xs sm:text-sm text-justify">
+                  <Markdown>
+                    {DATA.summary}
+                  </Markdown>
+                </div>
               </BlurFade>
-            ))}
-          </div>
+            </div>
+          </section>
+
+          {/* Subtle Accent Divider */}
+          <div className="h-px w-full bg-border/40" />
+
+          {/* Skills & Technologies */}
+          <section id="skills" className="scroll-mt-24">
+            <div className="flex min-h-0 flex-col gap-y-4 sm:gap-y-5">
+              <SectionHeader
+                badge="Skills & Technologies"
+                title="What I Bring to the Table"
+                description="Comprehensive modern stack covering frontend, backend, databases, DevOps, and cloud."
+                align="left"
+                compact
+              />
+              <SkillsSection compact />
+            </div>
+          </section>
         </div>
-      </section>
-      <section id="skills" className="scroll-mt-24">
-        <div className="flex min-h-0 flex-col gap-y-8 sm:gap-y-10">
-          <SectionHeader
-            badge="Skills & Technologies"
-            title="What I Bring to the Table"
-            description="Comprehensive modern stack covering frontend, backend, databases, DevOps, and cloud infrastructure."
-          />
-          <SkillsSection />
-        </div>
-      </section>
+      </div>
       <section id="projects" className="scroll-mt-24">
         <ProjectsSection />
       </section>
