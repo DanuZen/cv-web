@@ -7,10 +7,10 @@ import { InspectionBoxView } from "./inspection-box";
 import { swarmAudio } from "./audio";
 
 const AGENT_TEMPLATES: SwarmAgentData[] = [
-  { id: "a1", name: "Ada", color: "#F24E1E" },       // Figma Red
+  { id: "a1", name: "Ada", color: "#0D99FF" },       // Figma Blue
   { id: "a2", name: "Linus", color: "#0D99FF" },     // Figma Blue
-  { id: "a3", name: "A-03", color: "#F59E0B" },      // Figma Amber (Interactive Hover Co-Pilot)
-  { id: "a4", name: "Alan", color: "#A259FF" },      // Figma Purple
+  { id: "a3", name: "A-03", color: "#0D99FF" },      // Figma Blue (Interactive Hover Co-Pilot)
+  { id: "a4", name: "Alan", color: "#0D99FF" },      // Figma Blue
 ];
 
 const MAX_ACTIVE_AGENTS = 3; // Ambient workers
