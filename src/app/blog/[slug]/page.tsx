@@ -129,7 +129,7 @@ export default async function Blog({
         </Link>
       </div>
       <div className="flex flex-col gap-4">
-        <h1 className="title font-semibold text-3xl md:text-4xl tracking-tighter leading-tight">
+        <h1 className="title font-semibold text-2xl sm:text-3xl md:text-4xl tracking-tighter leading-tight">
           {post.title}
         </h1>
         <p className="text-sm text-muted-foreground">
