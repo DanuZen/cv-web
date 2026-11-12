@@ -24,6 +24,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -59,6 +60,7 @@
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
@@ -93,6 +95,7 @@
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
@@ -152,13 +155,13 @@
     @apply bg-background text-foreground;
   }
 
-  /* Justify all body paragraphs (rata kiri-kanan) */
-  p {
+  /* Justify body paragraphs in prose and content while preserving explicit alignment classes (e.g. text-center) */
+  .prose p {
     text-align: justify;
     text-justify: inter-word;
   }
 
-  .prose p {
+  p:not([class*="text-center"]):not([class*="text-left"]):not([class*="text-right"]) {
     text-align: justify;
     text-justify: inter-word;
   }
@@ -176,7 +179,7 @@
     background-color: transparent;
   }
 
-.prose pre {
+  .prose pre {
     @apply leading-relaxed bg-transparent! font-mono!;
   }
 
@@ -255,8 +258,12 @@
     @apply px-6 py-4 align-middle m-0 whitespace-nowrap;
   }
 
-  .prose tr{
-    @apply hover:bg-accent/50! transition-colors! cursor-pointer! h-10!;
+  .prose tr {
+    @apply transition-colors! cursor-pointer! h-10!;
+  }
+
+  .prose tr:hover {
+    @apply bg-accent/50!;
   }
 
   .prose :where(th):not(:where([class~="not-prose"] *)) {
@@ -330,5 +337,5 @@
 
 /* Scoped to AnimatedThemeToggler — the toggler sets the data-attribute and the variable only during a theme toggle. */
 html[data-magicui-theme-vt="active"]::view-transition-group(root) {
-  animation-duration: var(--magicui-theme-toggle-vt-duration);
+  animation-duration: var(--magicui-theme-toggle-vt-duration, 400ms);
 }
