@@ -37,7 +37,7 @@ export const DATA = {
     "Director at PT Mbois Solusi Global, Founder of Howarts Studio, & Full-Stack Cross-Platform Developer.",
   summary:
     "Full-Stack Cross-Platform Developer and Tech Leader with deep expertise in modern web ecosystems (Next.js, React, TypeScript, NestJS, Laravel, and Cloud architectures). Experienced in leading engineering teams and building 12+ enterprise-grade production applications, multi-tenant educational SaaS platforms, university academic portals, local government digital services, and AI & IoT-powered solutions.",
-  avatarUrl: "/foto-profil.jpeg",
+  avatarUrl: "/foto-profil.webp",
   skills: [
     // Frontend
     { name: "React", icon: ReactLight, category: "frontend" },
@@ -114,8 +114,8 @@ export const DATA = {
       badges: ["Director", "Leadership"],
       location: "Padang, Indonesia",
       title: "Director",
-      logoUrl: "/pt-mbois-black.png",
-      logoUrlDark: "/pt-mbois-white.png",
+      logoUrl: "/pt-mbois-black.webp",
+      logoUrlDark: "/pt-mbois-white.webp",
       start: "2024",
       end: "Present",
       description:
@@ -127,7 +127,7 @@ export const DATA = {
       badges: ["Founder", "Product"],
       location: "Padang, Indonesia",
       title: "Founder & Lead Developer",
-      logoUrl: "/howarts-studio.png",
+      logoUrl: "/howarts-studio.webp",
       start: "2024",
       end: "Present",
       description:
@@ -139,8 +139,8 @@ export const DATA = {
       badges: ["Organization", "President"],
       location: "Universitas Negeri Padang",
       title: "President & Tech Lead",
-      logoUrl: "/infinite-technologi-black.png",
-      logoUrlDark: "/infinite-technologi-white.png",
+      logoUrl: "/infinite-technologi-black.webp",
+      logoUrlDark: "/infinite-technologi-white.webp",
       start: "2025",
       end: "2026",
       description:
@@ -164,7 +164,7 @@ export const DATA = {
       badges: ["Internship", "Government"],
       location: "Guguak Malalo, West Sumatra",
       title: "Intern Full-Stack Web Developer",
-      logoUrl: "/kab-tanah-datar.png",
+      logoUrl: "/kab-tanah-datar.webp",
       start: "2025",
       end: "2025",
       description:
@@ -177,7 +177,7 @@ export const DATA = {
       school: "Universitas Negeri Padang (UNP)",
       href: "https://unp.ac.id",
       degree: "Bachelor of Education in Informatics & Computer Engineering",
-      logoUrl: "/universitas-negeri-padang.png",
+      logoUrl: "/universitas-negeri-padang.webp",
       start: "2021",
       end: "2025",
     },
