@@ -90,23 +90,14 @@ export default function RootLayout({
         <ScrollToTop />
         <ThemeProvider attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>
-            {/* Subtle Top Hero Accent Background (Rest of the page is clean/plain) */}
-            <div className="absolute top-0 inset-x-0 h-[260px] sm:h-[300px] pointer-events-none z-0 overflow-hidden">
-              {/* Subtle top ambient monochrome gradient */}
-              <div
-                className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_0%,rgba(0,0,0,0.03),transparent_70%)] dark:bg-[radial-gradient(ellipse_70%_60%_at_50%_0%,rgba(255,255,255,0.06),transparent_70%)]"
-                aria-hidden="true"
-              />
-              {/* Flickering Grid softly fading out towards bottom */}
+            <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
               <FlickeringGrid
                 className="h-full w-full"
-                squareSize={3}
-                gridGap={3}
-                flickerChance={0.2}
-                maxOpacity={0.15}
+                squareSize={2}
+                gridGap={2}
                 style={{
-                  maskImage: "linear-gradient(to bottom, black 25%, transparent 100%)",
-                  WebkitMaskImage: "linear-gradient(to bottom, black 25%, transparent 100%)",
+                  maskImage: "linear-gradient(to bottom, black, transparent)",
+                  WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
                 }}
               />
             </div>
