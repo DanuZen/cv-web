@@ -151,14 +151,16 @@ export default function Page() {
                   >
                     <div className="flex items-center gap-x-4 flex-1 min-w-0">
                       {education.logoUrl ? (
-                        <img
-                          src={education.logoUrl}
-                          alt={education.school}
-                          className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 overflow-hidden object-contain flex-none bg-white"
-                        />
+                        <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 overflow-hidden flex-none bg-background flex items-center justify-center">
+                          <img
+                            src={education.logoUrl}
+                            alt={education.school}
+                            className="size-full object-contain"
+                          />
+                        </div>
                       ) : (
-                        <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 bg-white flex items-center justify-center flex-none">
-                          <GraduationCap className="size-5 text-neutral-800" />
+                        <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 bg-background flex items-center justify-center flex-none">
+                          <GraduationCap className="size-5 text-foreground/80" />
                         </div>
                       )}
                       <div className="flex-1 min-w-0 flex flex-col gap-0.5">

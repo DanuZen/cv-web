@@ -115,6 +115,7 @@ export const DATA = {
       location: "Padang, Indonesia",
       title: "Director",
       logoUrl: "/pt-mbois-black.png",
+      logoUrlDark: "/pt-mbois-white.png",
       start: "2024",
       end: "Present",
       description:
@@ -138,7 +139,8 @@ export const DATA = {
       badges: ["Organization", "President"],
       location: "Universitas Negeri Padang",
       title: "President & Tech Lead",
-      logoUrl: "/infinite-technologi.png",
+      logoUrl: "/infinite-technologi-black.png",
+      logoUrlDark: "/infinite-technologi-white.png",
       start: "2025",
       end: "2026",
       description:

@@ -13,24 +13,45 @@ import { cn } from "@/lib/utils";
 import BlurFade from "@/components/magicui/blur-fade";
 import { MagicCard } from "@/components/ui/magic-card";
 
-function LogoImage({ src, alt }: { src: string; alt: string }) {
+function LogoImage({
+  src,
+  srcDark,
+  alt,
+}: {
+  src: string;
+  srcDark?: string;
+  alt: string;
+}) {
   const [imageError, setImageError] = useState(false);
 
   if (!src || imageError) {
     return (
-      <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 bg-white flex items-center justify-center flex-none">
-        <Briefcase className="size-4 text-neutral-800" />
+      <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 bg-background flex items-center justify-center flex-none">
+        <Briefcase className="size-4 text-foreground/80" />
       </div>
     );
   }
 
   return (
-    <img
-      src={src}
-      alt={alt}
-      className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 overflow-hidden object-contain flex-none bg-white"
-      onError={() => setImageError(true)}
-    />
+    <div className="size-10 md:size-11 p-1.5 border border-border/80 rounded-full shadow-xs ring-2 ring-border/50 overflow-hidden flex-none bg-background flex items-center justify-center">
+      <img
+        src={src}
+        alt={alt}
+        className={cn(
+          "size-full object-contain",
+          srcDark && "dark:hidden"
+        )}
+        onError={() => setImageError(true)}
+      />
+      {srcDark && (
+        <img
+          src={srcDark}
+          alt={alt}
+          className="size-full object-contain hidden dark:block"
+          onError={() => setImageError(true)}
+        />
+      )}
+    </div>
   );
 }
 
@@ -52,7 +73,15 @@ export default function WorkSection() {
               <AccordionTrigger className="hover:no-underline p-0 cursor-pointer transition-colors rounded-none group [&>svg]:hidden">
                 <div className="flex items-center gap-x-4 justify-between w-full text-left">
                   <div className="flex items-center gap-x-4 flex-1 min-w-0">
-                    <LogoImage src={work.logoUrl} alt={work.company} />
+                    <LogoImage
+                      src={work.logoUrl}
+                      srcDark={
+                        "logoUrlDark" in work
+                          ? (work as { logoUrlDark?: string }).logoUrlDark
+                          : undefined
+                      }
+                      alt={work.company}
+                    />
                     <div className="flex-1 min-w-0 gap-1 flex flex-col">
                       <div className="font-semibold leading-none flex items-center gap-2 text-base">
                         <span>{work.company}</span>
