@@ -90,14 +90,35 @@ export default function RootLayout({
         <ScrollToTop />
         <ThemeProvider attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>
-            <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
+            {/* Full-Page Ambient Background with Flickering Grid & Monochrome Gradients */}
+            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+              {/* Subtle top spotlight gradient */}
+              <div
+                className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(0,0,0,0.04),transparent_70%)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(255,255,255,0.07),transparent_70%)]"
+                aria-hidden="true"
+              />
+              {/* Subtle center ambient radial highlight */}
+              <div
+                className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02),transparent_65%)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03),transparent_65%)]"
+                aria-hidden="true"
+              />
+              {/* Subtle bottom edge vignette */}
+              <div
+                className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/[0.03] dark:to-black/40"
+                aria-hidden="true"
+              />
+              {/* Animated Flickering Grid with progressive organic fade */}
               <FlickeringGrid
                 className="h-full w-full"
-                squareSize={2}
-                gridGap={2}
+                squareSize={3}
+                gridGap={3}
+                flickerChance={0.2}
+                maxOpacity={0.16}
                 style={{
-                  maskImage: "linear-gradient(to bottom, black, transparent)",
-                  WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
+                  maskImage:
+                    "radial-gradient(ellipse 95% 85% at 50% 25%, black 40%, rgba(0,0,0,0.4) 75%, transparent 100%)",
+                  WebkitMaskImage:
+                    "radial-gradient(ellipse 95% 85% at 50% 25%, black 40%, rgba(0,0,0,0.4) 75%, transparent 100%)",
                 }}
               />
             </div>
