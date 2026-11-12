@@ -11,7 +11,6 @@ import WorkSection from "@/components/section/work-section";
 import { SkillsSection } from "@/components/skills-section";
 import { SectionHeader } from "@/components/section-header";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { Icons } from "@/components/icons";
 import { ArrowUpRight, GraduationCap, Globe, Mail, Phone, MapPin } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -282,46 +281,6 @@ export default function Page() {
                     <div className="flex items-center gap-2.5 min-w-0">
                       <MapPin className="size-3.5 text-primary flex-none" />
                       <span className="truncate">{DATA.location}</span>
-                    </div>
-                    <ArrowUpRight className="size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
-                  </Link>
-                </BlurFade>
-
-                {/* GitHub */}
-                <BlurFade
-                  delay={BLUR_FADE_DELAY * 2 + 0.11}
-                  waitForSwarm={true}
-                  action="reviewing contact github"
-                >
-                  <Link
-                    href={DATA.contact.social.GitHub.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs sm:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <Icons.github className="size-3.5 text-primary flex-none" />
-                      <span className="truncate">github.com/Ryan-infitech</span>
-                    </div>
-                    <ArrowUpRight className="size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
-                  </Link>
-                </BlurFade>
-
-                {/* Instagram */}
-                <BlurFade
-                  delay={BLUR_FADE_DELAY * 2 + 0.14}
-                  waitForSwarm={true}
-                  action="reviewing contact instagram"
-                >
-                  <Link
-                    href={DATA.contact.social.Instagram.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs sm:text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <Icons.instagram className="size-3.5 text-primary flex-none" />
-                      <span className="truncate">@ryan.septiawan__</span>
                     </div>
                     <ArrowUpRight className="size-3 text-muted-foreground/40 group-hover:text-foreground flex-none transition-colors ml-1" />
                   </Link>
