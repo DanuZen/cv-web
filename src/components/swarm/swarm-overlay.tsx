@@ -11,9 +11,11 @@ const AGENT_TEMPLATES: SwarmAgentData[] = [
   { id: "a2", name: "Linus", color: "#0D99FF" },     // Figma Blue
   { id: "a3", name: "A-03", color: "#0D99FF" },      // Figma Blue (Interactive Hover Co-Pilot)
   { id: "a4", name: "Alan", color: "#0D99FF" },      // Figma Blue
+  { id: "a5", name: "Devon", color: "#0D99FF" },     // Figma Blue
+  { id: "a6", name: "Grace", color: "#0D99FF" },     // Figma Blue
 ];
 
-const MAX_ACTIVE_AGENTS = 3; // Ambient workers
+const MAX_ACTIVE_AGENTS = 5; // Ambient workers
 
 const createInitialPool = (): AgentState[] =>
   AGENT_TEMPLATES.map((t) => ({
@@ -384,7 +386,7 @@ export default function SwarmOverlay() {
             // Check if element is still actively running its typing or build animation
             const isStillBuilding = el.dataset.swarmStatus === "building";
             const elapsed = time - agent.inspectStart;
-            const timeout = elapsed > 800; // Fast safety ceiling (max 800ms, never 12s)
+            const timeout = elapsed > 4000; // Generous safety ceiling (4s max, never prematurely interrupts active typing)
 
             // Instantly dock as soon as element finishes building or times out
             if (!isStillBuilding || timeout) {

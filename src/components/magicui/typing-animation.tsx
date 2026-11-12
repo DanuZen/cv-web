@@ -112,7 +112,7 @@ export function TypingAnimation({
   const typingSpeed = typeSpeed ?? duration;
   const deletingSpeed = deleteSpeed ?? Math.max(20, typingSpeed / 2);
 
-  const shouldStart = startOnView ? isInView : true;
+  const shouldStart = (waitForSwarm ? swarmTriggered : true) && (startOnView ? isInView : true);
 
   const animationSourceKey = useMemo(
     () => (words ? words.join("\u0000") : (children ?? "")),
@@ -178,14 +178,14 @@ export function TypingAnimation({
     }
   }
 
-  // Fail-safe: If in view and swarm hasn't triggered after 3000ms, auto-trigger so text is never left empty
+  // Fail-safe: If in view and swarm hasn't triggered after 1200ms, auto-trigger so text is never left empty
   useEffect(() => {
     if (!waitForSwarm || swarmTriggered) return;
     if (!isInView) return;
 
     const timer = setTimeout(() => {
       setSwarmTriggered(true);
-    }, 3000);
+    }, 1200);
 
     return () => clearTimeout(timer);
   }, [waitForSwarm, swarmTriggered, isInView]);
@@ -316,7 +316,7 @@ export function TypingAnimation({
       ref={elementRef}
       data-swarm-target={waitForSwarm ? "true" : undefined}
       data-swarm-action={waitForSwarm ? action : undefined}
-      data-swarm-status={waitForSwarm ? (isComplete ? "built" : shouldStart ? "building" : "idle") : undefined}
+      data-swarm-status={waitForSwarm ? (isComplete ? "built" : swarmTriggered ? "building" : "idle") : undefined}
       className={cn(
         "tracking-[-0.02em] min-h-[1.2em]",
         Component === "span" && "inline-block",

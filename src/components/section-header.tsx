@@ -115,13 +115,10 @@ export function SectionHeader({
           compact ? "gap-y-1.5 sm:gap-y-2.5 lg:gap-y-3.5" : "gap-y-3 sm:gap-y-3.5"
         } items-start text-left w-full ${className}`}
       >
-        {/* Divider with Granular Badge Target (Left-aligned badge with line extending right) */}
+        {/* Divider with Badge */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 lg:gap-3 w-full">
           <div
             ref={badgeRef}
-            data-swarm-target="true"
-            data-swarm-status={badgeBuilt ? "built" : (isInView ? "building" : "idle")}
-            data-swarm-action="placing badge"
             className="z-10 inline-block flex-none"
           >
             <motion.div
@@ -180,9 +177,6 @@ export function SectionHeader({
           {description && (
             <div
               ref={descRef}
-              data-swarm-target="true"
-              data-swarm-status={descBuilt ? "built" : (isInView ? "building" : "idle")}
-              data-swarm-action="drafting description"
               className="w-full"
             >
               <motion.p
@@ -220,9 +214,6 @@ export function SectionHeader({
 
         <div
           ref={badgeRef}
-          data-swarm-target="true"
-          data-swarm-status={badgeBuilt ? "built" : (isInView ? "building" : "idle")}
-          data-swarm-action="placing badge"
           className="z-10 inline-block px-1"
         >
           <motion.div
@@ -263,9 +254,6 @@ export function SectionHeader({
         {description && (
           <div
             ref={descRef}
-            data-swarm-target="true"
-            data-swarm-status={descBuilt ? "built" : (isInView ? "building" : "idle")}
-            data-swarm-action="drafting description"
             className="max-w-2xl mx-auto px-2 sm:px-0"
           >
             <motion.p
