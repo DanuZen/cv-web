@@ -61,8 +61,32 @@ export default function Page() {
         </section>
         {/* ================= COMPACT RESUME / CV SECTION (About, Work, Education, Skills) ================= */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-        {/* Left Column (lg:col-span-7): Work Experience & Education */}
+        {/* Left Column (lg:col-span-7): About Me, Work Experience & Education */}
         <div className="lg:col-span-7 flex flex-col gap-10 sm:gap-12 min-w-0">
+          {/* About Me */}
+          <section id="about" className="scroll-mt-24">
+            <div className="flex min-h-0 flex-col gap-y-4 sm:gap-y-5">
+              <SectionHeader
+                badge="About Me"
+                title="Summary & Overview"
+                description="Engineering leadership and technical background."
+                align="left"
+                compact
+              />
+              <BlurFade
+                delay={BLUR_FADE_DELAY * 2}
+                waitForSwarm={true}
+                action="reading summary"
+              >
+                <div className="prose font-sans leading-relaxed text-muted-foreground dark:prose-invert text-sm sm:text-base text-justify">
+                  <Markdown>
+                    {DATA.summary}
+                  </Markdown>
+                </div>
+              </BlurFade>
+            </div>
+          </section>
+
           {/* Work Experience */}
           <section id="work" className="scroll-mt-24">
             <div className="flex min-h-0 flex-col gap-y-5 sm:gap-y-6">
@@ -140,36 +164,8 @@ export default function Page() {
           </section>
         </div>
 
-        {/* Right Column (lg:col-span-5): About Me & Skills with sidebar styling matching the reference */}
-        <div className="lg:col-span-5 flex flex-col gap-8 sm:gap-10 p-5 sm:p-7 rounded-3xl bg-muted/20 dark:bg-muted/10 border border-border/50 backdrop-blur-xs min-w-0">
-          {/* About Me */}
-          <section id="about" className="scroll-mt-24">
-            <div className="flex min-h-0 flex-col gap-y-4 sm:gap-y-5">
-              <SectionHeader
-                badge="About Me"
-                title="Summary & Overview"
-                description="Engineering leadership and technical background."
-                align="left"
-                compact
-              />
-              <BlurFade
-                delay={BLUR_FADE_DELAY * 2}
-                waitForSwarm={true}
-                action="reading summary"
-              >
-                <div className="prose font-sans leading-relaxed text-muted-foreground dark:prose-invert text-xs sm:text-sm text-justify">
-                  <Markdown>
-                    {DATA.summary}
-                  </Markdown>
-                </div>
-              </BlurFade>
-            </div>
-          </section>
-
-          {/* Subtle Accent Divider */}
-          <div className="h-px w-full bg-border/40" />
-
-          {/* Skills & Technologies */}
+        {/* Right Column (lg:col-span-5): Only Skills & Technologies */}
+        <div className="lg:col-span-5 flex flex-col gap-6 sm:gap-8 p-5 sm:p-7 rounded-3xl bg-muted/20 dark:bg-muted/10 border border-border/50 backdrop-blur-xs min-w-0">
           <section id="skills" className="scroll-mt-24">
             <div className="flex min-h-0 flex-col gap-y-4 sm:gap-y-5">
               <SectionHeader
