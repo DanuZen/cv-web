@@ -8,8 +8,7 @@ import {
   Server, 
   Database, 
   Terminal,
-  Wrench,
-  CheckCircle2
+  Wrench
 } from "lucide-react";
 
 export function SkillsSection({ compact = false }: { compact?: boolean } = {}) {
@@ -94,12 +93,6 @@ export function SkillsSection({ compact = false }: { compact?: boolean } = {}) {
           </BlurFade>
         );
       })}
-
-      {/* Quality indicator */}
-      <div className="flex items-center gap-1 sm:gap-1.5 text-[8.5px] sm:text-[10px] lg:text-[11px] text-muted-foreground/80 pt-1.5 sm:pt-2 border-t border-border/30">
-        <CheckCircle2 className="size-2.5 sm:size-3 text-emerald-500 flex-none" />
-        <span>All {DATA.skills.length} technologies actively used in production environments</span>
-      </div>
     </div>
   );
 }
