@@ -22,24 +22,24 @@ export default function Page() {
     <main className="min-h-dvh flex flex-col gap-24 sm:gap-28 md:gap-36 relative">
       <section id="hero" className="scroll-mt-24">
         <div className="w-full space-y-8">
-          <div className="gap-6 flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="gap-3 flex flex-col order-2 md:order-1 flex-1">
-              <h1 className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl min-h-[44px]">
+          <div className="gap-6 flex flex-col md:flex-row justify-between items-center md:items-center">
+            <div className="gap-3 flex flex-col items-center text-center md:items-start md:text-left order-2 md:order-1 flex-1">
+              <h1 className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl min-h-[44px] text-center md:text-left">
                 <TypingAnimation
                   typeSpeed={20}
                   delay={20}
                   action="writing headline"
-                  className="font-semibold tracking-tighter"
+                  className="font-semibold tracking-tighter text-center md:text-left"
                 >
                   {`Hi, I'm ${DATA.name.split(" ")[0]}`}
                 </TypingAnimation>
               </h1>
-              <p className="text-muted-foreground max-w-3xl md:text-lg lg:text-xl leading-relaxed min-h-[56px]">
+              <p className="text-muted-foreground max-w-3xl md:text-lg lg:text-xl leading-relaxed min-h-[56px] text-center md:text-left">
                 <TypingAnimation
                   typeSpeed={10}
                   delay={60}
                   action="reviewing bio"
-                  className="text-muted-foreground leading-relaxed inline-block w-full"
+                  className="text-muted-foreground leading-relaxed inline-block w-full text-center md:text-left"
                 >
                   {DATA.description}
                 </TypingAnimation>
@@ -49,7 +49,7 @@ export default function Page() {
               delay={BLUR_FADE_DELAY}
               waitForSwarm={true}
               action="inspecting avatar"
-              className="order-1 md:order-2"
+              className="order-1 md:order-2 flex justify-center md:block"
             >
               <Avatar className="size-28 md:size-36 border rounded-full shadow-lg ring-4 ring-muted">
                 <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
@@ -59,8 +59,8 @@ export default function Page() {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-4 pt-4 border-t border-border/40">
             <MagicCard gradientSize={180} className="rounded-xl">
-              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5">
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
+              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
+                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
                   <NumberTicker value={12} className="text-foreground" />
                   <span className="text-primary font-bold">+</span>
                 </div>
@@ -68,8 +68,8 @@ export default function Page() {
               </div>
             </MagicCard>
             <MagicCard gradientSize={180} className="rounded-xl">
-              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5">
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
+              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
+                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
                   <NumberTicker value={DATA.skills.length} className="text-foreground" />
                   <span className="text-primary font-bold">+</span>
                 </div>
@@ -77,8 +77,8 @@ export default function Page() {
               </div>
             </MagicCard>
             <MagicCard gradientSize={180} className="rounded-xl">
-              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5">
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
+              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
+                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
                   <NumberTicker value={DATA.certifications.length} className="text-foreground" />
                   <span className="text-primary font-bold">+</span>
                 </div>
@@ -86,8 +86,8 @@ export default function Page() {
               </div>
             </MagicCard>
             <MagicCard gradientSize={180} className="rounded-xl">
-              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5">
-                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center gap-0.5">
+              <div className="flex flex-col gap-0.5 p-3 sm:p-3.5 items-center text-center sm:items-start sm:text-left">
+                <div className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground flex items-center justify-center sm:justify-start gap-0.5">
                   <NumberTicker value={100} className="text-foreground" />
                   <span className="text-primary font-bold">%</span>
                 </div>
