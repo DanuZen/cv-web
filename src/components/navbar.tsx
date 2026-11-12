@@ -22,7 +22,7 @@ export default function Navbar() {
   useEffect(() => {
     if (pathname !== "/") return;
 
-    const sectionIds = ["hero", "work", "projects", "certifications", "contact"];
+    const sectionIds = ["hero", "work", "certifications", "projects", "contact"];
 
     const handleScroll = () => {
       const scrollY = window.scrollY;

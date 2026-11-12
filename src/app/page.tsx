@@ -181,11 +181,11 @@ export default function Page() {
         </div>
       </div>
       </div>
-      <section id="projects" className="scroll-mt-24">
-        <ProjectsSection />
-      </section>
       <section id="certifications" className="scroll-mt-24">
         <CertificationsSection />
+      </section>
+      <section id="projects" className="scroll-mt-24">
+        <ProjectsSection />
       </section>
       <section id="contact" className="scroll-mt-24">
         <ContactSection />
