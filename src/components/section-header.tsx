@@ -127,15 +127,15 @@ export function SectionHeader({
               transition={{ duration: 0.3, ease: "backOut" }}
               className={
                 compact
-                  ? "border border-white/80 dark:border-white/70 bg-linear-to-b from-white via-neutral-100 to-neutral-200 dark:from-white dark:via-neutral-100 dark:to-neutral-200 rounded-full px-2 py-0.5 sm:px-2.5 sm:py-0.5 lg:px-3 lg:py-1 shadow-[0_1px_3px_rgba(0,0,0,0.12)] dark:shadow-[0_0_10px_rgba(255,255,255,0.12)] inline-flex items-center justify-center flex-none"
-                  : "border border-white/80 dark:border-white/70 bg-linear-to-b from-white via-neutral-100 to-neutral-200 dark:from-white dark:via-neutral-100 dark:to-neutral-200 rounded-full px-2.5 py-0.5 sm:px-3 sm:py-1 shadow-xs inline-flex items-center justify-center flex-none"
+                  ? "border border-neutral-800/80 dark:border-white/70 bg-linear-to-b from-neutral-800 via-neutral-900 to-black dark:from-white dark:via-neutral-100 dark:to-neutral-200 rounded-full px-2 py-0.5 sm:px-2.5 sm:py-0.5 lg:px-3 lg:py-1 shadow-[0_1px_3px_rgba(0,0,0,0.2)] dark:shadow-[0_0_10px_rgba(255,255,255,0.12)] inline-flex items-center justify-center flex-none"
+                  : "border border-neutral-800/80 dark:border-white/70 bg-linear-to-b from-neutral-800 via-neutral-900 to-black dark:from-white dark:via-neutral-100 dark:to-neutral-200 rounded-full px-2.5 py-0.5 sm:px-3 sm:py-1 shadow-xs dark:shadow-[0_0_10px_rgba(255,255,255,0.12)] inline-flex items-center justify-center flex-none"
               }
             >
               <span
                 className={
                   compact
-                    ? "text-neutral-950 text-[8.5px] sm:text-[10px] md:text-[11px] lg:text-xs font-semibold tracking-wide whitespace-nowrap"
-                    : "text-neutral-950 text-[11px] sm:text-xs font-semibold tracking-wide whitespace-nowrap"
+                    ? "text-white dark:text-neutral-950 text-[8.5px] sm:text-[10px] md:text-[11px] lg:text-xs font-semibold tracking-wide whitespace-nowrap"
+                    : "text-white dark:text-neutral-950 text-[11px] sm:text-xs font-semibold tracking-wide whitespace-nowrap"
                 }
               >
                 {badge}
@@ -220,9 +220,9 @@ export function SectionHeader({
             initial={{ scale: 0.8, opacity: 0 }}
             animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
             transition={{ duration: 0.3, ease: "backOut" }}
-            className="border border-white/80 dark:border-white/70 bg-linear-to-b from-white via-neutral-100 to-neutral-200 dark:from-white dark:via-neutral-100 dark:to-neutral-200 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 shadow-[0_1px_3px_rgba(0,0,0,0.12)] dark:shadow-[0_0_12px_rgba(255,255,255,0.12)] inline-flex items-center justify-center"
+            className="border border-neutral-800/80 dark:border-white/70 bg-linear-to-b from-neutral-800 via-neutral-900 to-black dark:from-white dark:via-neutral-100 dark:to-neutral-200 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 shadow-[0_1px_3px_rgba(0,0,0,0.2)] dark:shadow-[0_0_12px_rgba(255,255,255,0.12)] inline-flex items-center justify-center"
           >
-            <span className="text-neutral-950 text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap">
+            <span className="text-white dark:text-neutral-950 text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap">
               {badge}
             </span>
           </motion.div>
