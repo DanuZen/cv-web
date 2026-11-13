@@ -306,8 +306,9 @@ export function TypingAnimation({
 
   const shouldShowCursor =
     showCursor &&
+    shouldStart &&
     !isComplete &&
-    (hasMultipleWords || loop || currentCharIndex < currentWordGraphemes.length || !shouldStart);
+    (hasMultipleWords || loop || currentCharIndex < currentWordGraphemes.length);
 
   const getCursorChar = () => {
     switch (cursorStyle) {

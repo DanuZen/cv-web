@@ -11,13 +11,15 @@ import WorkSection from "@/components/section/work-section";
 import { SkillsSection } from "@/components/skills-section";
 import { SectionHeader } from "@/components/section-header";
 import { TypingAnimation } from "@/components/ui/typing-animation";
+import { InitialPageFade } from "@/components/initial-page-fade";
 import { ArrowUpRight, GraduationCap, Globe, Mail, Phone, MapPin } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
   return (
-    <main className="min-h-dvh flex flex-col gap-14 sm:gap-16 md:gap-20 relative">
+    <InitialPageFade>
+      <main className="min-h-dvh flex flex-col gap-14 sm:gap-16 md:gap-20 relative">
       <div className="flex flex-col gap-5 sm:gap-6 md:gap-8">
         <section id="hero" className="scroll-mt-24">
           <div className="w-full">
@@ -307,5 +309,6 @@ export default function Page() {
         <ContactSection />
       </section>
     </main>
+    </InitialPageFade>
   );
 }

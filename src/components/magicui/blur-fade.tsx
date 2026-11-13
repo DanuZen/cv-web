@@ -117,8 +117,8 @@ const BlurFade = ({
     };
   }, [waitForSwarm, once, duration, delay]);
 
-  // Content animates in when swarm triggers (or on inView), and animates out when scrolled out of view
-  const shouldBeVisible = inView ? (waitForSwarm ? swarmTriggered : inViewResult) : true;
+  // Content animates in on inView, and animates out when scrolled out of view
+  const shouldBeVisible = inView ? inViewResult : true;
 
   const defaultVariants: Variants = {
     hidden: { y: yOffset, opacity: 0, filter: `blur(${blur})`, scale: 0.98 },
