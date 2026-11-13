@@ -35,12 +35,12 @@ export default function Page() {
                     {`Hi, I'm ${DATA.name.split(" ")[0]}`}
                   </TypingAnimation>
                 </h1>
-                <p className="text-muted-foreground max-w-3xl md:text-lg lg:text-xl leading-relaxed min-h-[56px] text-center md:text-left">
+                <p className="text-muted-foreground max-w-3xl text-xs sm:text-base md:text-lg lg:text-xl leading-relaxed min-h-[40px] md:min-h-[56px] text-center md:text-left">
                   <TypingAnimation
                     typeSpeed={12}
                     delay={60}
                     action="reviewing bio"
-                    className="text-muted-foreground leading-relaxed inline-block w-full text-center md:text-left"
+                    className="text-muted-foreground text-xs sm:text-base md:text-lg lg:text-xl leading-relaxed inline-block w-full text-center md:text-left"
                   >
                     {DATA.description}
                   </TypingAnimation>
