@@ -48,31 +48,31 @@ export default function ContactSection() {
               href={DATA.contact.social.GitHub.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5 sm:gap-2.5 px-2.5 py-2 sm:px-4.5 sm:py-2.5 rounded-xl border border-neutral-800 bg-black text-white hover:bg-neutral-900 text-xs sm:text-sm font-medium transition-all hover:scale-[1.03] active:scale-[0.98] shadow-xs group flex-1 sm:flex-initial whitespace-nowrap min-w-0"
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2.5 px-2.5 py-2 sm:px-4.5 sm:py-2.5 rounded-xl border border-neutral-800 dark:border-white/80 bg-black dark:bg-white text-white dark:text-neutral-950 hover:bg-neutral-900 dark:hover:bg-neutral-100 text-xs sm:text-sm font-medium transition-all hover:scale-[1.03] active:scale-[0.98] shadow-xs dark:shadow-[0_0_12px_rgba(255,255,255,0.12)] group flex-1 sm:flex-initial whitespace-nowrap min-w-0"
             >
-              <Icons.github className="size-3.5 sm:size-4 shrink-0 text-white" />
+              <Icons.github className="size-3.5 sm:size-4 shrink-0 text-white dark:text-neutral-950 transition-colors" />
               <span>GitHub</span>
-              <ArrowUpRight className="size-3 sm:size-3.5 text-neutral-400 group-hover:text-white transition-colors shrink-0" />
+              <ArrowUpRight className="size-3 sm:size-3.5 text-neutral-400 group-hover:text-white dark:text-neutral-500 dark:group-hover:text-neutral-950 transition-colors shrink-0" />
             </Link>
 
             <Link
               href={DATA.contact.social.Instagram.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5 sm:gap-2.5 px-2.5 py-2 sm:px-4.5 sm:py-2.5 rounded-xl border border-neutral-800 bg-black text-white hover:bg-neutral-900 text-xs sm:text-sm font-medium transition-all hover:scale-[1.03] active:scale-[0.98] shadow-xs group flex-1 sm:flex-initial whitespace-nowrap min-w-0"
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2.5 px-2.5 py-2 sm:px-4.5 sm:py-2.5 rounded-xl border border-neutral-800 dark:border-white/80 bg-black dark:bg-white text-white dark:text-neutral-950 hover:bg-neutral-900 dark:hover:bg-neutral-100 text-xs sm:text-sm font-medium transition-all hover:scale-[1.03] active:scale-[0.98] shadow-xs dark:shadow-[0_0_12px_rgba(255,255,255,0.12)] group flex-1 sm:flex-initial whitespace-nowrap min-w-0"
             >
-              <Icons.instagram className="size-3.5 sm:size-4 shrink-0 text-white" />
+              <Icons.instagram className="size-3.5 sm:size-4 shrink-0 text-white dark:text-neutral-950 transition-colors" />
               <span>Instagram</span>
-              <ArrowUpRight className="size-3 sm:size-3.5 text-neutral-400 group-hover:text-white transition-colors shrink-0" />
+              <ArrowUpRight className="size-3 sm:size-3.5 text-neutral-400 group-hover:text-white dark:text-neutral-500 dark:group-hover:text-neutral-950 transition-colors shrink-0" />
             </Link>
 
             <Link
               href={`mailto:${DATA.contact.email}`}
-              className="inline-flex items-center justify-center gap-1.5 sm:gap-2.5 px-2.5 py-2 sm:px-4.5 sm:py-2.5 rounded-xl border border-neutral-800 bg-black text-white hover:bg-neutral-900 text-xs sm:text-sm font-medium transition-all hover:scale-[1.03] active:scale-[0.98] shadow-xs group flex-1 sm:flex-initial whitespace-nowrap min-w-0"
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2.5 px-2.5 py-2 sm:px-4.5 sm:py-2.5 rounded-xl border border-neutral-800 dark:border-white/80 bg-black dark:bg-white text-white dark:text-neutral-950 hover:bg-neutral-900 dark:hover:bg-neutral-100 text-xs sm:text-sm font-medium transition-all hover:scale-[1.03] active:scale-[0.98] shadow-xs dark:shadow-[0_0_12px_rgba(255,255,255,0.12)] group flex-1 sm:flex-initial whitespace-nowrap min-w-0"
             >
-              <Icons.email className="size-3.5 sm:size-4 shrink-0 text-white" />
+              <Icons.email className="size-3.5 sm:size-4 shrink-0 text-white dark:text-neutral-950 transition-colors" />
               <span>Email</span>
-              <ArrowUpRight className="size-3 sm:size-3.5 text-neutral-400 group-hover:text-white transition-colors shrink-0" />
+              <ArrowUpRight className="size-3 sm:size-3.5 text-neutral-400 group-hover:text-white dark:text-neutral-500 dark:group-hover:text-neutral-950 transition-colors shrink-0" />
             </Link>
           </div>
         </div>
