@@ -17,15 +17,15 @@ const AGENT_TEMPLATES: SwarmAgentData[] = [
 
 const MAX_ACTIVE_AGENTS = 5; // Ambient workers
 
-// Boundary limits bounded by the progressive blur effects in layout.tsx:
-// Top blur height: 40px (+2px buffer = 42px)
-// Bottom blur height: 110px
-const TOP_BLUR_LIMIT = 42;
+// Boundary limits:
+// Top boundary: 0 (corak at top is fully crisp, no blur overlay at top)
+// Bottom blur height: 110px (progressive blur behind floating navbar)
+const TOP_BLUR_LIMIT = 0;
 const BOTTOM_BLUR_OFFSET = 110;
 
 const getBlurBoundaries = () => {
   if (typeof window === "undefined") {
-    return { top: 42, bottom: 800 };
+    return { top: 0, bottom: 800 };
   }
   return {
     top: TOP_BLUR_LIMIT,

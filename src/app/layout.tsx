@@ -100,30 +100,25 @@ export default function RootLayout({
         <ScrollToTop />
         <ThemeProvider attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>
-            <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
+            <div className="absolute inset-0 top-0 left-0 right-0 h-[120px] overflow-hidden z-0">
               <FlickeringGrid
                 className="h-full w-full"
                 squareSize={2}
                 gridGap={2}
                 style={{
-                  maskImage: "linear-gradient(to bottom, black, transparent)",
-                  WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
+                  maskImage: "linear-gradient(to bottom, black 35%, transparent)",
+                  WebkitMaskImage: "linear-gradient(to bottom, black 35%, transparent)",
                 }}
               />
             </div>
             <div className="relative z-10 max-w-6xl mx-auto py-14 sm:py-24 pb-36 sm:pb-44 px-4 sm:px-8 md:px-12">
               {children}
             </div>
-            {/* Native App-Style Progressive Blur Edges */}
+            {/* Native App-Style Progressive Blur Edges (Bottom only, allowing top pattern to be fully crisp) */}
             <ProgressiveBlur
               position="bottom"
               height="110px"
               className="fixed bottom-0 inset-x-0 z-20 pointer-events-none"
-            />
-            <ProgressiveBlur
-              position="top"
-              height="40px"
-              className="fixed top-0 inset-x-0 z-20 pointer-events-none"
             />
             <SwarmOverlay />
             <Navbar />
