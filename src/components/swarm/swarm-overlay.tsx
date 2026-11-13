@@ -422,7 +422,7 @@ export default function SwarmOverlay() {
             // Check if element is still actively running its typing or build animation
             const isStillBuilding = el.dataset.swarmStatus === "building";
             const elapsed = time - agent.inspectStart;
-            const timeout = elapsed > 4000; // Generous safety ceiling (4s max, never prematurely interrupts active typing)
+            const timeout = elapsed > 10000; // Generous safety ceiling (10s max, never prematurely interrupts active typing or animation)
 
             // Instantly dock as soon as element finishes building or times out
             if (!isStillBuilding || timeout) {
@@ -609,8 +609,8 @@ export default function SwarmOverlay() {
 
         targets.forEach((el) => {
           const r = el.getBoundingClientRect();
-          // If scrolled off-screen (well above or below viewport)
-          if (r.bottom < -80 || r.top > window.innerHeight + 80) {
+          // If scrolled outside the blur boundaries (out of visible screen)
+          if (r.bottom <= blurTop || r.top >= blurBottom) {
             if (el.dataset.swarmStatus === "built") {
               el.dataset.swarmStatus = "idle";
               el.dispatchEvent(new CustomEvent("swarm:reset"));

@@ -83,7 +83,7 @@ export function TypingAnimation({
   waitForSwarm = true,
   action = "writing text",
   sound = true,
-  repeatOnScroll = false,
+  repeatOnScroll = true,
   ...props
 }: TypingAnimationProps) {
   const MotionComponent = motionElements[
@@ -177,6 +177,16 @@ export function TypingAnimation({
       setPhase("typing");
     }
   }
+
+  // Handle scroll-out reset effect to update refs and DOM attributes
+  useEffect(() => {
+    if (!isInView && repeatOnScroll) {
+      isCompleteRef.current = false;
+      if (elementRef.current) {
+        elementRef.current.dataset.swarmStatus = "idle";
+      }
+    }
+  }, [isInView, repeatOnScroll]);
 
   // Fail-safe: If in view and swarm hasn't triggered after 1200ms, auto-trigger so text is never left empty
   useEffect(() => {
