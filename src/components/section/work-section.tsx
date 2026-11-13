@@ -102,20 +102,8 @@ export default function WorkSection() {
                         />
                       </span>
                     </div>
-                    <div className="font-sans text-[9.5px] sm:text-xs lg:text-sm text-muted-foreground flex items-center gap-1 sm:gap-2 flex-wrap min-w-0 w-full">
-                      <span className="truncate block flex-1 min-w-0">{work.title}</span>
-                      {work.badges && work.badges.length > 0 && (
-                        <span className="hidden sm:inline-flex items-center gap-1">
-                          {work.badges.map((badge) => (
-                            <span
-                              key={badge}
-                              className="text-[9px] sm:text-[10px] font-medium px-1 sm:px-1.5 py-0.2 rounded-full border border-border/50 bg-muted/30 text-muted-foreground"
-                            >
-                              {badge}
-                            </span>
-                          ))}
-                        </span>
-                      )}
+                    <div className="font-sans text-[9.5px] sm:text-xs lg:text-sm text-muted-foreground truncate block min-w-0 w-full">
+                      {work.title}
                     </div>
                   </div>
                 </div>
