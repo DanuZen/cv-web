@@ -17,6 +17,22 @@ const AGENT_TEMPLATES: SwarmAgentData[] = [
 
 const MAX_ACTIVE_AGENTS = 5; // Ambient workers
 
+// Boundary limits bounded by the progressive blur effects in layout.tsx:
+// Top blur height: 40px (+2px buffer = 42px)
+// Bottom blur height: 110px
+const TOP_BLUR_LIMIT = 42;
+const BOTTOM_BLUR_OFFSET = 110;
+
+const getBlurBoundaries = () => {
+  if (typeof window === "undefined") {
+    return { top: 42, bottom: 800 };
+  }
+  return {
+    top: TOP_BLUR_LIMIT,
+    bottom: window.innerHeight - BOTTOM_BLUR_OFFSET,
+  };
+};
+
 const createInitialPool = (): AgentState[] =>
   AGENT_TEMPLATES.map((t) => ({
     id: t.id,
@@ -128,6 +144,8 @@ export default function SwarmOverlay() {
 
     const eligible: { el: HTMLElement; top: number }[] = [];
 
+    const { top: blurTop, bottom: blurBottom } = getBlurBoundaries();
+
     for (const el of targets) {
       const status = el.dataset.swarmStatus;
       if (status === "built" || status === "building") continue;
@@ -136,10 +154,10 @@ export default function SwarmOverlay() {
       const r = el.getBoundingClientRect();
       const isTarget = el.dataset.swarmTarget === "true";
 
-      // Check if visible inside the viewport (with 50px anticipation so cursor starts immediately)
+      // Strictly check if visible between the top and bottom progressive blur boundaries
       if (
-        r.top < window.innerHeight + 50 &&
-        r.bottom > -30 &&
+        r.bottom > blurTop &&
+        r.top < blurBottom &&
         (isTarget || (r.width > 15 && r.height > 8))
       ) {
         eligible.push({ el, top: r.top });
@@ -190,11 +208,12 @@ export default function SwarmOverlay() {
           )
         );
 
+        const { top: blurTop, bottom: blurBottom } = getBlurBoundaries();
         for (const card of candidateCards) {
           const r = card.getBoundingClientRect();
           // Filter out tiny or invisible elements, include individual badges (>= 45x20) up to large cards
           if (r.width < 45 || r.height < 20) continue;
-          if (r.bottom < -10 || r.top > window.innerHeight + 10) continue;
+          if (r.bottom <= blurTop || r.top >= blurBottom) continue;
 
           const isInside =
             x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
@@ -368,6 +387,23 @@ export default function SwarmOverlay() {
           const el = agent.targetElement;
           if (el && document.body.contains(el)) {
             const r = el.getBoundingClientRect();
+            const { top: blurTop, bottom: blurBottom } = getBlurBoundaries();
+
+            // Strict boundary: If target element or cursor has passed into or beyond blur regions:
+            // "jika sudah terlewat atau tidak ada dilayar ... batasnya efek blur yang ada di atas bawah web ni"
+            if (
+              r.bottom <= blurTop ||
+              r.top >= blurBottom ||
+              agent.y <= blurTop ||
+              agent.y >= blurBottom
+            ) {
+              el.dataset.swarmStatus = "built";
+              agent.mode = "docked";
+              agent.targetElement = null;
+              agent.opacity = 0;
+              return;
+            }
+
             // Position cursor precisely at top-right handle of element
             const isNearRightEdge = r.right + 110 > window.innerWidth;
             agent.targetX = isNearRightEdge ? r.right - 18 : r.right + 2;
@@ -412,10 +448,14 @@ export default function SwarmOverlay() {
           }
 
           const r = el.getBoundingClientRect();
-          if (r.bottom < -60 || r.top > window.innerHeight + 60) {
+          const { top: blurTop, bottom: blurBottom } = getBlurBoundaries();
+
+          // If target is beyond the blur boundaries, cancel flight immediately
+          if (r.bottom <= blurTop || r.top >= blurBottom) {
             el.dataset.swarmStatus = "idle";
             agent.mode = "docked";
             agent.targetElement = null;
+            agent.opacity = 0;
             return;
           }
 
@@ -473,6 +513,8 @@ export default function SwarmOverlay() {
 
       // Active live inspection boxes for all ambient agents currently inspecting
       const activeInspectionBoxes: InspectionBox[] = [];
+      const { top: blurTop, bottom: blurBottom } = getBlurBoundaries();
+
       ambientAgents.forEach((agent) => {
         if (
           agent.mode === "inspect" &&
@@ -482,8 +524,8 @@ export default function SwarmOverlay() {
         ) {
           const r = agent.targetElement.getBoundingClientRect();
           if (
-            r.bottom > -20 &&
-            r.top < window.innerHeight + 20 &&
+            r.bottom > blurTop &&
+            r.top < blurBottom &&
             r.width > 20 &&
             r.height > 10
           ) {
@@ -539,11 +581,26 @@ export default function SwarmOverlay() {
     }
   }, [active]);
 
-  // Handle Scroll: Reset off-screen elements so scrolling back up triggers rebuilding!
+  // Handle Scroll: Instantly dismiss off-boundary agents, and reset off-screen elements on scroll up
   useEffect(() => {
     let scrollTimeout: NodeJS.Timeout;
 
     const handleScroll = () => {
+      // 1. Immediately dock any agent whose target or cursor entered/passed blur boundaries
+      const { top: blurTop, bottom: blurBottom } = getBlurBoundaries();
+      agentsRef.current.forEach((agent) => {
+        if (agent.targetElement) {
+          const r = agent.targetElement.getBoundingClientRect();
+          if (r.bottom <= blurTop || r.top >= blurBottom) {
+            agent.targetElement.dataset.swarmStatus = "built";
+            agent.mode = "docked";
+            agent.targetElement = null;
+            agent.opacity = 0;
+          }
+        }
+      });
+
+      // 2. Reset elements that are scrolled far away so scrolling back up can trigger re-animation
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
         const targets = Array.from(
@@ -570,9 +627,10 @@ export default function SwarmOverlay() {
     };
   }, []);
 
-  // Only render agents that are actively working / flying / inspecting (not docked)
+  // Only render agents that are actively working / flying / inspecting (not docked) AND within visible blur boundaries
+  const { top: blurTop, bottom: blurBottom } = getBlurBoundaries();
   const visibleAgents = agents.filter(
-    (a) => a.mode !== "docked" || a.opacity > 0.02
+    (a) => (a.mode !== "docked" || a.opacity > 0.02) && a.y > blurTop && a.y < blurBottom
   );
 
   return (

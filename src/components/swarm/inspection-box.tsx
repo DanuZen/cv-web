@@ -8,7 +8,9 @@ interface Props {
 }
 
 export const InspectionBoxView: React.FC<Props> = ({ box }) => {
-  if (box.opacity <= 0.01) return null;
+  const topLimit = 42;
+  const bottomLimit = typeof window !== "undefined" ? window.innerHeight - 110 : 9999;
+  if (box.opacity <= 0.01 || box.y + box.height <= topLimit || box.y >= bottomLimit) return null;
 
   const isLightColor =
     box.color === "#F59E0B" ||

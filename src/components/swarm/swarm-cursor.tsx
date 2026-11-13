@@ -22,7 +22,9 @@ export const SwarmCursor: React.FC<SwarmCursorProps> = ({
   isInspecting = false,
   opacity = 1,
 }) => {
-  if (opacity <= 0.01) return null;
+  const topLimit = 42;
+  const bottomLimit = typeof window !== "undefined" ? window.innerHeight - 110 : 9999;
+  if (opacity <= 0.01 || y <= topLimit || y >= bottomLimit) return null;
 
   const isLightColor =
     color === "#F59E0B" ||
