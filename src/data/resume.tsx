@@ -188,8 +188,8 @@ export const DATA = {
       href: "https://unp.ac.id",
       degree: "Bachelor of Education in Informatics & Computer Engineering",
       logoUrl: "/universitas-negeri-padang.webp",
-      start: "2021",
-      end: "2025",
+      start: "2023",
+      end: "Present",
     },
   ],
 

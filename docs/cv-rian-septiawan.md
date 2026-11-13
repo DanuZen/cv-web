@@ -121,7 +121,7 @@ Seorang Fullstack Cross Platform Developer dan Tech Leader dengan keahlian menda
 
 ## 🎓 Pendidikan (Education)
 
-- **S1 Pendidikan Teknik Informatika** (2021 - 2025)  
+- **S1 Pendidikan Teknik Informatika** (2023 - Sekarang)  
   **Institusi:** Universitas Negeri Padang (UNP)
 
 ---
