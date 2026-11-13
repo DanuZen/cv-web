@@ -60,8 +60,8 @@ export default function Page() {
         </section>
         {/* ================= COMPACT RESUME / CV SECTION (About, Work, Education, Skills) ================= */}
         <div className="grid grid-cols-12 gap-2 sm:gap-4 md:gap-6 lg:gap-10 items-start">
-        {/* Left Column (col-span-7): About Me, Work Experience & Education */}
-        <div className="col-span-7 flex flex-col gap-4 sm:gap-7 lg:gap-10 min-w-0 overflow-hidden">
+        {/* Left Column (col-span-6 on mobile/tablet, col-span-7 on desktop): About Me, Work Experience & Education */}
+        <div className="col-span-6 lg:col-span-7 flex flex-col gap-4 sm:gap-7 lg:gap-10 min-w-0 overflow-hidden">
           {/* About Me */}
           <section id="about" className="scroll-mt-24 min-w-0 w-full">
             <div className="flex min-h-0 flex-col gap-y-2 sm:gap-y-4 lg:gap-y-5 min-w-0 w-full">
@@ -163,8 +163,8 @@ export default function Page() {
           </section>
         </div>
 
-        {/* Right Column (col-span-5): Skills, Languages, Contact */}
-        <div className="col-span-5 flex flex-col gap-3.5 sm:gap-5 lg:gap-7 p-2 sm:p-4 lg:p-7 rounded-2xl sm:rounded-3xl bg-muted/20 dark:bg-muted/10 border border-border/50 backdrop-blur-xs min-w-0 overflow-hidden">
+        {/* Right Column (col-span-6 on mobile/tablet, col-span-5 on desktop): Skills, Languages, Contact */}
+        <div className="col-span-6 lg:col-span-5 flex flex-col gap-3.5 sm:gap-5 lg:gap-7 p-2 sm:p-4 lg:p-7 rounded-2xl sm:rounded-3xl bg-muted/20 dark:bg-muted/10 border border-border/50 backdrop-blur-xs min-w-0 overflow-hidden">
           {/* Skills & Technologies */}
           <section id="skills" className="scroll-mt-24 min-w-0 w-full">
             <div className="flex min-h-0 flex-col gap-y-2 sm:gap-y-4 lg:gap-y-5 min-w-0 w-full">
